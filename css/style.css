@@ -35,61 +35,6 @@
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-/* ── DELIKATNA INTERAKCJA ───────────────────────────────────
-   Jedna reguła na wszystko: 240 ms, to samo wygładzenie, żadnego
-   powiększenia ponad 1,03 i żadnej zmiany barwy — tylko pogłębienie
-   tego, co już jest. Wszystko gaśnie przy „ogranicz ruch".      */
-@media(hover:hover){
-  /* odnośniki: kreska ciemnieje, strzałka robi krok */
-  .lnk,.fil__w,.karta__w{transition:border-color .24s var(--ease)}
-  .lnk .ic,.fil__w .ic,.karta__w .ic{transition:transform .24s var(--ease)}
-  .lnk:hover,.fil__w:hover,.fil__r:hover .fil__w,.karta:hover .karta__w{border-bottom-color:var(--ink)}
-  .lnk:hover .ic,.fil__w:hover .ic,.fil__r:hover .fil__w .ic,.karta:hover .karta__w .ic{transform:translate(3px,-3px)}
-  .lnk[href^="tel"]:hover .ic,.lnk[href^="#"]:hover .ic{transform:translateX(3px)}
-
-  /* zdjęcia: ledwo wyczuwalne zbliżenie, bez wyskoku */
-  .fil__f,.karta{overflow:hidden}
-  .karta__f{transition:scale .5s var(--ease)}
-  .karta:hover .karta__f{scale:1.03}
-  .karta::after{transition:opacity .3s var(--ease)}
-  .karta:hover::after{opacity:.88}
-
-  /* przyciski i pigułki: pogłębienie kreski, nie zmiana koloru */
-  .btn{transition:transform .14s var(--ease),background .24s var(--ease)}
-  .btn:hover{background:#181513}
-  .btn--obrys:hover{background:var(--biel);box-shadow:inset 0 0 0 1.5px var(--linia-m)}
-  .pigula:hover,.cen__tryb button:hover,.cen__f button:hover,.cen__wiecej:hover{
-    color:var(--ink);border-color:var(--ink)}
-  .cen__tryb button[aria-pressed=true]:hover,.cen__f button[aria-pressed=true]:hover{color:var(--biel)}
-
-  /* menu: kreska wysuwa się spod pozycji */
-  .menu__l>li>a{position:relative}
-  .menu__l>li>a::after{content:"";position:absolute;left:0;right:0;bottom:10px;height:1px;
-    background:currentColor;transform:scaleX(0);transform-origin:left;
-    transition:transform .24s var(--ease)}
-  .menu__l>li>a:hover::after{transform:scaleX(1)}
-  .top__l,.koszyk,.burger{transition:color .2s var(--ease),background .2s var(--ease)}
-  .top__l:hover{color:var(--akc)}
-
-  /* powody: kółko ikony ciemnieje razem z tytułem */
-  .dl__k li{cursor:default}
-  .dl__i{transition:box-shadow .24s var(--ease),color .24s var(--ease)}
-  .dl__k li:hover .dl__i{box-shadow:inset 0 0 0 1px var(--linia-m);color:var(--ink)}
-
-
-  /* stopka: podkreślenie wjeżdża od lewej */
-  .stopka li a,.stopka__pr a{position:relative}
-  .stopka li a::after,.stopka__pr a::after{content:"";position:absolute;left:0;right:0;bottom:10px;
-    height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;
-    transition:transform .24s var(--ease)}
-  .stopka li a:hover::after,.stopka__pr a:hover::after{transform:scaleX(1)}
-  .stopka__s a{transition:background .24s var(--ease)}
-  .stopka__s a:hover{background:var(--ciel-2)}
-
-  .dogory{transition:transform .2s var(--ease),background .2s var(--ease)}
-  .dogory:hover{transform:translateY(-3px)}
-}
-
 /* ── WEJŚCIE TREŚCI ─────────────────────────────────────────
    Jeden ruch na całą stronę: treść wchodzi z lekkim uniesieniem,
    zdjęcia dodatkowo osiadają ze zbliżenia. Bez kurtyn, masek
@@ -166,7 +111,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
 /* ── NAGŁÓWEK ────────────────────────────────────────────────
    Jeden rząd: znak, numer ujęcia, menu w wersalikach, po prawej
    prezent i koszyk. Komplet pozycji jak na produkcyjnym
-   rehabeauty.pl — „Galeria" siedzi w podmenu „O nas".        */
+   obecnego serwisu — „Galeria" siedzi w podmenu „O nas".     */
 /* Na starcie nagłówek jest przezroczysty i leży na hero. Kolor bierze
    dopiero po przewinięciu — próg 36 px, ten sam co zwężenie rzędu. */
 .top{position:fixed;top:0;left:0;right:0;z-index:100;color:var(--ink);background:transparent;
@@ -712,6 +657,167 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
 
   .dogory{transition:transform .2s var(--ease),background .2s var(--ease)}
   .dogory:hover{transform:translateY(-3px)}
+}
+
+
+/* ============================================================
+   ZAKŁADKI USŁUG — trzy obszary oferty
+   Ten sam rytm co strona główna: nadtytuł z kreską, tytuł, kolumna
+   tekstu w jednej mierze. Różnica jest w otwarciu — zamiast hero
+   z wideo idzie para „tekst + kadr", żeby od pierwszego ekranu
+   było widać, o którym obszarze mowa.
+   ============================================================ */
+
+/* Podstrony nie mają ciemnego hero, więc nagłówek stoi na bieli od
+   pierwszego piksela. Bez tego poniżej 1024 px reguły pisane pod
+   wideo dawałyby biały tekst na kremowym tle. */
+body.pod .top{background:var(--biel);box-shadow:0 1px 0 var(--linia)}
+body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0 var(--linia)}
+@media(max-width:1024px){
+  body.pod .top:not(.przewiniety){color:var(--ink)}
+  body.pod .top:not(.przewiniety) .znak__l{color:var(--ink)}
+  body.pod .top:not(.przewiniety) .burger{box-shadow:inset 0 0 0 1.5px rgba(34,30,27,.2)}
+  body.pod .top:not(.przewiniety) .top__sp{background:var(--ciel-4)}
+  body.pod .top:not(.przewiniety) .top__n{color:var(--ink-2)}
+}
+
+/* ── OTWARCIE ZAKŁADKI ──────────────────────────────────────── */
+.pg{padding:calc(var(--rzad-h) + var(--s7)) 0 var(--s7);background:var(--ciel-1)}
+.pg__g{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);
+  gap:var(--s7);align-items:center}
+.pg__t{max-width:var(--miara)}
+.pg .xl{font-size:var(--t8);font-weight:400}
+
+/* Okruszki: ścieżka powrotu, nie ozdoba — dlatego stoją nad tytułem
+   i są jedynym elementem w tym rozmiarze na całym ekranie. */
+.okruch{display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+  list-style:none;margin:0 0 var(--s5);padding:0;
+  font-size:var(--t1);letter-spacing:var(--ls-w);text-transform:uppercase;color:var(--ink-2)}
+.okruch li{display:flex;align-items:center;gap:10px}
+.okruch li+li::before{content:"";width:14px;height:1px;background:var(--ciel-4)}
+.okruch a{display:inline-flex;align-items:center;min-height:var(--cel);
+  border-bottom:1px solid transparent;transition:border-color .22s var(--ease)}
+.okruch a:hover{border-bottom-color:var(--ink-2)}
+.okruch [aria-current=page]{color:var(--akc);font-weight:600}
+
+.pg__kr{display:block;width:52px;height:1px;background:var(--akc-2);margin:var(--s5) 0 var(--s4)}
+.pg__lead{margin:0;font-size:var(--t4);line-height:var(--lh3);color:var(--ink-2);max-width:var(--miara)}
+.pg__b{display:flex;gap:var(--s4);flex-wrap:wrap;margin-top:var(--s6)}
+
+/* Trzy liczby pod przyciskami: ile zabiegów, od ilu złotych, gdzie.
+   Wszystkie trzy są potwierdzone, więc mogą stać tak twardo. */
+.pg__m{display:flex;flex-wrap:wrap;gap:var(--s4) var(--s6);margin:var(--s6) 0 0;
+  padding-top:var(--s4);border-top:1px solid var(--linia)}
+.pg__m div{margin:0}
+.pg__m dt{font-size:var(--t1);font-weight:600;letter-spacing:var(--ls-w);
+  text-transform:uppercase;color:var(--ink-2);margin-bottom:6px}
+.pg__m dd{margin:0;font-size:var(--t5);font-weight:600;letter-spacing:var(--ls-t);color:var(--ink)}
+
+.pg__f{overflow:hidden;background:var(--ciel-3)}
+.pg__f img{width:100%;aspect-ratio:var(--prop);object-fit:cover}
+
+@media(max-width:1024px){
+  .pg{padding-top:calc(var(--rzad-h) + var(--s5))}
+  .pg__g{grid-template-columns:minmax(0,1fr);gap:var(--s6)}
+  .pg__f{order:-1}
+}
+@media(max-width:760px){.pg{padding-top:calc(100px + var(--s5))}}
+
+/* ── SPIS ZABIEGÓW ──────────────────────────────────────────
+   Pasek przyklejony pod nagłówkiem: na długiej zakładce widać
+   z każdego miejsca, co jeszcze jest w obszarze.               */
+/* Przykleja się pod nagłówkiem, nie pod krawędzią ekranu — nagłówek
+   jest przy przewijaniu wysoki na --rzad-h-mal i przykryłby pasek. */
+.spis{position:sticky;top:var(--rzad-h-mal);z-index:80;background:var(--ciel-2);
+  border-block:1px solid var(--linia)}
+.spis__in{display:flex;align-items:center;gap:var(--s4);
+  max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gut);
+  overflow-x:auto;scrollbar-width:none}
+.spis__in::-webkit-scrollbar{display:none}
+.spis__t{flex:none;margin:0;font-size:var(--t1);font-weight:600;letter-spacing:var(--ls-x);
+  text-transform:uppercase;color:var(--akc)}
+.spis ol{display:flex;align-items:center;gap:var(--s3);list-style:none;margin:0;padding:0}
+.spis a{display:inline-flex;align-items:center;min-height:var(--cel);padding:14px 0;
+  white-space:nowrap;font-size:var(--t2);font-weight:500;
+  border-bottom:2px solid transparent;transition:border-color .22s var(--ease)}
+.spis a:hover{border-bottom-color:var(--ink)}
+@media(max-width:760px){.spis__t{display:none}.spis{top:82px}
+  .zbr__b,.zbr__r{scroll-margin-top:calc(82px + 66px)}}
+
+/* ── ZABIEGI ────────────────────────────────────────────────
+   Dwa rejestry w jednej sekcji: bloki ze zdjęciem dla zabiegów
+   wiodących i wiersze bez zdjęć dla pozostałych. Nie z oszczędności
+   kadrów — dłuższa lista samych bloków ze zdjęciem czyta się jak
+   katalog, a nie jak opis obszaru.                              */
+.zbr{padding:var(--s8) 0;background:var(--ciel-1)}
+.zbr__g{display:flex;flex-direction:column;gap:var(--s8)}
+
+.zbr__b{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);
+  gap:var(--s7);align-items:center;scroll-margin-top:calc(var(--rzad-h-mal) + 70px)}
+.zbr__b:nth-child(even) .zbr__f{order:2}
+.zbr__f{overflow:hidden;background:var(--ciel-3)}
+.zbr__f img{width:100%;aspect-ratio:4/5;object-fit:cover}
+
+.zbr__nr{display:flex;align-items:center;gap:14px;margin:0 0 16px;
+  font-variant-numeric:tabular-nums;font-size:var(--t2);font-weight:500;
+  letter-spacing:var(--ls-w);color:var(--ink-2)}
+.zbr__nr::after{content:"";width:32px;height:1px;background:var(--ciel-4)}
+.zbr__t h2{overflow-wrap:break-word;font-size:var(--t7);line-height:var(--lh1);letter-spacing:var(--ls-t);margin:0 0 8px}
+.zbr__t>b{display:block;font-size:var(--t2);font-weight:600;color:var(--akc);margin-bottom:20px}
+.zbr__o{margin:0 0 var(--s4);font-size:var(--t3);line-height:var(--lh3);
+  color:var(--ink-2);max-width:var(--miara)}
+
+/* Ceny: nazwa wariantu po lewej, kwota po prawej, kreska między nimi.
+   Kwota tabularnie, żeby przecinki stały w jednej kolumnie.        */
+.cena{list-style:none;margin:0 0 var(--s5);padding:0;max-width:var(--miara)}
+.cena li{display:flex;align-items:baseline;gap:14px;padding:14px 0;
+  border-top:1px solid var(--linia);font-size:var(--t3)}
+.cena li:last-child{border-bottom:1px solid var(--linia)}
+.cena span{flex:1;min-width:0;overflow-wrap:anywhere;color:var(--ink)}
+.cena i{font-style:normal;font-size:var(--t2);color:var(--ink-2);white-space:nowrap}
+.cena b{font-variant-numeric:tabular-nums;font-weight:600;color:var(--akc);white-space:nowrap}
+.cena--brak li b{color:var(--ink-2);font-weight:500}
+
+/* Wiersze bez zdjęcia — ten sam rytm, mniejszy rejestr. */
+.zbr__r{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);
+  gap:var(--s6);padding-top:var(--s6);border-top:1px solid var(--linia);
+  scroll-margin-top:calc(var(--rzad-h-mal) + 70px)}
+.zbr__lista{display:flex;flex-direction:column;gap:var(--s6)}
+.zbr__r h2{overflow-wrap:break-word;font-size:var(--t6);line-height:var(--lh1);letter-spacing:var(--ls-t);margin:0 0 8px}
+.zbr__r>div>b{display:block;font-size:var(--t2);font-weight:600;color:var(--akc)}
+
+@media(max-width:1024px){
+  .zbr__b,.zbr__r{grid-template-columns:minmax(0,1fr);gap:var(--s5)}
+  .zbr__b:nth-child(even) .zbr__f{order:0}
+  .zbr__g{gap:var(--s7)}
+}
+
+/* ── ZAMKNIĘCIE ZAKŁADKI ────────────────────────────────────── */
+.kon{padding:var(--s8) 0;background:var(--ciel-2);border-top:1px solid var(--linia)}
+.kon__g{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--s6);align-items:center}
+.kon h2{font-size:var(--t7);line-height:var(--lh1);letter-spacing:var(--ls-t);margin:0 0 16px}
+.kon p{margin:0;color:var(--ink-2);font-size:var(--t3);line-height:var(--lh3);max-width:var(--miara)}
+.kon__b{display:flex;gap:var(--s4);flex-wrap:wrap}
+.kon__z{margin:var(--s6) 0 0;padding-top:var(--s4);border-top:1px solid var(--linia);
+  font-size:var(--t2);color:var(--ink-2)}
+@media(max-width:880px){.kon__g{grid-template-columns:minmax(0,1fr)}}
+
+/* ── POZOSTAŁE OBSZARY ──────────────────────────────────────── */
+.inne{padding:var(--s8) 0;background:var(--ciel-1)}
+.inne__g{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s6)}
+.inne__k{position:relative;display:grid;grid-template-rows:auto 1fr;
+  border-top:1px solid var(--linia-m);padding-top:var(--s4)}
+.inne__f{overflow:hidden;background:var(--ciel-3);margin-bottom:var(--s4)}
+.inne__f img{width:100%;aspect-ratio:var(--prop);object-fit:cover}
+.inne__k h3{font-size:var(--t6);line-height:var(--lh1);margin:0 0 10px}
+.inne__k h3 a::after{content:"";position:absolute;inset:0}
+.inne__k p{margin:0 0 var(--s4);color:var(--ink-2);font-size:var(--t3);line-height:var(--lh3)}
+@media(max-width:760px){.inne__g{grid-template-columns:minmax(0,1fr)}}
+
+@media(hover:hover){
+  .zbr__f,.inne__f{overflow:hidden}
+  .zbr__f img,.inne__f img{transition:scale .6s var(--ease)}
+  .inne__k:hover .inne__f img{scale:1.03}
 }
 
 @media(prefers-reduced-motion:reduce){

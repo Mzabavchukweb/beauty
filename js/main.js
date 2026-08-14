@@ -179,7 +179,7 @@
 
   /* ── Cennik ────────────────────────────────────────────────
      Ceny pochodzą z rezerwacji Booksy (pobranie 11.08.2026) —
-     working-docs/rehabeauty/cennik.md. Nie wpisywać liczb z pamięci
+     dokumentacji roboczej projektu. Nie wpisywać liczb z pamięci
      ani ze starej strony: tam są zaniżone o 60–70 zł.
      Kolumny: kategoria, urządzenie/technika, zakres, czas, cena.
      Zakres jest tym, co odróżnia pozycje od siebie — cztery warianty
