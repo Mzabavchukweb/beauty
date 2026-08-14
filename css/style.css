@@ -686,14 +686,20 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
 .pg__g{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);
   gap:var(--s7);align-items:center}
 .pg__t{max-width:var(--miara)}
-.pg .xl{font-size:var(--t8);font-weight:400}
+/* Polskie zlozenia bywaja dluzsze niz waski ekran: samo
+   fizykoterapeutyczne ma przy 40 px okolo 380 px. Dzielenie wyrazu
+   robi z tego zlamanie zamierzone, break-word jest zabezpieczeniem. */
+.pg .xl{font-size:var(--t8);font-weight:400;hyphens:auto;overflow-wrap:break-word}
 
 /* Okruszki: ścieżka powrotu, nie ozdoba — dlatego stoją nad tytułem
    i są jedynym elementem w tym rozmiarze na całym ekranie. */
 .okruch{display:flex;flex-wrap:wrap;align-items:center;gap:10px;
   list-style:none;margin:0 0 var(--s5);padding:0;
   font-size:var(--t1);letter-spacing:var(--ls-w);text-transform:uppercase;color:var(--ink-2)}
-.okruch li{display:flex;align-items:center;gap:10px}
+/* Element listy jest pojemnikiem elastycznym, wiec bez min-width:0 nie zejdzie
+   ponizej najdluzszego slowa - FIZYKOTERAPEUTYCZNE ma w wersalikach 180 px. */
+.okruch li{display:flex;align-items:center;gap:10px;min-width:0}
+.okruch li>*{min-width:0;overflow-wrap:anywhere}
 .okruch li+li::before{content:"";width:14px;height:1px;background:var(--ciel-4)}
 .okruch a{display:inline-flex;align-items:center;min-height:var(--cel);
   border-bottom:1px solid transparent;transition:border-color .22s var(--ease)}
@@ -708,7 +714,7 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
    Wszystkie trzy są potwierdzone, więc mogą stać tak twardo. */
 .pg__m{display:flex;flex-wrap:wrap;gap:var(--s4) var(--s6);margin:var(--s6) 0 0;
   padding-top:var(--s4);border-top:1px solid var(--linia)}
-.pg__m div{margin:0}
+.pg__m div{margin:0;min-width:0}
 .pg__m dt{font-size:var(--t1);font-weight:600;letter-spacing:var(--ls-w);
   text-transform:uppercase;color:var(--ink-2);margin-bottom:6px}
 .pg__m dd{margin:0;font-size:var(--t5);font-weight:600;letter-spacing:var(--ls-t);color:var(--ink)}
@@ -819,6 +825,57 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
   .zbr__f img,.inne__f img{transition:scale .6s var(--ease)}
   .inne__k:hover .inne__f img{scale:1.03}
 }
+
+
+/* ── ZABIEG: METRYKA, SZCZEGÓŁY, CENNIK ZBIORCZY ────────────
+   Metryka to dwie liczby ze źródła — czas zabiegu i zalecana
+   liczba powtórzeń. Stoją nad ceną, bo przy serii zabiegów to
+   one decydują o rachunku, a nie kwota jednostkowa.           */
+.zbr__meta{display:flex;flex-wrap:wrap;gap:var(--s3) var(--s5);margin:0 0 var(--s4);
+  padding:var(--s3) 0;border-block:1px solid var(--linia)}
+.zbr__meta div{margin:0}
+.zbr__meta dt{font-size:var(--t1);font-weight:600;letter-spacing:var(--ls-w);
+  text-transform:uppercase;color:var(--ink-2);margin-bottom:5px}
+.zbr__meta dd{margin:0;font-size:var(--t3);font-weight:600;color:var(--ink)}
+
+/* Wskazania, efekty i przeciwwskazania bywają listą na dwadzieścia
+   pozycji. Rozwijane, bo rozwinięte zagłuszyłyby samą ofertę,
+   a bez nich strona nie niosłaby tego, co niesie źródło.       */
+.szcz{margin:0 0 var(--s5);border-top:1px solid var(--linia);max-width:var(--miara)}
+.szcz summary{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);
+  min-height:var(--cel);padding:14px 0;cursor:pointer;list-style:none;
+  font-size:var(--t2);font-weight:600;letter-spacing:var(--ls-w);text-transform:uppercase;
+  color:var(--akc)}
+.szcz summary::-webkit-details-marker{display:none}
+.szcz summary::after{content:"";flex:none;width:11px;height:11px;
+  border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;
+  transform:translateY(-3px) rotate(45deg);transition:transform .24s var(--ease)}
+.szcz[open] summary::after{transform:translateY(2px) rotate(-135deg)}
+.szcz summary:focus-visible{outline:2px solid var(--akc);outline-offset:4px}
+.szcz__g{display:grid;gap:var(--s4);padding:0 0 var(--s4)}
+.szcz__t{margin:0 0 10px;font-size:var(--t1);font-weight:600;letter-spacing:var(--ls-w);
+  text-transform:uppercase;color:var(--ink-2)}
+.szcz ul{margin:0;padding-left:1.15em;color:var(--ink-2);font-size:var(--t3);line-height:var(--lh3)}
+.szcz li{margin-bottom:5px}
+.szcz li::marker{color:var(--akc-2)}
+@media(min-width:900px){.szcz__g{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4) var(--s6)}}
+
+/* Cennik zbiorczy — tam, gdzie Booksy nie przypisuje pozycji do
+   pojedynczego zabiegu (rehabilitacja). Lepiej podać go raz uczciwie,
+   niż rozdzielać kwoty na oko.                                  */
+.zbr__nota{margin:0 0 var(--s5);padding:14px 0;border-block:1px solid var(--linia);
+  font-size:var(--t3);color:var(--ink-2);max-width:var(--miara)}
+/* Odnosnik w zdaniu ma z natury wysokosc wiersza; wyscielenie podnosi
+   pole trafienia do 30 px, wiec palec nie musi celowac w sam tekst. */
+.zbr__nota a{display:inline-block;padding:4px 0;border-bottom:1px solid var(--linia-m);
+  color:var(--akc);font-weight:600;transition:border-color .22s var(--ease)}
+.zbr__nota a:hover{border-bottom-color:var(--akc)}
+.zbr__cennik{scroll-margin-top:calc(var(--rzad-h-mal) + 70px);margin-top:var(--s8);padding-top:var(--s6);border-top:1px solid var(--linia-m)}
+.zbr__cennik .cena{max-width:none}
+.zbr__cennik .zbr__o{margin-bottom:var(--s4)}
+
+/* Pozostałe obszary: pięć kart bez zdjęć, same nazwy i kierunek. */
+.inne__g{grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr))}
 
 @media(prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
