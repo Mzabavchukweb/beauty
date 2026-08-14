@@ -80,7 +80,7 @@
         var klucz = rodzic ? (rodzic.className || 'x') : 'x';
         licznik[klucz] = (licznik[klucz] || 0);
         var i = licznik[klucz]++;
-        if (i) w.target.style.setProperty('--zw', (Math.min(i, 5) * 0.07) + 's');
+        if (i) w.target.style.setProperty('--zw', (Math.min(i, 4) * 0.05) + 's');
         w.target.classList.add('on');
         obs.unobserve(w.target);
       });
@@ -166,7 +166,7 @@
         var r = el.getBoundingClientRect();
         /* -1 gdy kadr wchodzi dołem, +1 gdy wychodzi górą */
         var post = (r.top + r.height / 2 - innerHeight / 2) / (innerHeight / 2 + r.height / 2);
-        el.style.setProperty('--pl', (Math.max(-1, Math.min(1, post)) * 22).toFixed(1) + 'px');
+        el.style.setProperty('--pl', (Math.max(-1, Math.min(1, post)) * 14).toFixed(1) + 'px');
       });
       tikD = false;
     }
