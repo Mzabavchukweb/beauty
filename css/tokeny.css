@@ -1,0 +1,75 @@
+/* ============================================================
+   Reha Beauty — system
+   Wszystkie rozmiary, odstępy, światła i interlinie pochodzą
+   z jednej skali. Reguły w style.css sięgają wyłącznie po te
+   zmienne — dzięki temu strona ma jeden rytm, a zmiana skali
+   przechodzi przez cały serwis naraz.
+   ============================================================ */
+
+/* Zapasowy krój z metryką Onestu: 97 % wzniosu, 30,5 % spadku,
+   szerokość znaku 0,527 em. Bez tego tekst przeskakuje w chwili,
+   gdy plik się doczyta — z tym stoi w tym samym miejscu. */
+@font-face{
+  font-family:"Onest zapas";src:local("Helvetica Neue"),local("Arial");
+  ascent-override:97%;descent-override:30.5%;line-gap-override:0%;size-adjust:104%;
+}
+
+:root{
+  /* ── kolory: biel, cielisty piaskowy, czerń i brąz ────────── */
+  --biel:#fff;
+  --ciel-1:#fcfaf7;   /* ciepła biel — tło strony */
+  --ciel-2:#f4f0e9;   /* piaskowy — co druga sekcja */
+  --ciel-3:#e6ded1;   /* linie i ramki */
+  --ciel-4:#d9cebd;   /* mocniejszy piaskowy */
+  --ciel-5:#cabaa4;   /* najmocniejszy piaskowy */
+  --akc:#584434;      /* brąz — nadtytuły, ceny, odnośniki (8,4:1) */
+  --akc-2:#cfc2ae;    /* piaskowy ozdobny — kreski, numery */
+  --ink:#221e1b;      /* czerń tekstu — 15,8:1 na tle strony */
+  --ink-2:#554e46;    /* tekst drugoplanowy — 7,6:1 */
+
+  /* ── kreski: dwa odcienie, nie dwanaście ──────────────────── */
+  --linia:var(--ciel-3);
+  --linia-m:var(--ciel-4);
+  --linia-j:rgba(255,255,255,.45);   /* na ciemnym tle */
+
+  /* ── skala pisma: osiem stopni ────────────────────────────── */
+  --t1:.78rem;                        /* wersaliki, etykiety, meta */
+  --t2:.88rem;                        /* interfejs, przyciski, menu */
+  --t3:1rem;                          /* tekst drugoplanowy */
+  --t4:1.125rem;                      /* tekst podstawowy */
+  --t5:clamp(1.25rem,1.6vw,1.5rem);   /* tytuły kart i urządzeń */
+  --t6:clamp(1.5rem,2.2vw,2rem);      /* h3 w wierszach */
+  --t7:clamp(1.9rem,3.4vw,3rem);      /* h2 sekcji */
+  --t8:clamp(2.5rem,5.4vw,4.6rem);    /* h1 */
+
+  /* ── światło międzyliterowe: cztery wartości ──────────────── */
+  --ls-t:-.03em;   /* ciasne, nagłówki */
+  --ls-0:0;
+  --ls-w:.12em;    /* wersaliki */
+  --ls-x:.2em;     /* nadtytuły */
+
+  /* ── interlinia: trzy wartości ────────────────────────────── */
+  --lh1:1.14;      /* nagłówki */
+  --lh2:1.45;      /* podtytuły, meta */
+  --lh3:1.7;       /* tekst ciągły */
+
+  /* ── odstępy: osiem stopni ────────────────────────────────── */
+  --s1:6px;
+  --s2:12px;
+  --s3:20px;
+  --s4:clamp(20px,2.4vw,32px);
+  --s5:clamp(28px,3.2vw,44px);
+  --s6:clamp(36px,4.4vw,60px);
+  --s7:clamp(48px,6vw,84px);
+  --s8:clamp(64px,8vw,116px);        /* wcięcie pionowe sekcji */
+
+  /* ── siatka i miary ───────────────────────────────────────── */
+  --wrap:1560px;
+  --gut:clamp(20px,3.4vw,52px);
+  --pad-k:clamp(24px,2.6vw,40px);    /* wcięcie kolumn stopki */
+  --miara:62ch;                       /* jedno pole tekstu na całą stronę */
+  --prop:3/2;                         /* jedna proporcja zdjęć */
+  --rzad-h:140px; --rzad-h-mal:108px;
+  --cel:44px;                         /* najmniejszy cel dotykowy */
+  --ease:cubic-bezier(.22,.61,.36,1);
+}

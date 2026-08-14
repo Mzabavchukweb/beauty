@@ -1,0 +1,772 @@
+/* ============================================================
+   Reha Beauty — strona główna
+   Paleta zamknięta: tła wyłącznie biel i cieliste beże, tekst
+   wyłącznie czerń albo brąz. Żadnych innych barw — audyt kolorów
+   w CSS ma zwracać tylko te wartości.
+   Krój: Onest (SIL OFL) w czterech grubościach, podzbiory latin
+   i latin-ext — polskie znaki wchodzą z drugiego pliku.
+   ============================================================ */
+
+@font-face{font-family:Onest;src:url(../assets/fonts/onest-400-lat.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Onest;src:url(../assets/fonts/onest-400-ext.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:Onest;src:url(../assets/fonts/onest-500-lat.woff2) format('woff2');font-weight:500;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Onest;src:url(../assets/fonts/onest-500-ext.woff2) format('woff2');font-weight:500;font-style:normal;font-display:swap;unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:Onest;src:url(../assets/fonts/onest-600-lat.woff2) format('woff2');font-weight:600;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Onest;src:url(../assets/fonts/onest-600-ext.woff2) format('woff2');font-weight:600;font-style:normal;font-display:swap;unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:Onest;src:url(../assets/fonts/onest-700-lat.woff2) format('woff2');font-weight:700;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:Onest;src:url(../assets/fonts/onest-700-ext.woff2) format('woff2');font-weight:700;font-style:normal;font-display:swap;unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+
+:root{
+  --biel:#fff;
+  --ciel-1:#fcfaf7;   /* ciepła biel — tło strony */
+  --ciel-2:#f4f0e9;   /* piaskowy — co druga sekcja */
+  --ciel-3:#e6ded1;   /* linie i ramki */
+  --ciel-4:#d9cebd;   /* mocniejszy piaskowy — stopka, zamknięcie */
+  --ciel-5:#cabaa4;   /* najmocniejszy piaskowy */
+  --akc:#584434;      /* brąz — nadtytuły, ceny, odnośniki (8,4:1) */
+  --akc-2:#cfc2ae;    /* piaskowy ozdobny — kreski, numery */
+  --ink:#221e1b;      /* czerń tekstu — 15,8:1 na tle strony */
+  --ink-2:#554e46;    /* tekst drugoplanowy — 7,6:1 */
+  --wrap:1560px; --gut:clamp(20px,3.4vw,52px);
+  --pad-k:var(--s4);   /* wcięcie kolumn stopki */
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --rzad-h:140px; --rzad-h-mal:108px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+/* ── DELIKATNA INTERAKCJA ───────────────────────────────────
+   Jedna reguła na wszystko: 240 ms, to samo wygładzenie, żadnego
+   powiększenia ponad 1,03 i żadnej zmiany barwy — tylko pogłębienie
+   tego, co już jest. Wszystko gaśnie przy „ogranicz ruch".      */
+@media(hover:hover){
+  /* odnośniki: kreska ciemnieje, strzałka robi krok */
+  .lnk,.fil__w,.karta__w{transition:border-color .24s var(--ease)}
+  .lnk .ic,.fil__w .ic,.karta__w .ic{transition:transform .24s var(--ease)}
+  .lnk:hover,.fil__w:hover,.fil__r:hover .fil__w,.karta:hover .karta__w{border-bottom-color:var(--ink)}
+  .lnk:hover .ic,.fil__w:hover .ic,.fil__r:hover .fil__w .ic,.karta:hover .karta__w .ic{transform:translate(3px,-3px)}
+  .lnk[href^="tel"]:hover .ic,.lnk[href^="#"]:hover .ic{transform:translateX(3px)}
+
+  /* zdjęcia: ledwo wyczuwalne zbliżenie, bez wyskoku */
+  .fil__f,.karta{overflow:hidden}
+  .karta__f{transition:transform .5s var(--ease)}
+  .karta:hover .karta__f{transform:scale(1.03)}
+  .karta::after{transition:opacity .3s var(--ease)}
+  .karta:hover::after{opacity:.88}
+
+  /* przyciski i pigułki: pogłębienie kreski, nie zmiana koloru */
+  .btn{transition:transform .14s var(--ease),background .24s var(--ease)}
+  .btn:hover{background:#181513}
+  .btn--obrys:hover{background:var(--biel);box-shadow:inset 0 0 0 1.5px var(--linia-m)}
+  .pigula:hover,.cen__tryb button:hover,.cen__f button:hover,.cen__wiecej:hover{
+    color:var(--ink);border-color:var(--ink)}
+  .cen__tryb button[aria-pressed=true]:hover,.cen__f button[aria-pressed=true]:hover{color:var(--biel)}
+
+  /* menu: kreska wysuwa się spod pozycji */
+  .menu__l>li>a{position:relative}
+  .menu__l>li>a::after{content:"";position:absolute;left:0;right:0;bottom:10px;height:1px;
+    background:currentColor;transform:scaleX(0);transform-origin:left;
+    transition:transform .24s var(--ease)}
+  .menu__l>li>a:hover::after{transform:scaleX(1)}
+  .top__l,.koszyk,.burger{transition:color .2s var(--ease),background .2s var(--ease)}
+  .top__l:hover{color:var(--akc)}
+
+  /* powody: kółko ikony ciemnieje razem z tytułem */
+  .dl__k li{cursor:default}
+  .dl__i{transition:box-shadow .24s var(--ease),color .24s var(--ease)}
+  .dl__k li:hover .dl__i{box-shadow:inset 0 0 0 1px var(--linia-m);color:var(--ink)}
+
+
+  /* stopka: podkreślenie wjeżdża od lewej */
+  .stopka li a,.stopka__pr a{position:relative}
+  .stopka li a::after,.stopka__pr a::after{content:"";position:absolute;left:0;right:0;bottom:10px;
+    height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;
+    transition:transform .24s var(--ease)}
+  .stopka li a:hover::after,.stopka__pr a:hover::after{transform:scaleX(1)}
+  .stopka__s a{transition:background .24s var(--ease)}
+  .stopka__s a:hover{background:var(--ciel-2)}
+
+  .dogory{transition:transform .2s var(--ease),background .2s var(--ease)}
+  .dogory:hover{transform:translateY(-3px)}
+}
+
+/* ── BODŹCE ─────────────────────────────────────────────────
+   Trzy rzeczy, które robią wrażenie bez ruchu za kursorem:
+   1. nagłówki odsłaniają się spod maski, nie wynurzają z mgły
+   2. zdjęcia wchodzą kurtyną od dołu i osiadają ze zbliżenia
+   3. w kadrze dryfują wolniej niż strona
+   Wszystko wyłączone przy „ogranicz ruch".                    */
+
+/* 1 — nagłówek spod maski */
+.js .odsl{clip-path:inset(0 0 105% 0);transform:translateY(14px);
+  transition:clip-path .85s var(--ease),transform .85s var(--ease);
+  transition-delay:var(--zw,0s)}
+.js .odsl.on{clip-path:inset(0 0 -12% 0);transform:none}
+
+/* 2 — zdjęcie kurtyną, z osiadającym zbliżeniem */
+.js .kadr{clip-path:inset(0 0 100% 0);transition:clip-path .9s var(--ease);
+  transition-delay:var(--zw,0s)}
+.js .kadr.on{clip-path:inset(0 0 0 0)}
+.js .kadr img{transform:scale(1.08);transition:transform 1.2s var(--ease);
+  transition-delay:var(--zw,0s)}
+/* Okrągłe zdjęcie: bez kurtyny, bo prostokątna maska na kole wygląda jak błąd. */
+.js .dl__f{clip-path:none}
+.js .dl__f img{transform:scale(1.06)}
+.js .dl__f.on img{transform:scale(1)}
+.js .kadr.on img{transform:scale(1)}
+
+/* 3 — dryf w kadrze: zmienną ustawia skrypt, składa się ze zbliżeniem */
+.fil__f img,.onas__f img,.loc__f img,.dl__f img{
+  transform:translate3d(0,var(--pl,0px),0) scale(var(--sk,1));
+  will-change:transform}
+
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+body{margin:0;background:var(--ciel-1);color:var(--ink);
+  font-family:Onest,"Onest zapas",system-ui,sans-serif;font-weight:400;font-size:var(--t4);line-height:var(--lh3);
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+.w{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gut)}
+img{max-width:100%;display:block;height:auto}
+a{color:inherit;text-decoration:none}
+.sprite{position:absolute;width:0;height:0;overflow:hidden}
+.ic{width:21px;height:21px;flex:none;stroke-width:1.5}
+.tylko-cr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+
+.skip{position:absolute;left:-9999px;top:0;z-index:200;background:var(--ink);color:var(--biel);
+  padding:14px 22px;font-weight:600}
+.skip:focus{left:0}
+
+/* Nagłówki: Onest w grubości 600, ciasny odstęp międzyliterowy. */
+.xl,.lg,h1,h2,h3{font-weight:600;color:var(--ink);margin:0;text-wrap:balance}
+/* Ostatni wiersz akapitu nie zostaje z jednym słowem — w polszczyźnie
+   z długimi wyrazami widać to co drugi akapit. */
+p,li,dd,figcaption{text-wrap:pretty}
+.xl{font-size:var(--t8);letter-spacing:var(--ls-t);line-height:var(--lh1);text-wrap:balance}
+.lg{font-size:var(--t7);letter-spacing:var(--ls-t);line-height:var(--lh1);text-wrap:balance}
+h3{letter-spacing:var(--ls-t)}
+.nadtytul{font-weight:600;font-size:var(--t1);letter-spacing:var(--ls-x);text-transform:uppercase;
+  color:var(--akc);margin:0 0 18px}
+
+/* Pierścień z prześwitem: biała przerwa oddziela go od elementu, więc
+   jest widoczny i na jasnym, i na ciemnym tle. */
+a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
+  outline:2px solid var(--akc);outline-offset:4px;
+  box-shadow:0 0 0 2px var(--biel)}
+::selection{background:var(--ciel-4);color:var(--ink)}
+
+/* ── TRZY WZORCE KLIKALNE ────────────────────────────────────
+   1. .btn    — akcja wypełniona
+   2. .lnk    — odnośnik tekstowy z podkreśleniem i strzałką
+   3. .pigula — przycisk konturowy: przełączniki, filtry, rozwijanie
+   Wszystko inne jest wariantem rozmiaru jednego z tych trzech.
+   Strzałka ukośna oznacza wyjście na inną stronę, prosta — ruch
+   w obrębie tej.                                              */
+.btn,.lnk,.fil__w,.karta__w,
+.pigula,.cen__tryb button,.cen__f button,.cen__wiecej{
+  font-family:Onest,"Onest zapas",system-ui,sans-serif;font-weight:600;cursor:pointer}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 30px;
+  background:var(--ink);color:var(--biel);font-size:var(--t1);letter-spacing:var(--ls-w);
+  text-transform:uppercase;border:0;transition:transform .14s var(--ease),background .2s var(--ease)}
+.btn:active{transform:translateY(2px)}
+.btn--obrys{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--linia)}
+.btn--pelny{background:var(--ink);color:var(--biel)}
+
+/* Ujawnianie przy przewijaniu. Stan ukryty wchodzi TYLKO przy działającym
+   JavaScripcie — inaczej awaria skryptu oznaczałaby pustą stronę. */
+.js .rv{opacity:0;transform:translateY(12px);
+  transition:opacity .45s var(--ease),transform .45s var(--ease);
+  transition-delay:var(--zw,0s)}
+.js .rv.on{opacity:1;transform:none}
+
+/* ── NAGŁÓWEK ────────────────────────────────────────────────
+   Jeden rząd: znak, numer ujęcia, menu w wersalikach, po prawej
+   prezent i koszyk. Komplet pozycji jak na produkcyjnym
+   rehabeauty.pl — „Galeria" siedzi w podmenu „O nas".        */
+/* Na starcie nagłówek jest przezroczysty i leży na hero. Kolor bierze
+   dopiero po przewinięciu — próg 36 px, ten sam co zwężenie rzędu. */
+.top{position:fixed;top:0;left:0;right:0;z-index:100;color:var(--ink);background:transparent;
+  transition:box-shadow .4s var(--ease),background .4s var(--ease),color .3s var(--ease)}
+.top.przewiniety{background:var(--biel);
+  box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0 var(--linia)}
+/* Nagłówek chodzi po tej samej siatce co sekcje — logo startuje
+   dokładnie tam, gdzie tytuły sekcji i pierwsza kolumna stopki. */
+.top__in{display:flex;align-items:center;gap:var(--s3);height:var(--rzad-h);
+  max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gut);
+  transition:height .4s var(--ease)}
+.top.przewiniety .top__in{height:var(--rzad-h-mal)}
+
+.znak{display:flex;align-items:center;flex:none}
+/* Proporcja podana wprost: <svg> bez atrybutów width/height przyjmuje
+   domyślne 300×150 i rozpycha nagłówek, wypychając hamburger poza ekran. */
+.znak__l{height:96px;width:auto;aspect-ratio:74/86.137;color:var(--ink);transition:height .4s var(--ease)}
+.top.przewiniety .znak__l{height:68px}
+
+.menu{margin-inline:auto}
+.menu__l{display:flex;align-items:center;gap:var(--s2);list-style:none;margin:0;padding:0}
+.menu__l>li{position:relative;display:flex;align-items:center}
+.menu__l a{display:inline-flex;align-items:center;min-height:var(--cel);white-space:nowrap;
+  font-size:var(--t1);font-weight:500;letter-spacing:var(--ls-w);text-transform:uppercase;
+  transition:color .18s var(--ease)}
+.menu__l a[aria-current=page]{font-weight:600;box-shadow:inset 0 -1px 0 var(--ink)}
+
+
+.menu__stopka{display:none}
+
+.top__z{display:flex;align-items:center;gap:var(--s2);flex:none}
+/* Prawa grupa jest wyraźnie większa od menu — to inny rejestr:
+   zakupy, nie nawigacja po ofercie. */
+.top__l{display:inline-flex;align-items:center;gap:11px;min-height:var(--cel);white-space:nowrap;
+  font-size:var(--t2);font-weight:600;letter-spacing:var(--ls-w);text-transform:uppercase;
+  transition:color .18s var(--ease)}
+.top__l .ic{width:21px;height:21px}
+.top__n{color:var(--ink-2);letter-spacing:var(--ls-w);margin-left:7px;font-weight:500}
+.top__sp{width:1px;height:26px;background:var(--ciel-4)}
+
+.burger{display:none;align-items:center;justify-content:center;width:46px;height:46px;flex:none;
+  background:none;border:0;color:inherit;cursor:pointer;box-shadow:inset 0 0 0 1.5px rgba(34,30,27,.2)}
+.burger .ic{width:26px;height:26px}
+.burger__x{display:none}
+.burger[aria-expanded=true] .burger__o{display:none}
+.burger[aria-expanded=true] .burger__x{display:block}
+
+/* Powyżej 1540 px rząd ma zapas, więc menu i grupa zakupowa idą o stopień
+   w górę. Niżej zostają mniejsze — inaczej „Koszyk" wychodzi poza kadr. */
+@media(min-width:1541px){
+  .menu__l a{font-size:var(--t1)}
+    .top__l{font-size:var(--t2)}
+  .top__l .ic{width:23px;height:23px}
+  .menu__l{gap:var(--s3)}
+}
+
+/* Nad ciemnym wideo w hero nagłówek musi być biały, bo tło pod nim
+   jest ciemne dopóki nikt nie przewinie. Po przewinięciu wraca czerń
+   na piaskowym. */
+@media(max-width:1024px){
+  /* Nad ciemnym wideo cały nagłówek jest biały, po przewinięciu wraca
+     czerń — pas jest wtedy piaskowy i biel by na nim zginęła. */
+  .top:not(.przewiniety){color:var(--biel)}
+  .top:not(.przewiniety) .znak__l{color:var(--biel)}
+  .top:not(.przewiniety) .koszyk,
+  .top:not(.przewiniety) .burger{box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.55)}
+  .top:not(.przewiniety) .top__sp{background:rgba(255,255,255,.55)}
+  .top:not(.przewiniety) .top__n{color:rgba(255,255,255,.75)}
+
+  /* Panel menu jest jasny, a leży pod nagłówkiem i dziedziczy jego kolor.
+     Przy otwartym menu cała zawartość musi więc wrócić na czerń — inaczej
+     biały znak, ikony i pozycje znikają na kremowym tle. */
+  body.menu-otwarte .top,
+  body.menu-otwarte .top:not(.przewiniety){color:var(--ink)}
+  body.menu-otwarte .top:not(.przewiniety) .znak__l{color:var(--ink)}
+  body.menu-otwarte .top:not(.przewiniety) .koszyk,
+  body.menu-otwarte .top:not(.przewiniety) .burger{box-shadow:inset 0 0 0 1.5px rgba(34,30,27,.22)}
+  body.menu-otwarte .top:not(.przewiniety) .top__sp{background:rgba(34,30,27,.22)}
+  body.menu-otwarte .top:not(.przewiniety) .top__n{color:var(--ink-2)}
+  .menu{color:var(--ink)}
+  .menu__stopka a{color:var(--ink)}
+}
+
+/* Menu na wąskim ekranie: panel na pełną wysokość.
+   Próg 1400 px — zmierzony: przy 1360 px grupa zakupowa wystawała o 18 px.
+   Powyżej 1400 rząd ma zapas. */
+@media(max-width:1399px){
+  .burger{display:inline-flex}
+  /* Panel przykrywa cały ekran razem z tłem nagłówka, więc znak i przyciski
+     muszą stać wyżej w stosie — inaczej zniknęłyby pod nim. */
+  .znak,.top__z,.burger{position:relative;z-index:2}
+  .top__z{margin-left:auto}
+  .menu{position:fixed;inset:0;margin:0;background:var(--ciel-1);z-index:0;
+    padding:calc(var(--rzad-h) + 24px) var(--gut) 40px;
+    overflow-y:auto;opacity:0;visibility:hidden;transform:translateY(-10px);
+    transition:opacity .28s var(--ease),transform .28s var(--ease),visibility .28s}
+  .menu.otwarte{opacity:1;visibility:visible;transform:none}
+  .menu__l{flex-direction:column;align-items:stretch;gap:0}
+  .menu__l>li{flex-wrap:wrap;border-bottom:1px solid var(--linia)}
+  .menu__l>li:first-child{border-top:1px solid var(--linia)}
+  .menu__l>li>a{flex:1;min-height:62px;font-size:var(--t2)}
+        .menu__stopka{display:block;margin-top:34px;padding-top:28px;
+    border-top:1px solid var(--linia);font-size:var(--t3)}
+  .menu__stopka a{display:flex;align-items:center;gap:14px;min-height:54px;color:var(--ink);font-size:var(--t3)}
+  .menu__stopka a .ic{color:var(--akc)}
+  .menu__stopka p{margin:16px 0 0;color:var(--ink-2);font-size:var(--t3);line-height:var(--lh3)}
+  body.menu-otwarte{overflow:hidden}
+}
+@media(max-width:760px){
+  .top__e{display:none}                      /* na wąskim ekranie zostają same ikony */
+  .top__l{gap:0;min-width:44px;justify-content:center}
+  .top__n{margin-left:5px;font-size:var(--t1)}
+  .znak__l{height:76px}
+  .top.przewiniety .znak__l{height:54px}
+  .top__in{height:100px;gap:10px}
+  .top.przewiniety .top__in{height:82px}
+  .menu{padding-top:calc(100px + 20px)}
+}
+
+/* ── HERO ───────────────────────────────────────────────────
+   Lewa kolumna z treścią, po prawej zdjęcie przycięte łukiem.
+   Kształt łuku siedzi w <clipPath> w dokumencie, w jednostkach
+   pudełka, więc skaluje się razem z panelem.                   */
+/* Hero nie zabiera już całego ekranu — pod jego dolną krawędzią widać
+   początek następnej sekcji, więc od razu wiadomo, że strona idzie dalej. */
+.hero{position:relative;min-height:clamp(660px,88svh,900px);display:flex;align-items:center;
+  background:var(--ciel-1);overflow:hidden;
+  padding-top:calc(var(--rzad-h) + var(--s7));
+  padding-bottom:var(--s5)}
+.hero__f{position:absolute;top:0;right:0;bottom:0;width:clamp(320px,41%,660px);z-index:0;
+  clip-path:url(#luk)}
+.hero__f video,.hero__f img{width:100%;height:100%;display:block;object-fit:cover;object-position:52% 34%}
+/* Przezroczysty nagłówek leży częściowo nad wideo, a skóra w kadrze ma
+   jasność tła w połowie skali — czerń menu spadała do 3,6:1. Górna krawędź
+   kadru rozjaśniona do koloru strony wyłącznie na wysokość nagłówka. */
+.hero__f::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to bottom,
+    rgba(252,250,247,.97) 0,
+    rgba(252,250,247,.82) calc(var(--rzad-h) * .55),
+    rgba(252,250,247,0) calc(var(--rzad-h) + 44px))}
+
+/* Pionowa szyna z nazwą marki — lewa krawędź kadru. */
+.hero__szyna{position:absolute;left:var(--s3);top:clamp(150px,20vh,240px);bottom:0;
+  width:1px;background:linear-gradient(var(--ciel-4),var(--ciel-4) 62%,transparent);z-index:1}
+.hero__szyna::before{content:"";position:absolute;left:-2.5px;bottom:180px;width:6px;height:6px;
+  border-radius:50%;background:var(--akc-2)}
+
+.hero__g{position:relative;z-index:1;width:100%;max-width:var(--wrap);margin-inline:auto;
+  padding-inline:var(--gut)}
+.hero__t{max-width:min(58ch,48.5vw)}
+.hero .xl{font-size:var(--t8);font-weight:400;letter-spacing:var(--ls-t);line-height:var(--lh1)}
+.hero__kr{display:block;width:52px;height:1px;background:var(--akc-2);
+  margin:var(--s6) 0 var(--s4)}
+.hero__kto{font-size:var(--t1);font-weight:600;letter-spacing:var(--ls-x);
+  text-transform:uppercase;color:var(--akc);margin:0 0 var(--s3)}
+.hero__co{margin:0;font-size:var(--t4);line-height:var(--lh3);color:var(--ink)}
+
+.hero__b{display:flex;gap:var(--s4);flex-wrap:wrap;margin-top:var(--s6)}
+.lnk,.fil__w,.karta__w{display:inline-flex;align-items:center;gap:var(--s2);min-height:var(--cel);
+  padding-bottom:10px;border-bottom:1px solid var(--linia-m);font-size:var(--t1);
+  letter-spacing:var(--ls-w);text-transform:uppercase;transition:border-color .22s var(--ease)}
+.lnk{justify-content:space-between;gap:26px;min-width:118px}
+.lnk .ic,.fil__w .ic,.karta__w .ic{width:20px;height:20px}
+.lnk--mocny{border-bottom-color:var(--ink);border-bottom-width:2px;padding-bottom:9px}
+
+.hero__k{display:flex;gap:var(--s4) var(--s6);flex-wrap:wrap;
+  margin-top:var(--s6);padding-top:var(--s4);
+  border-top:1px solid var(--linia)}
+.hero__k a,.hero__adr{display:inline-flex;align-items:center;gap:14px;min-height:48px;margin:0}
+.hero__k .ic{width:24px;height:24px;color:var(--ink-2);flex:none}
+.hero__k span{display:block;font-size:var(--t2);line-height:var(--lh2)}
+.hero__k b{display:block;font-size:var(--t1);font-weight:600;letter-spacing:var(--ls-w);
+  text-transform:uppercase;color:var(--ink-2);margin-bottom:4px}
+
+/* Na wąskim ekranie wideo przestaje być kolumną obok tekstu i wchodzi
+   pod spód jako tło całego hero. Przyciemnienie liczone tak, żeby biel
+   trzymała ponad 7:1 nawet na najjaśniejszej klatce. */
+@media(max-width:1024px){
+  .hero{min-height:clamp(580px,88svh,780px);flex-direction:column;align-items:stretch;
+    justify-content:flex-end;color:var(--biel);
+    padding-block:calc(var(--rzad-h) + var(--s5)) var(--s5)}
+  .hero__f{position:absolute;inset:0;width:100%;height:100%;margin:0;clip-path:none;z-index:0}
+  .hero__f video,.hero__f img{object-position:52% 28%}
+  .hero__f::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(34,30,27,.93) 0%,rgba(34,30,27,.82) 34%,
+      rgba(34,30,27,.6) 62%,rgba(34,30,27,.55) 84%,rgba(34,30,27,.7) 100%)}
+  .hero__g{position:relative;z-index:1;padding-inline:var(--gut)}
+  .hero__t{max-width:none}
+  .hero__szyna{display:none}
+
+  .hero .xl,.hero__co,.hero__k a,.hero__adr{color:var(--biel)}
+  .hero__kto{color:var(--ciel-3)}
+  .hero__co{color:rgba(255,255,255,.9)}
+  .hero__kr{background:rgba(255,255,255,.55)}
+  .hero__b .lnk{color:var(--biel);border-bottom-color:rgba(255,255,255,.45)}
+  .hero__b .lnk--mocny{border-bottom-color:var(--biel)}
+  .hero__k{border-top-color:rgba(255,255,255,.3)}
+  .hero__k b{color:rgba(255,255,255,.76)}
+  .hero__k .ic,.hero__adr .ic{color:rgba(255,255,255,.82)}
+  .hero a:focus-visible{outline-color:var(--biel)}
+}
+
+/* ── NAGŁÓWEK SEKCJI ────────────────────────────────────────
+   Ten sam znak rozpoznawczy w każdej sekcji: numer w cielistym,
+   pionowa kreska, nadtytuł i tytuł. Zmienia się tylko treść.  */
+.glowa{margin:0 0 var(--s5)}
+.glowa .nadtytul{display:flex;align-items:center;gap:16px;margin-bottom:16px}
+.glowa .nadtytul::after{content:"";width:44px;height:1px;background:var(--akc-2)}
+/* Wariant szeroki: tytuł po lewej, akapit prowadzący po prawej. */
+.glowa--szer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:var(--s6);align-items:end}
+@media(max-width:880px){.glowa--szer{grid-template-columns:1fr;align-items:start}}
+
+/* ── TRZY OBSZARY ───────────────────────────────────────────
+   Naprzemienny rytm: zdjęcie i opis zamieniają się stronami
+   w co drugim wierszu. Numer sekcji stoi przy pionowej kresce. */
+.fil{padding:var(--s8) 0;background:var(--ciel-1)}
+.fil .lg{max-width:26ch}
+
+.fil__g{display:flex;flex-direction:column;gap:var(--s6)}
+.fil__r{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);
+  gap:var(--s6);align-items:center}
+.fil__r--odwr .fil__f{order:2}
+.fil__f{display:block;overflow:hidden;background:var(--ciel-3)}
+.onas__f,.loc__f{overflow:hidden}
+.fil__f img{width:100%;aspect-ratio:var(--prop);object-fit:cover}
+.fil__t{position:relative}
+.fil__i{display:flex;align-items:center;gap:14px;margin:0 0 16px;font-variant-numeric:tabular-nums;
+  font-size:var(--t2);font-weight:500;letter-spacing:var(--ls-w);color:var(--ink-2)}
+.fil__i::after{content:"";width:32px;height:1px;background:var(--ciel-4)}
+.fil__t h3{font-size:var(--t6);margin:0 0 8px;line-height:var(--lh1)}
+.fil__t h3 a::after{content:"";position:absolute;inset:0}   /* cały wiersz klikalny */
+.fil__t b{display:block;font-weight:600;font-size:var(--t2);color:var(--akc);margin-bottom:18px}
+.fil__t p{margin:0 0 24px;color:var(--ink-2);font-size:var(--t3);line-height:var(--lh3);max-width:var(--miara)}
+.fil__w{display:inline-flex;align-items:center;gap:12px;min-height:var(--cel);padding-bottom:8px;
+  border-bottom:1px solid var(--linia-m);font-size:var(--t3)}
+.fil__w .ic{width:20px;height:20px}
+@media(max-width:940px){
+  .fil__r,.fil__r--odwr .fil__f{grid-template-columns:1fr;order:0}
+  .fil .lg{max-width:none}
+}
+
+/* ── CENNIK ────────────────────────────────────────────────
+   Dwa widoki tej samej listy: karty i lista. Dane siedzą w JS,
+   więc obie postacie zawsze mówią to samo.                     */
+.cen{padding:var(--s8) 0;background:var(--ciel-2);border-top:1px solid var(--linia)}
+/* Odstęp trzyma teraz pas filtrów, a nie margines pod nagłówkiem —
+   przy zawinięciu rzędu ten margines wypychał przełącznik na filtry. */
+.cen__n{display:flex;align-items:flex-start;justify-content:space-between;gap:18px 26px;flex-wrap:wrap}
+.cen__n .glowa{margin-bottom:0;flex:1 1 300px}
+.cen__n .nadtytul::after{display:none}
+.cen__tryb{flex:none}
+.cen__ile{font-size:var(--t2);font-weight:400;color:var(--ink-2);letter-spacing:0;
+  vertical-align:middle;margin-left:12px}
+
+.cen__tryb{display:flex;flex:none}
+.pigula,.cen__tryb button,.cen__f button,.cen__wiecej{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:var(--cel);
+  padding:0 24px;background:transparent;color:var(--ink-2);border:1px solid var(--linia-m);
+  font-size:var(--t1);letter-spacing:var(--ls-w);text-transform:uppercase;
+  transition:background .2s var(--ease),color .2s var(--ease),border-color .2s var(--ease)}
+.cen__tryb button[aria-pressed=true],.cen__f button[aria-pressed=true]{
+  background:var(--ink);color:var(--biel);border-color:var(--ink)}
+.cen__tryb button+button{border-left:0}
+
+/* Pigułki kategorii z licznikiem — cennik ma dwadzieścia pozycji,
+   bez podziału trzeba przeczytać wszystko, żeby znaleźć jedną. */
+.cen__f{display:flex;gap:10px;flex-wrap:wrap;
+  margin:var(--s5) 0 var(--s4)}
+
+.cen__f button span{font-size:var(--t1);font-weight:500;color:var(--ink-2);opacity:.8}
+.cen__f button[aria-pressed=true] span{color:var(--biel)}
+
+/* Karty — tłem jest zdjęcie, tekst siedzi na przyciemnieniu.
+   Gradient trzyma kontrast bieli powyżej 7:1 niezależnie od kadru. */
+.cen__w--karty{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:var(--s3)}
+.karta{position:relative;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch;
+  min-height:clamp(330px,27vw,410px);padding:var(--s5);
+  background:var(--ink);color:var(--biel);overflow:hidden;isolation:isolate}
+.karta__f{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.karta::after{content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(to top,rgba(34,30,27,.9) 0%,rgba(34,30,27,.66) 44%,rgba(34,30,27,.42) 100%)}
+.karta__e{margin:0 0 6px;font-size:var(--t1);font-weight:600;letter-spacing:var(--ls-w);text-transform:uppercase;
+  color:rgba(255,255,255,.78)}
+.karta__n{font-size:var(--t5);font-weight:600;letter-spacing:var(--ls-t);
+  line-height:var(--lh1);margin:0;color:var(--biel)}
+.karta__t{margin:7px 0 0;font-size:var(--t2);color:rgba(255,255,255,.82)}
+.karta__c{margin:16px 0 0;font-size:var(--t5);font-weight:600;color:var(--biel);
+  font-variant-numeric:tabular-nums}
+/* Podkreślony odnośnik ze strzałką w róg — sygnał, że karta prowadzi dalej. */
+.karta__w{display:inline-flex;align-items:center;gap:10px;align-self:flex-start;
+  margin-top:var(--s3);padding-bottom:6px;color:var(--biel);
+  border-bottom:1px solid var(--linia-j);font-size:var(--t2);font-weight:600;letter-spacing:var(--ls-w)}
+.karta__w .ic{width:17px;height:17px}
+
+/* Lista */
+.cen__w--lista{border-top:1px solid var(--linia)}
+.poz{display:grid;grid-template-columns:1fr auto;gap:var(--s3);align-items:center;
+  padding:16px 0;border-bottom:1px solid var(--linia)}
+.poz__e{margin:0 0 3px;font-size:var(--t1);font-weight:600;letter-spacing:var(--ls-w);text-transform:uppercase;
+  color:var(--akc)}
+.poz__n{font-weight:600;font-size:var(--t4);margin:0}
+.poz__n em{font-style:normal;font-weight:400;color:var(--ink-2);font-size:var(--t3)}
+.poz__c{font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--akc);font-size:var(--t4)}
+
+.cen__wiecej{display:flex;padding-inline:36px;margin:var(--s5) auto 0;color:var(--ink)}
+.cen__wiecej[hidden]{display:none}
+.cen__wiecej .ic{width:20px;height:20px}
+/* Wezwanie w miejscu, w którym zapada decyzja — zaraz po cenach,
+   a nie dopiero w stopce. */
+.cen__d{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);
+  flex-wrap:wrap;margin-top:var(--s5);padding:var(--s4) var(--s4);
+  background:var(--biel);border:1px solid var(--linia)}
+.cen__d p{margin:0;color:var(--ink-2);font-size:var(--t3);line-height:var(--lh3);max-width:var(--miara)}
+.cen__d b{display:block;color:var(--ink);font-size:var(--t4);font-weight:600;margin-bottom:4px}
+.cen__z{margin:20px 0 0;color:var(--ink-2);font-size:var(--t2)}
+/* Poniżej 720 px nagłówek, przełącznik i filtry idą jeden pod drugim —
+   w rzędzie nie mieszczą się bez nachodzenia. */
+@media(max-width:720px){
+  .cen__n{flex-direction:column;align-items:stretch;gap:20px}
+  .cen__n .glowa{flex:none}
+  .cen__ile{display:block;margin:10px 0 0}
+  .cen__tryb{width:100%}
+  .cen__tryb button{flex:1;padding:0 12px}
+  .cen__f{margin-top:var(--s3)}
+  .cen__f button{flex:1 1 calc(50% - 5px);justify-content:center}
+}
+
+/* ── DLACZEGO MY ───────────────────────────────────────────
+   Dwie kolumny powodów wokół okrągłego zdjęcia. Na wąskim
+   ekranie zdjęcie schodzi na dół, a kolumny łączą się w jedną. */
+.dl{padding:var(--s8) 0;background:var(--ciel-1);border-top:1px solid var(--linia)}
+/* Akapit domykający sekcję — oddzielony włoskowatą linią od siatki powodów. */
+.dl__stop{display:flex;align-items:center;justify-content:space-between;gap:var(--s4);
+  flex-wrap:wrap;margin-top:var(--s6);padding-top:var(--s5);
+  border-top:1px solid var(--linia)}
+.dl__stop p{margin:0;color:var(--ink-2);font-size:var(--t4);line-height:var(--lh3);max-width:var(--miara)}
+.dl__g{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,360px) minmax(0,1fr);
+  gap:var(--s6);align-items:center}
+.dl__k{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--s5)}
+.dl__k li{position:relative;padding-left:80px}
+.dl__k--p li{padding-left:0;padding-right:80px;text-align:right}
+.dl__i{position:absolute;top:0;left:0;width:60px;height:60px;display:grid;place-items:center;
+  border-radius:50%;box-shadow:inset 0 0 0 1px var(--ciel-3);color:var(--akc)}
+.dl__k--p .dl__i{left:auto;right:0}
+.dl__i .ic{width:30px;height:30px}
+.dl__k h3{font-size:var(--t4);font-weight:600;margin:6px 0 8px;line-height:var(--lh2)}
+.dl__k p{margin:0;color:var(--ink-2);font-size:var(--t3);line-height:var(--lh3)}
+.dl__f{position:relative}
+.dl__f::before{content:"";position:absolute;inset:-18px;border-radius:50%;
+  border:1px dashed var(--akc-2);opacity:.7}
+.dl__f img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:50%}
+/* Poniżej 1180 px trzecia kolumna zabiera tekstowi tyle miejsca, że akapity
+   łamią się co trzy słowa — zdjęcie idzie wtedy nad siatkę powodów. */
+@media(max-width:1180px){
+  .dl__g{grid-template-columns:1fr 1fr;gap:var(--s5) var(--s5)}
+  .dl__f{grid-column:1/-1;order:-1;max-width:min(340px,60vw);margin-inline:auto}
+  .dl__k--p li{padding-left:80px;padding-right:0;text-align:left}
+  .dl__k--p .dl__i{left:0;right:auto}
+}
+@media(max-width:760px){
+  .dl__g{grid-template-columns:1fr}
+  .dl__f{max-width:min(300px,72vw)}
+}
+
+/* ── SPRZĘT ────────────────────────────────────────────────
+   Wiersze bez zdjęć — odmiana wobec obszarów, ale ten sam
+   sposób numerowania i te same włoskowate linie.            */
+.sprz{padding:var(--s8) 0;background:var(--ciel-2);border-top:1px solid var(--linia)}
+.sprz__g{border-top:1px solid var(--linia)}
+.sprz__i{display:grid;grid-template-columns:56px minmax(0,240px) minmax(0,1fr) minmax(0,280px);
+  gap:var(--s6);padding:var(--s4) 0;border-bottom:1px solid var(--linia);
+  align-items:start}
+.sprz__nr{margin:0;font-size:var(--t2);font-weight:500;color:var(--ink-2);padding-top:4px;
+  font-variant-numeric:tabular-nums}
+.sprz__n{font-size:var(--t5);font-weight:600;letter-spacing:var(--ls-t);line-height:var(--lh1);margin:0}
+.sprz__o{margin:0;color:var(--ink-2);font-size:var(--t3);line-height:var(--lh3)}
+.sprz__c{margin:0;font-size:var(--t2);color:var(--ink-2)}
+.sprz__c i{font-style:normal;display:flex;align-items:center;gap:10px;padding:7px 0;
+  border-bottom:1px solid var(--linia)}
+.sprz__c i:last-child{border-bottom:0}
+.sprz__c i::before{content:"";width:14px;height:1px;background:var(--akc-2);flex:none}
+@media(max-width:1180px){
+  .sprz__i{grid-template-columns:48px minmax(0,1fr);gap:10px 22px}
+  .sprz__o,.sprz__c{grid-column:2}
+  .sprz__o{margin-top:6px}
+  .sprz__c{margin-top:14px;max-width:320px}
+}
+
+/* ── O REHA BEAUTY ──────────────────────────────────────────── */
+.onas{padding:var(--s8) 0;background:var(--biel);border-top:1px solid var(--linia)}
+/* Do góry, nie do środka — przy krótszej kolumnie tekstu wyrównanie
+   do środka zostawiało martwe pole pod akapitami. */
+.onas__g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s6);
+  align-items:start}
+.onas__f img{aspect-ratio:var(--prop);object-fit:cover;width:100%}
+.onas p{margin:0 0 20px;color:var(--ink-2);font-size:var(--t4);line-height:var(--lh3);max-width:var(--miara)}
+.onas p:last-of-type{margin-bottom:30px}
+@media(max-width:900px){.onas__g{grid-template-columns:1fr;gap:var(--s4)}}
+
+/* ── PLACÓWKA ───────────────────────────────────────────────── */
+.loc{padding:var(--s8) 0;background:var(--ciel-2);border-top:1px solid var(--linia)}
+.loc__g{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:var(--s6);
+  align-items:start}
+.loc dl{display:grid;grid-template-columns:150px 1fr;margin:0;border-top:1px solid var(--linia)}
+.loc dt{padding:16px 0;font-size:var(--t1);letter-spacing:var(--ls-w);color:var(--ink-2);font-weight:600;
+  border-bottom:1px solid var(--linia);text-transform:uppercase}
+.loc dd{padding:4px 0;margin:0;border-top:1px solid var(--linia);display:flex;align-items:center;min-height:var(--cel)}
+.loc dd a{display:inline-flex;align-items:center;min-height:var(--cel);color:var(--akc);font-weight:600;
+  overflow-wrap:anywhere}
+.loc__f img{aspect-ratio:var(--prop);object-fit:cover;width:100%}
+@media(max-width:900px){.loc__g{grid-template-columns:1fr;gap:var(--s4)}
+  .loc dl{grid-template-columns:132px 1fr}}
+
+/* ── STOPKA ─────────────────────────────────────────────────
+   Siatka w ramce: pionowe kreski między kolumnami, pozioma nad
+   paskiem praw. Biała, żeby domykała stronę bez przygaszania. */
+.stopka{position:relative;background:var(--biel);color:var(--ink);
+  padding:var(--s5) 0;font-size:var(--t3)}
+.stopka .w{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gut)}
+.stopka__r{border:1px solid var(--ink);margin-inline:calc(-1 * var(--pad-k))}
+.stopka__g{display:grid;grid-template-columns:1.35fr 1fr 1.3fr 1.35fr}
+.stopka__k{padding:var(--pad-k);border-left:1px solid var(--ink)}
+.stopka__k:first-child{border-left:0}
+.stopka__marka p{margin:0;color:var(--ink-2);line-height:var(--lh3);font-size:var(--t3)}
+.stopka__z{height:74px;width:auto;aspect-ratio:74/86.137;color:var(--ink);margin-bottom:24px}
+.stopka__t{font-weight:600;font-size:var(--t1);letter-spacing:var(--ls-w);text-transform:uppercase;
+  color:var(--ink);margin:0 0 18px}
+.stopka__t--2{margin-top:34px}
+.stopka ul{list-style:none;margin:0;padding:0}
+.stopka li a{display:inline-flex;align-items:center;min-height:46px;color:var(--ink);font-size:var(--t3)}
+.stopka__kontakt li{color:var(--ink);line-height:var(--lh3)}
+.stopka__kontakt li:last-child{padding-top:8px;max-width:26ch}
+.stopka__s{display:flex;gap:14px}
+.stopka__s a{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;color:var(--ink)}
+.stopka__s .ic{width:24px;height:24px}
+
+.stopka__d{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--ink);
+  font-size:var(--t2);color:var(--ink-2);line-height:var(--lh2)}
+.stopka__d>span{display:block;padding:var(--s4) var(--pad-k)}
+.stopka__d>span+span{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;
+  row-gap:6px;border-left:1px solid var(--ink)}
+.stopka__d a{color:var(--ink)}
+
+/* Kryterium 2.5.8 wymaga celu 24×24 px. Odnośniki w pasku miały 18–20 px
+   wysokości, więc dostają własne pole zamiast samej wysokości wiersza. */
+.stopka__pr a{display:inline-flex;align-items:center;min-height:28px;padding-block:4px;
+  margin-left:24px;color:var(--ink);font-size:var(--t1);letter-spacing:var(--ls-w);text-transform:uppercase}
+.stopka__pr a:first-child{margin-left:0}
+
+/* Pasek wezwania na telefonie: między hero a placówką nie było
+   żadnej drogi do umówienia się, a decyzja zapada przy cenniku. */
+.cta-pasek{display:none}
+.cta-pasek[hidden]{display:none}
+@media(max-width:760px){
+  .cta-pasek:not([hidden]){display:flex;position:fixed;left:0;right:0;bottom:0;z-index:95;
+    align-items:center;justify-content:space-between;gap:14px;
+    padding:12px var(--s2);background:var(--biel);
+    border-top:1px solid var(--linia);box-shadow:0 -14px 30px -22px rgba(34,30,27,.7)}
+  .cta-pasek span{display:block;font-size:var(--t1);color:var(--ink-2);line-height:var(--lh2)}
+  .cta-pasek b{display:block;font-size:var(--t2);font-weight:600;color:var(--ink)}
+  .cta-pasek a{display:inline-flex;align-items:center;gap:9px;min-height:48px;padding:0 20px;flex:none;
+    background:var(--ink);color:var(--biel);font-size:var(--t1);font-weight:600;
+    letter-spacing:var(--ls-w);text-transform:uppercase}
+  .cta-pasek .ic{width:19px;height:19px}
+  .dogory{bottom:calc(74px + var(--s2));width:46px;height:46px}
+  .dogory .ic{width:19px;height:19px}
+}
+
+/* Powrót na górę — pojawia się dopiero po zejściu poniżej pierwszego ekranu. */
+.dogory{position:fixed;right:var(--s3);bottom:var(--s3);z-index:90;
+  width:54px;height:54px;border-radius:50%;border:0;background:var(--ink);color:var(--biel);
+  display:grid;place-items:center;cursor:pointer;box-shadow:0 18px 34px -20px rgba(34,30,27,.8)}
+.dogory[hidden]{display:none}
+.dogory .ic{width:22px;height:22px}
+
+@media(max-width:1000px){
+  .stopka__g{grid-template-columns:1fr 1fr}
+  .stopka__k:nth-child(3){border-left:0}
+  .stopka__k:nth-child(n+3){border-top:1px solid var(--ink)}
+}
+@media(max-width:640px){
+  .stopka__r{margin-inline:0}
+  .stopka__g{grid-template-columns:1fr}
+  .stopka__k{border-left:0}
+  .stopka__k+.stopka__k{border-top:1px solid var(--ink)}
+  .stopka__d{grid-template-columns:1fr}
+  .stopka__d>span+span{border-left:0;border-top:1px solid var(--ink);justify-content:flex-start}
+  .stopka__pr a{margin:0 22px 0 0}
+}
+
+/* ── DELIKATNA INTERAKCJA ───────────────────────────────────
+   Jedna reguła na wszystko: 240 ms, to samo wygładzenie, żadnego
+   powiększenia ponad 1,03 i żadnej zmiany barwy — tylko pogłębienie
+   tego, co już jest. Wszystko gaśnie przy „ogranicz ruch".      */
+@media(hover:hover){
+  /* odnośniki: kreska ciemnieje, strzałka robi krok */
+  .lnk,.fil__w,.karta__w{transition:border-color .24s var(--ease)}
+  .lnk .ic,.fil__w .ic,.karta__w .ic{transition:transform .24s var(--ease)}
+  .lnk:hover,.fil__w:hover,.fil__r:hover .fil__w,.karta:hover .karta__w{border-bottom-color:var(--ink)}
+  .lnk:hover .ic,.fil__w:hover .ic,.fil__r:hover .fil__w .ic,.karta:hover .karta__w .ic{transform:translate(3px,-3px)}
+  .lnk[href^="tel"]:hover .ic,.lnk[href^="#"]:hover .ic{transform:translateX(3px)}
+
+  /* zdjęcia: ledwo wyczuwalne zbliżenie, bez wyskoku */
+  .fil__f,.karta{overflow:hidden}
+  .karta__f{transition:transform .5s var(--ease)}
+  .karta:hover .karta__f{transform:scale(1.03)}
+  .karta::after{transition:opacity .3s var(--ease)}
+  .karta:hover::after{opacity:.88}
+
+  /* przyciski i pigułki: pogłębienie kreski, nie zmiana koloru */
+  .btn{transition:transform .14s var(--ease),background .24s var(--ease)}
+  .btn:hover{background:#181513}
+  .btn--obrys:hover{background:var(--biel);box-shadow:inset 0 0 0 1.5px var(--linia-m)}
+  .pigula:hover,.cen__tryb button:hover,.cen__f button:hover,.cen__wiecej:hover{
+    color:var(--ink);border-color:var(--ink)}
+  .cen__tryb button[aria-pressed=true]:hover,.cen__f button[aria-pressed=true]:hover{color:var(--biel)}
+
+  /* menu: kreska wysuwa się spod pozycji */
+  .menu__l>li>a{position:relative}
+  .menu__l>li>a::after{content:"";position:absolute;left:0;right:0;bottom:10px;height:1px;
+    background:currentColor;transform:scaleX(0);transform-origin:left;
+    transition:transform .24s var(--ease)}
+  .menu__l>li>a:hover::after{transform:scaleX(1)}
+  .top__l,.koszyk,.burger{transition:color .2s var(--ease),background .2s var(--ease)}
+  .top__l:hover{color:var(--akc)}
+
+  /* powody: kółko ikony ciemnieje razem z tytułem */
+  .dl__k li{cursor:default}
+  .dl__i{transition:box-shadow .24s var(--ease),color .24s var(--ease)}
+  .dl__k li:hover .dl__i{box-shadow:inset 0 0 0 1px var(--linia-m);color:var(--ink)}
+
+
+  /* stopka: podkreślenie wjeżdża od lewej */
+  .stopka li a,.stopka__pr a{position:relative}
+  .stopka li a::after,.stopka__pr a::after{content:"";position:absolute;left:0;right:0;bottom:10px;
+    height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;
+    transition:transform .24s var(--ease)}
+  .stopka li a:hover::after,.stopka__pr a:hover::after{transform:scaleX(1)}
+  .stopka__s a{transition:background .24s var(--ease)}
+  .stopka__s a:hover{background:var(--ciel-2)}
+
+  .dogory{transition:transform .2s var(--ease),background .2s var(--ease)}
+  .dogory:hover{transform:translateY(-3px)}
+}
+
+/* ── BODŹCE ─────────────────────────────────────────────────
+   Trzy rzeczy, które robią wrażenie bez ruchu za kursorem:
+   1. nagłówki odsłaniają się spod maski, nie wynurzają z mgły
+   2. zdjęcia wchodzą kurtyną od dołu i osiadają ze zbliżenia
+   3. w kadrze dryfują wolniej niż strona
+   Wszystko wyłączone przy „ogranicz ruch".                    */
+
+/* 1 — nagłówek spod maski */
+.js .odsl{clip-path:inset(0 0 105% 0);transform:translateY(14px);
+  transition:clip-path .85s var(--ease),transform .85s var(--ease);
+  transition-delay:var(--zw,0s)}
+.js .odsl.on{clip-path:inset(0 0 -12% 0);transform:none}
+
+/* 2 — zdjęcie kurtyną, z osiadającym zbliżeniem */
+.js .kadr{clip-path:inset(0 0 100% 0);transition:clip-path .9s var(--ease);
+  transition-delay:var(--zw,0s)}
+.js .kadr.on{clip-path:inset(0 0 0 0)}
+.js .kadr img{transform:scale(1.08);transition:transform 1.2s var(--ease);
+  transition-delay:var(--zw,0s)}
+/* Okrągłe zdjęcie: bez kurtyny, bo prostokątna maska na kole wygląda jak błąd. */
+.js .dl__f{clip-path:none}
+.js .dl__f img{transform:scale(1.06)}
+.js .dl__f.on img{transform:scale(1)}
+.js .kadr.on img{transform:scale(1)}
+
+/* 3 — dryf w kadrze: zmienną ustawia skrypt, składa się ze zbliżeniem */
+.fil__f img,.onas__f img,.loc__f img,.dl__f img{
+  transform:translate3d(0,var(--pl,0px),0) scale(var(--sk,1));
+  will-change:transform}
+
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+  .rv{opacity:1!important;transform:none!important}
+  .odsl,.kadr{clip-path:none!important;transform:none!important}
+  .kadr img{transform:none!important}
+  .fil__f img,.onas__f img,.loc__f img,.dl__f img{transform:none!important}
+  .hero__tlo{transform:none!important}
+}
