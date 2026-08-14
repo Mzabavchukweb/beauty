@@ -86,13 +86,26 @@
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
     doUjawnienia.forEach(function (el) { obs.observe(el); });
-    /* Bezpiecznik: cokolwiek po 1,2 s wciąż jest ukryte, a leży w kadrze — odsłoń. */
-    setTimeout(function () {
+
+    /* Trzy bezpieczniki, bo ukryta treść to gorsza awaria niż brak animacji:
+       1. cokolwiek leży w kadrze albo już zostało minięte — odsłoń przy
+          przewijaniu, nie czekając na obserwatora,
+       2. to samo raz po wczytaniu obrazów,
+       3. po 3 s odsłoń wszystko powyżej dolnej krawędzi ekranu. */
+    function dopilnuj() {
       document.querySelectorAll('.rv:not(.on)').forEach(function (el) {
         var r = el.getBoundingClientRect();
-        if (r.top < innerHeight && r.bottom > 0) el.classList.add('on');
+        if (r.top < innerHeight * 0.96) el.classList.add('on');
       });
-    }, 1200);
+    }
+    var tikU = false;
+    addEventListener('scroll', function () {
+      if (!tikU) { requestAnimationFrame(function () { dopilnuj(); tikU = false; }); tikU = true; }
+    }, { passive: true });
+    addEventListener('resize', dopilnuj, { passive: true });
+    addEventListener('pageshow', dopilnuj);
+    setTimeout(dopilnuj, 1200);
+    setTimeout(dopilnuj, 3000);
   } else {
     doUjawnienia.forEach(function (el) { el.classList.add('on'); });
   }
