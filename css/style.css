@@ -898,6 +898,16 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
 }
 
 
+
+/* ── GABINETY: DWA KADRY OBOK SIEBIE ────────────────────────
+   Dwa zdjęcia w jednym rzędzie zamiast galerii — źródło miało tu
+   sześć miniatur, a podstrona galerii z serwisu wypadła.        */
+.war{padding:var(--s8) 0;background:var(--ciel-2);border-top:1px solid var(--linia)}
+.war__g{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s6)}
+.war__f{margin:0;overflow:hidden;background:var(--ciel-3)}
+.war__f img{width:100%;aspect-ratio:var(--prop);object-fit:cover}
+@media(max-width:760px){.war__g{grid-template-columns:minmax(0,1fr);gap:var(--s5)}}
+
 @media(prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
   .rv{opacity:1!important;transform:none!important}
