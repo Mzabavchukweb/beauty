@@ -110,6 +110,57 @@
     doUjawnienia.forEach(function (el) { el.classList.add('on'); });
   }
 
+  /* ── Pasek zabiegów: gdzie jestem ───────────────────────────
+     Zakładka masaży ma czternaście pozycji i cztery ekrany wysokości.
+     Bez tego przyklejony pasek jest spisem, a nie nawigacją.
+     Zaznaczamy ten zabieg, którego początek minęliśmy ostatnio —
+     nie ten najbliżej środka, bo przy blokach różnej wysokości
+     zaznaczenie skakałoby w tę i z powrotem.                        */
+  var pasek = document.querySelector('.spis');
+  if (pasek) {
+    var poz = [].slice.call(pasek.querySelectorAll('a[href^="#"]')).map(function (a) {
+      return { a: a, cel: document.getElementById(a.getAttribute('href').slice(1)) };
+    }).filter(function (x) { return x.cel; });
+
+    if (poz.length) {
+      var teraz = null, tikP = false;
+
+      function zaznacz() {
+        /* Próg to dolna krawędź paska — element uznajemy za bieżący,
+           gdy jego początek schowa się pod paskiem. */
+        var prog = pasek.getBoundingClientRect().bottom + 8;
+        var wybor = null;
+        poz.forEach(function (x) {
+          if (x.cel.getBoundingClientRect().top <= prog) wybor = x;
+        });
+        /* Na samej górze strony nic nie jest jeszcze bieżące. */
+        if (wybor === teraz) return;
+        if (teraz) teraz.a.removeAttribute('aria-current');
+        teraz = wybor;
+        if (!teraz) return;
+        teraz.a.setAttribute('aria-current', 'true');
+
+        /* Przy przewijaniu w bok zaznaczona pozycja musi zostać widoczna. */
+        var w = pasek.querySelector('.spis__in');
+        if (w && w.scrollWidth > w.clientWidth) {
+          var r = teraz.a.getBoundingClientRect(), rw = w.getBoundingClientRect();
+          if (r.left < rw.left + 24 || r.right > rw.right - 24) {
+            w.scrollTo({
+              left: w.scrollLeft + (r.left - rw.left) - (rw.width - r.width) / 2,
+              behavior: mniejRuchu ? 'auto' : 'smooth'
+            });
+          }
+        }
+      }
+
+      addEventListener('scroll', function () {
+        if (!tikP) { requestAnimationFrame(function () { zaznacz(); tikP = false; }); tikP = true; }
+      }, { passive: true });
+      addEventListener('resize', zaznacz, { passive: true });
+      zaznacz();
+    }
+  }
+
   /* ── Parallaks tła hero: 12 %, tylko warstwa zdjęcia ────────── */
   var tlo = document.getElementById('tlo');
   if (tlo && !mniejRuchu) {

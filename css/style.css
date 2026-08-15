@@ -83,23 +83,18 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
   box-shadow:0 0 0 2px var(--biel)}
 ::selection{background:var(--ciel-4);color:var(--ink)}
 
-/* ── TRZY WZORCE KLIKALNE ────────────────────────────────────
-   1. .btn    — akcja wypełniona
-   2. .lnk    — odnośnik tekstowy z podkreśleniem i strzałką
-   3. .pigula — przycisk konturowy: przełączniki, filtry, rozwijanie
-   Wszystko inne jest wariantem rozmiaru jednego z tych trzech.
+/* ── DWA WZORCE KLIKALNE ─────────────────────────────────────
+   1. .lnk — odnośnik tekstowy z podkreśleniem i strzałką
+   2. przycisk konturowy — przełączniki, filtry, rozwijanie
+   Wszystko inne jest wariantem rozmiaru jednego z tych dwóch.
    Strzałka ukośna oznacza wyjście na inną stronę, prosta — ruch
-   w obrębie tej.                                              */
-.btn,.lnk,.fil__w,.karta__w,
-.pigula,.cen__tryb button,.cen__f button,.cen__wiecej{
+   w obrębie tej. Wciśnięcie zawsze daje ten sam skok o piksel. */
+.lnk,.fil__w,.karta__w,
+.cen__tryb button,.cen__f button,.cen__wiecej{
   font-family:Onest,"Onest zapas",system-ui,sans-serif;font-weight:600;cursor:pointer}
-
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 30px;
-  background:var(--ink);color:var(--biel);font-size:var(--t1);letter-spacing:var(--ls-w);
-  text-transform:uppercase;border:0;transition:transform .14s var(--ease),background .2s var(--ease)}
-.btn:active{transform:translateY(2px)}
-.btn--obrys{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--linia)}
-.btn--pelny{background:var(--ink);color:var(--biel)}
+.lnk:active,.fil__w:active,.karta__w:active,
+.cen__tryb button:active,.cen__f button:active,.cen__wiecej:active,
+.spis a:active,.okruch a:active{transform:translateY(1px)}
 
 /* Ujawnianie przy przewijaniu. Stan ukryty wchodzi TYLKO przy działającym
    JavaScripcie — inaczej awaria skryptu oznaczałaby pustą stronę. */
@@ -176,7 +171,6 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
      czerń — pas jest wtedy piaskowy i biel by na nim zginęła. */
   .top:not(.przewiniety){color:var(--biel)}
   .top:not(.przewiniety) .znak__l{color:var(--biel)}
-  .top:not(.przewiniety) .koszyk,
   .top:not(.przewiniety) .burger{box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.55)}
   .top:not(.przewiniety) .top__sp{background:rgba(255,255,255,.55)}
   .top:not(.przewiniety) .top__n{color:rgba(255,255,255,.75)}
@@ -187,7 +181,6 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
   body.menu-otwarte .top,
   body.menu-otwarte .top:not(.przewiniety){color:var(--ink)}
   body.menu-otwarte .top:not(.przewiniety) .znak__l{color:var(--ink)}
-  body.menu-otwarte .top:not(.przewiniety) .koszyk,
   body.menu-otwarte .top:not(.przewiniety) .burger{box-shadow:inset 0 0 0 1.5px rgba(34,30,27,.22)}
   body.menu-otwarte .top:not(.przewiniety) .top__sp{background:rgba(34,30,27,.22)}
   body.menu-otwarte .top:not(.przewiniety) .top__n{color:var(--ink-2)}
@@ -320,10 +313,6 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
 .glowa{margin:0 0 var(--s5)}
 .glowa .nadtytul{display:flex;align-items:center;gap:16px;margin-bottom:16px}
 .glowa .nadtytul::after{content:"";width:44px;height:1px;background:var(--akc-2)}
-/* Wariant szeroki: tytuł po lewej, akapit prowadzący po prawej. */
-.glowa--szer{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-  gap:var(--s6);align-items:end}
-@media(max-width:880px){.glowa--szer{grid-template-columns:1fr;align-items:start}}
 
 /* ── TRZY OBSZARY ───────────────────────────────────────────
    Naprzemienny rytm: zdjęcie i opis zamieniają się stronami
@@ -368,7 +357,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
   vertical-align:middle;margin-left:12px}
 
 .cen__tryb{display:flex;flex:none}
-.pigula,.cen__tryb button,.cen__f button,.cen__wiecej{
+.cen__tryb button,.cen__f button,.cen__wiecej{
   display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:var(--cel);
   padding:0 24px;background:transparent;color:var(--ink-2);border:1px solid var(--linia-m);
   font-size:var(--t1);letter-spacing:var(--ls-w);text-transform:uppercase;
@@ -624,10 +613,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
   .karta:hover::after{opacity:.88}
 
   /* przyciski i pigułki: pogłębienie kreski, nie zmiana koloru */
-  .btn{transition:transform .14s var(--ease),background .24s var(--ease)}
-  .btn:hover{background:#181513}
-  .btn--obrys:hover{background:var(--biel);box-shadow:inset 0 0 0 1.5px var(--linia-m)}
-  .pigula:hover,.cen__tryb button:hover,.cen__f button:hover,.cen__wiecej:hover{
+  .cen__tryb button:hover,.cen__f button:hover,.cen__wiecej:hover{
     color:var(--ink);border-color:var(--ink)}
   .cen__tryb button[aria-pressed=true]:hover,.cen__f button[aria-pressed=true]:hover{color:var(--biel)}
 
@@ -637,7 +623,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
     background:currentColor;transform:scaleX(0);transform-origin:left;
     transition:transform .24s var(--ease)}
   .menu__l>li>a:hover::after{transform:scaleX(1)}
-  .top__l,.koszyk,.burger{transition:color .2s var(--ease),background .2s var(--ease)}
+  .top__l,.burger{transition:color .2s var(--ease),background .2s var(--ease)}
   .top__l:hover{color:var(--akc)}
 
   /* powody: kółko ikony ciemnieje razem z tytułem */
@@ -657,6 +643,24 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
 
   .dogory{transition:transform .2s var(--ease),background .2s var(--ease)}
   .dogory:hover{transform:translateY(-3px)}
+
+  /* Znak, hamburger i pozycje panelu mobilnego zostawaly dotad bez
+     odpowiedzi — jedyne trzy klikalne rzeczy w naglowku bez stanu. */
+  .znak__l{transition:color .2s var(--ease)}
+  .znak:hover .znak__l{color:var(--akc)}
+  .burger:hover{box-shadow:inset 0 0 0 1.5px var(--ink)}
+  .menu__stopka a{transition:color .2s var(--ease)}
+  .menu__stopka a:hover{color:var(--akc)}
+
+  /* Rozwijane szczegoly: kreska pod calym wierszem ciemnieje razem
+     ze strzalka, wiec widac, ze to jeden cel, a nie sam napis. */
+  .szcz{transition:border-color .24s var(--ease)}
+  .szcz:hover{border-top-color:var(--linia-m)}
+  .szcz summary{transition:color .2s var(--ease)}
+  .szcz:hover summary{color:var(--ink)}
+
+  /* Pasek zabiegow: kreska wysuwa sie spod pozycji, tak samo jak w menu. */
+  .spis a:hover{border-bottom-color:var(--ink)}
 }
 
 
@@ -746,7 +750,6 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
 .spis a{display:inline-flex;align-items:center;min-height:var(--cel);padding:14px 0;
   white-space:nowrap;font-size:var(--t2);font-weight:500;
   border-bottom:2px solid transparent;transition:border-color .22s var(--ease)}
-.spis a:hover{border-bottom-color:var(--ink)}
 @media(max-width:760px){.spis__t{display:none}.spis{top:82px}
   .zbr__b,.zbr__r{scroll-margin-top:calc(82px + 66px)}}
 
@@ -788,7 +791,6 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
 .zbr__r{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);
   gap:var(--s6);padding-top:var(--s6);border-top:1px solid var(--linia);
   scroll-margin-top:calc(var(--rzad-h-mal) + 70px)}
-.zbr__lista{display:flex;flex-direction:column;gap:var(--s6)}
 .zbr__r h2{overflow-wrap:break-word;font-size:var(--t6);line-height:var(--lh1);letter-spacing:var(--ls-t);margin:0 0 8px}
 .zbr__r>div>b{display:block;font-size:var(--t2);font-weight:600;color:var(--akc)}
 
@@ -813,17 +815,17 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
 .inne__g{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s6)}
 .inne__k{position:relative;display:grid;grid-template-rows:auto 1fr;
   border-top:1px solid var(--linia-m);padding-top:var(--s4)}
-.inne__f{overflow:hidden;background:var(--ciel-3);margin-bottom:var(--s4)}
-.inne__f img{width:100%;aspect-ratio:var(--prop);object-fit:cover}
 .inne__k h3{font-size:var(--t6);line-height:var(--lh1);margin:0 0 10px}
 .inne__k h3 a::after{content:"";position:absolute;inset:0}
 .inne__k p{margin:0 0 var(--s4);color:var(--ink-2);font-size:var(--t3);line-height:var(--lh3)}
 @media(max-width:760px){.inne__g{grid-template-columns:minmax(0,1fr)}}
 
 @media(hover:hover){
-  .zbr__f,.inne__f{overflow:hidden}
-  .zbr__f img,.inne__f img{transition:scale .6s var(--ease)}
-  .inne__k:hover .inne__f img{scale:1.03}
+  /* Karta obszaru jest klikalna w całości (h3 a::after), więc strzałka
+     robi krok razem z pogłębieniem kreski — tak samo jak w wierszach oferty. */
+  .inne__k .fil__w{transition:border-color .24s var(--ease)}
+  .inne__k:hover .fil__w{border-bottom-color:var(--ink)}
+  .inne__k:hover .fil__w .ic{transform:translate(3px,-3px)}
 }
 
 
@@ -877,10 +879,28 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
 /* Pozostałe obszary: pięć kart bez zdjęć, same nazwy i kierunek. */
 .inne__g{grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr))}
 
+
+/* ── GDZIE JESTEM NA DŁUGIEJ STRONIE ────────────────────────
+   Zakładka masaży ma czternaście pozycji i cztery ekrany wysokości.
+   Bez zaznaczenia bieżącego zabiegu przyklejony pasek jest tylko
+   spisem, a nie nawigacją — nie mówi, gdzie się właśnie jest.     */
+.spis a{position:relative;color:var(--ink-2);
+  transition:color .22s var(--ease),border-color .22s var(--ease)}
+.spis a[aria-current]{color:var(--ink);font-weight:600;border-bottom-color:var(--akc)}
+
+/* Na wąskim ekranie pasek przewija się w bok. Cieniowana krawędź mówi,
+   że lista idzie dalej — inaczej ostatnia widoczna pozycja wygląda
+   na ostatnią w ogóle. */
+@media(max-width:760px){
+  .spis{position:sticky}
+  .spis::after{content:"";position:absolute;top:0;right:0;bottom:0;width:36px;
+    pointer-events:none;background:linear-gradient(to right,rgba(244,240,233,0),var(--ciel-2))}
+}
+
+
 @media(prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
   .rv{opacity:1!important;transform:none!important}
   .rv img{scale:1!important}
   .fil__f img,.onas__f img,.loc__f img,.dl__f img{translate:none!important}
-  .hero__tlo{transform:none!important}
 }
