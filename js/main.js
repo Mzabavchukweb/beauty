@@ -110,6 +110,84 @@
     doUjawnienia.forEach(function (el) { el.classList.add('on'); });
   }
 
+  /* ── Rozwijanie szczegółów zabiegu ──────────────────────────
+     Natywne <details> otwiera się skokiem: przy liście dwudziestu
+     wskazań strona podskakuje o półtora tysiąca pikseli pod kursorem.
+     Pseudoelement ::details-content tego nie rozwiązuje — sprawdzone
+     w Chrome 131: blok zostaje na 53 px przy treści na 1434 px.
+     Dlatego wysokość animuje skrypt, a znacznik zostaje natywny —
+     bez JavaScriptu i przy „ogranicz ruch" rozwijanie działa jak zwykle. */
+  var rozwijane = document.querySelectorAll('.szcz');
+  if (rozwijane.length && !mniejRuchu && typeof Element.prototype.animate === 'function') {
+    [].forEach.call(rozwijane, function (blok) {
+      var tresc = blok.querySelector('.szcz__g');
+      var uchwyt = blok.querySelector('summary');
+      if (!tresc || !uchwyt) return;
+
+      /* Dolne wcięcie zjeżdża razem z wysokością — przy border-box samo
+         height:0 zostawiłoby pasek grubości wcięcia. */
+      var wciecie = getComputedStyle(tresc).paddingBottom;
+      var ruch = null, zegar = 0, pokolenie = 0, zwijanie = false;
+
+      function przerwij() {
+        pokolenie++;                       /* wszystko starsze przestaje działać */
+        if (zegar) { clearTimeout(zegar); zegar = 0; }
+        if (ruch) { ruch.cancel(); ruch = null; }
+        tresc.style.overflow = '';
+        tresc.style.height = '';
+        tresc.style.paddingBottom = '';
+        tresc.style.opacity = '';
+      }
+
+      function graj(odH, doH, odP, doP, potem) {
+        przerwij();
+        var moje = pokolenie;
+        tresc.style.overflow = 'hidden';
+        ruch = tresc.animate(
+          [{ height: odH + 'px', paddingBottom: odP, opacity: odH ? 1 : 0 },
+           { height: doH + 'px', paddingBottom: doP, opacity: doH ? 1 : 0 }],
+          { duration: 300, easing: 'cubic-bezier(.22,.61,.36,1)' });
+
+        /* Sprzątanie wykonuje się dokładnie raz i wykonuje się zawsze.
+           Gdyby zależało tylko od onfinish, zatrzymana animacja zostawiłaby
+           overflow:hidden na zwiniętej wysokości — czyli treść otwartego
+           bloku byłaby niewidoczna. Zegar jest zapasem na wypadek, gdyby
+           zdarzenie nigdy nie przyszło; licznik pokoleń pilnuje, żeby
+           spóźniony zapas nie zamknął bloku otwartego w międzyczasie. */
+        function domknij() {
+          if (moje !== pokolenie) return;
+          if (zegar) { clearTimeout(zegar); zegar = 0; }
+          /* Samo wyczyszczenie stylów nie wystarcza: wstrzymana animacja
+             dalej narzuca swoją wysokość, więc treść zostałaby zwinięta
+             mimo otwartego bloku. Po zakończeniu cancel nic nie zmienia. */
+          if (ruch) { try { ruch.cancel(); } catch (e) {} }
+          ruch = null;
+          tresc.style.overflow = '';
+          tresc.style.height = '';
+          tresc.style.paddingBottom = '';
+          tresc.style.opacity = '';
+          pokolenie++;
+          if (potem) potem();
+        }
+        ruch.onfinish = domknij;
+        zegar = setTimeout(domknij, 600);
+      }
+
+      uchwyt.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (blok.open && !zwijanie) {
+          zwijanie = true;
+          var h = tresc.offsetHeight;
+          graj(h, 0, wciecie, '0px', function () { blok.open = false; zwijanie = false; });
+        } else {
+          zwijanie = false;
+          if (!blok.open) blok.open = true;
+          graj(0, tresc.offsetHeight, '0px', wciecie, null);
+        }
+      });
+    });
+  }
+
   /* ── Pasek zabiegów: gdzie jestem ───────────────────────────
      Zakładka masaży ma czternaście pozycji i cztery ekrany wysokości.
      Bez tego przyklejony pasek jest spisem, a nie nawigacją.
