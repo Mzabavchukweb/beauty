@@ -348,7 +348,9 @@
     'Kriokomora': 'p2-kriokomora',
     'Hydromasaż': 'p2-hydromasaz',
     'Sauna Infrared': 'p2-sauna',
-    'Masaż twarzy': 'z-mas-twarz'
+    'Masaż twarzy': 'p4-mas-twarz',
+    'Masaż peelingujący': 'p4-mas-peeling',
+    'Masaż olejkiem arganowym': 'p4-mas-argan'
   };
   var KATEGORIE = [['all', 'Wszystko'], ['twarz', 'Twarz'], ['cialo', 'Ciało'], ['regen', 'Regeneracja']];
 
