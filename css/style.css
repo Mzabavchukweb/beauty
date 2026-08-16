@@ -761,8 +761,11 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
 .zbr{padding:var(--s8) 0;background:var(--ciel-1)}
 .zbr__g{display:flex;flex-direction:column;gap:var(--s8)}
 
+/* Kadr i tekst startują od jednej linii. Przy wyśrodkowaniu każdy blok
+   miał inne przesunięcie — zmierzone +65, +34 i −5 px w trzech kolejnych
+   — i rząd wyglądał na poskładany z osobnych kawałków. */
 .zbr__b{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.04fr);
-  gap:var(--s7);align-items:center;scroll-margin-top:calc(var(--rzad-h-mal) + 70px)}
+  gap:var(--s7);align-items:start;scroll-margin-top:calc(var(--rzad-h-mal) + 70px)}
 .zbr__b:nth-child(even) .zbr__f{order:2}
 .zbr__f{overflow:hidden;background:var(--ciel-3)}
 .zbr__f img{width:100%;aspect-ratio:4/5;object-fit:cover}
@@ -779,12 +782,15 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
 /* Ceny: nazwa wariantu po lewej, kwota po prawej, kreska między nimi.
    Kwota tabularnie, żeby przecinki stały w jednej kolumnie.        */
 .cena{list-style:none;margin:0 0 var(--s5);padding:0;max-width:var(--miara)}
-.cena li{display:flex;align-items:baseline;gap:14px;padding:14px 0;
+/* Czas należy do wariantu, więc stoi tuż przy nim. Kwota odjeżdża
+   do prawej krawędzi — wtedy wszystkie ceny czyta się w jednej kolumnie. */
+.cena li{display:flex;align-items:baseline;gap:12px;padding:14px 0;
   border-top:1px solid var(--linia);font-size:var(--t3)}
 .cena li:last-child{border-bottom:1px solid var(--linia)}
-.cena span{flex:1;min-width:0;overflow-wrap:anywhere;color:var(--ink)}
+.cena span{min-width:0;overflow-wrap:anywhere;color:var(--ink)}
 .cena i{font-style:normal;font-size:var(--t2);color:var(--ink-2);white-space:nowrap}
-.cena b{font-variant-numeric:tabular-nums;font-weight:600;color:var(--akc);white-space:nowrap}
+.cena b{margin-left:auto;padding-left:18px;font-variant-numeric:tabular-nums;
+  font-weight:600;color:var(--akc);white-space:nowrap}
 .cena--brak li b{color:var(--ink-2);font-weight:500}
 
 /* Wiersze bez zdjęcia — ten sam rytm, mniejszy rejestr. */
@@ -841,8 +847,11 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
    Metryka to dwie liczby ze źródła — czas zabiegu i zalecana
    liczba powtórzeń. Stoją nad ceną, bo przy serii zabiegów to
    one decydują o rachunku, a nie kwota jednostkowa.           */
+/* Pasma treści rozdziela dokładnie jedna kreska. Metryka rysuje górną,
+   cennik własne, szczegóły domykają — inaczej między metryką a ceną
+   biegły dwie linie w odstępie 32 px. */
 .zbr__meta{display:flex;flex-wrap:wrap;gap:var(--s3) var(--s5);margin:0 0 var(--s4);
-  padding:var(--s3) 0;border-block:1px solid var(--linia)}
+  padding:var(--s3) 0 0;border-top:1px solid var(--linia)}
 .zbr__meta div{margin:0}
 .zbr__meta dt{font-size:var(--t1);font-weight:600;letter-spacing:var(--ls-w);
   text-transform:uppercase;color:var(--ink-2);margin-bottom:5px}
@@ -851,7 +860,7 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
 /* Wskazania, efekty i przeciwwskazania bywają listą na dwadzieścia
    pozycji. Rozwijane, bo rozwinięte zagłuszyłyby samą ofertę,
    a bez nich strona nie niosłaby tego, co niesie źródło.       */
-.szcz{margin:0 0 var(--s5);border-top:1px solid var(--linia);max-width:var(--miara)}
+.szcz{margin:0 0 var(--s5);max-width:var(--miara)}
 .szcz summary{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);
   min-height:var(--cel);padding:14px 0;cursor:pointer;list-style:none;
   font-size:var(--t2);font-weight:600;letter-spacing:var(--ls-w);text-transform:uppercase;
