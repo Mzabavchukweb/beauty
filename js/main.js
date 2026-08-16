@@ -336,25 +336,18 @@
     ['regen', 'Kriokomora',               'Na całe ciało',            '5 min',         '50 zł'],
     ['regen', 'Hydromasaż',               'Masaż wodny',              '30 min',        '90 zł']
   ];
-  /* Zdjęcie idzie za techniką, nie za kategorią — inaczej cztery warianty
-     Endermoliftu dostają ten sam kadr i pierwszy rząd wygląda na pomyłkę.
-     Klucz „kategoria|nazwa" wyprzedza samą nazwę: Accent Prime na twarz
-     i na ciało to ten sam aparat przy dwóch różnych zabiegach.
-     Kriokomory nie ma na liście — nie mamy kadru, który ją pokazuje,
-     a karta bez zdjęcia zostaje po prostu ciemna i czytelna. */
+  /* Karta dostaje zdjęcie tylko wtedy, gdy mamy kadr faktycznie pokazujący
+     ten zabieg. Zabiegi aparaturowe — Endermolift, Accent Prime, kriolipoliza,
+     endermologia, kriokomora — zostają bez kadru: w bazie zdjęć nie ma nic,
+     co je przedstawia, a karta bez zdjęcia jest ciemna i czytelna. */
   var FOTO = {
-    'twarz|Accent Prime': 'accent-twarz',
-    'Endermolift': 'zab-twarz',
     'Masaż twarzy': 'mas-twarz',
-    'Accent Prime': 'zab-fala',
-    'Endermologia': 'zab-cialo',
-    'Endermologia lecznicza': 'mas-drenaz',
-    'Kriolipoliza': 'zab-snieg',
     'Masaż peelingujący': 'mas-peeling',
     'Masaż relaksacyjny': 'mas-relaks',
     'Masaż olejkiem arganowym': 'mas-argan',
+    'Endermologia lecznicza': 'mas-drenaz',
     'Hydromasaż': 'mas-hydro',
-    'Sauna Infrared': 'zab-zar'
+    'Sauna Infrared': 'sauna'
   };
   var KATEGORIE = [['all', 'Wszystko'], ['twarz', 'Twarz'], ['cialo', 'Ciało'], ['regen', 'Regeneracja']];
 
