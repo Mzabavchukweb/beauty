@@ -871,13 +871,24 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
   transform:translateY(-3px) rotate(45deg);transition:transform .24s var(--ease)}
 .szcz[open] summary::after{transform:translateY(2px) rotate(-135deg)}
 .szcz summary:focus-visible{outline:2px solid var(--akc);outline-offset:4px}
+/* Rozwinięty blok niesie całą treść ze strony oferty: dalszy ciąg opisu,
+   przebieg zabiegu, wskazania, efekty, zalecenia przed i po, przeciwwskazania.
+   Akapity idą pełną szerokością, listy w dwóch kolumnach — inaczej wskazania
+   po dwadzieścia pozycji rozciągają blok na trzy ekrany. */
 .szcz__g{display:grid;gap:var(--s4);padding:0 0 var(--s4)}
+.szcz__p{margin:0 0 var(--s3);color:var(--ink-2);font-size:var(--t3);line-height:var(--lh3)}
+.szcz__k{break-inside:avoid}
 .szcz__t{margin:0 0 10px;font-size:var(--t1);font-weight:600;letter-spacing:var(--ls-w);
   text-transform:uppercase;color:var(--ink-2)}
+.szcz__pod{display:block;margin-top:4px;font-weight:500;letter-spacing:var(--ls-0);
+  text-transform:none;font-size:var(--t2);color:var(--akc)}
 .szcz ul{margin:0;padding-left:1.15em;color:var(--ink-2);font-size:var(--t3);line-height:var(--lh3)}
 .szcz li{margin-bottom:5px}
 .szcz li::marker{color:var(--akc-2)}
-@media(min-width:900px){.szcz__g{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4) var(--s6)}}
+@media(min-width:900px){
+  .szcz__g{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s4) var(--s6)}
+  .szcz__p{grid-column:1/-1;max-width:var(--miara)}
+}
 
 /* Cennik zbiorczy — tam, gdzie Booksy nie przypisuje pozycji do
    pojedynczego zabiegu (rehabilitacja). Lepiej podać go raz uczciwie,
