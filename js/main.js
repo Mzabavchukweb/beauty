@@ -339,10 +339,18 @@
   /* Zdjęcie idzie za techniką, nie za kategorią — inaczej cztery warianty
      Endermoliftu dostają ten sam kadr i pierwszy rząd wygląda na pomyłkę. */
   var FOTO = {
-    'Endermolift': 'twarz', 'Masaż twarzy': 'dlonie', 'Accent Prime': 'fala',
-    'Endermologia': 'cialo', 'Endermologia lecznicza': 'cialo', 'Kriolipoliza': 'snieg',
-    'Kriokomora': 'snieg', 'Masaż peelingujący': 'dlonie', 'Masaż relaksacyjny': 'dlonie',
-    'Masaż olejkiem arganowym': 'dlonie', 'Hydromasaż': 'kropla', 'Sauna Infrared': 'zar'
+    'twarz|Accent Prime': 'z-accent-twarz',
+    'Endermolift': 'z-endermolift',
+    'Accent Prime': 'z-accent-cialo',
+    'Endermologia': 'z-endermologia',
+    'Endermologia lecznicza': 'z-endermologia',
+    'Kriolipoliza': 'z-kriolipoliza',
+    'Hydromasaż': 'zab-kropla',
+    'Sauna Infrared': 'zab-zar',
+    'Masaż twarzy': 'zab-dlonie',
+    'Masaż peelingujący': 'zab-dlonie',
+    'Masaż relaksacyjny': 'zab-dlonie',
+    'Masaż olejkiem arganowym': 'zab-dlonie'
   };
   var KATEGORIE = [['all', 'Wszystko'], ['twarz', 'Twarz'], ['cialo', 'Ciało'], ['regen', 'Regeneracja']];
 
