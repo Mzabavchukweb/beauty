@@ -345,9 +345,10 @@
     'Endermologia': 'p1-endermologia',
     'Endermologia lecznicza': 'p1-endermologia',
     'Kriolipoliza': 'p1-kriolipoliza',
-    'Masaż twarzy': 'z-mas-twarz',
-    'Hydromasaż': 'zab-kropla',
-    'Sauna Infrared': 'zab-zar'
+    'Kriokomora': 'p2-kriokomora',
+    'Hydromasaż': 'p2-hydromasaz',
+    'Sauna Infrared': 'p2-sauna',
+    'Masaż twarzy': 'z-mas-twarz'
   };
   var KATEGORIE = [['all', 'Wszystko'], ['twarz', 'Twarz'], ['cialo', 'Ciało'], ['regen', 'Regeneracja']];
 
