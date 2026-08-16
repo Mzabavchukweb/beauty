@@ -337,12 +337,24 @@
     ['regen', 'Hydromasaż',               'Masaż wodny',              '30 min',        '90 zł']
   ];
   /* Zdjęcie idzie za techniką, nie za kategorią — inaczej cztery warianty
-     Endermoliftu dostają ten sam kadr i pierwszy rząd wygląda na pomyłkę. */
+     Endermoliftu dostają ten sam kadr i pierwszy rząd wygląda na pomyłkę.
+     Klucz „kategoria|nazwa" wyprzedza samą nazwę: Accent Prime na twarz
+     i na ciało to ten sam aparat przy dwóch różnych zabiegach.
+     Kriokomory nie ma na liście — nie mamy kadru, który ją pokazuje,
+     a karta bez zdjęcia zostaje po prostu ciemna i czytelna. */
   var FOTO = {
-    'Endermolift': 'twarz', 'Masaż twarzy': 'dlonie', 'Accent Prime': 'fala',
-    'Endermologia': 'cialo', 'Endermologia lecznicza': 'cialo', 'Kriolipoliza': 'snieg',
-    'Kriokomora': 'snieg', 'Masaż peelingujący': 'dlonie', 'Masaż relaksacyjny': 'dlonie',
-    'Masaż olejkiem arganowym': 'dlonie', 'Hydromasaż': 'kropla', 'Sauna Infrared': 'zar'
+    'twarz|Accent Prime': 'accent-twarz',
+    'Endermolift': 'zab-twarz',
+    'Masaż twarzy': 'mas-twarz',
+    'Accent Prime': 'zab-fala',
+    'Endermologia': 'zab-cialo',
+    'Endermologia lecznicza': 'mas-drenaz',
+    'Kriolipoliza': 'zab-snieg',
+    'Masaż peelingujący': 'mas-peeling',
+    'Masaż relaksacyjny': 'mas-relaks',
+    'Masaż olejkiem arganowym': 'mas-argan',
+    'Hydromasaż': 'mas-hydro',
+    'Sauna Infrared': 'zab-zar'
   };
   var KATEGORIE = [['all', 'Wszystko'], ['twarz', 'Twarz'], ['cialo', 'Ciało'], ['regen', 'Regeneracja']];
 
@@ -379,8 +391,10 @@
       });
     }
 
-    function zdjecie(nazwa) {
-      return '<img class="karta__f" src="assets/img/zab-' + (FOTO[nazwa] || 'twarz') + '.webp" alt="" ' +
+    function zdjecie(kategoria, nazwa) {
+      var plik = FOTO[kategoria + '|' + nazwa] || FOTO[nazwa];
+      if (!plik) return '';
+      return '<img class="karta__f" src="assets/img/' + plik + '.webp" alt="" ' +
              'width="760" height="950" loading="lazy" decoding="async">';
     }
 
@@ -394,7 +408,7 @@
       wrap.innerHTML = lista.map(function (p) {
         var czas = p[3] ? '<p class="karta__t">' + p[3] + '</p>' : '';
         if (widok === 'karty') {
-          return '<article class="karta">' + zdjecie(p[1]) +
+          return '<article class="karta">' + zdjecie(p[0], p[1]) +
             '<p class="karta__e">' + p[1] + '</p>' +
             '<h3 class="karta__n">' + p[2] + '</h3>' + czas.replace('karta__t', 'karta__t') +
             '<p class="karta__c">' + p[4] + '</p>' +
