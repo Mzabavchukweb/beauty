@@ -387,8 +387,13 @@
       });
     }
 
-    function zdjecie(nazwa) {
-      return '<img class="karta__f" src="assets/img/zab-' + (FOTO[nazwa] || 'twarz') + '.webp" alt="" ' +
+    function zdjecie(kategoria, nazwa) {
+      /* Klucz „kategoria|nazwa" wyprzedza samą nazwę: Accent Prime na twarz
+         i na ciało to ten sam aparat przy dwóch różnych zabiegach.
+         Brak wpisu znaczy brak kadru — karta zostaje ciemna i czytelna. */
+      var plik = FOTO[kategoria + '|' + nazwa] || FOTO[nazwa];
+      if (!plik) return '';
+      return '<img class="karta__f" src="assets/img/' + plik + '.webp" alt="" ' +
              'width="760" height="950" loading="lazy" decoding="async">';
     }
 
@@ -402,7 +407,7 @@
       wrap.innerHTML = lista.map(function (p) {
         var czas = p[3] ? '<p class="karta__t">' + p[3] + '</p>' : '';
         if (widok === 'karty') {
-          return '<article class="karta">' + zdjecie(p[1]) +
+          return '<article class="karta">' + zdjecie(p[0], p[1]) +
             '<p class="karta__e">' + p[1] + '</p>' +
             '<h3 class="karta__n">' + p[2] + '</h3>' + czas.replace('karta__t', 'karta__t') +
             '<p class="karta__c">' + p[4] + '</p>' +
