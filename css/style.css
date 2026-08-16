@@ -814,6 +814,19 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
 .zbr__f--maly img{aspect-ratio:3/2}
 @media(max-width:1024px){.zbr__f--maly{max-width:none;margin-top:var(--s3)}}
 
+
+/* ── NAJCZĘSTSZE PYTANIA ────────────────────────────────────
+   Pytania stawiam ja, odpowiedzi składam wyłącznie z danych:
+   czasy i liczby zabiegów ze stron oferty, kwoty z Booksy, adres
+   i godziny z potwierdzonych odpowiedzi. Krótkie, konkretne akapity —
+   takie cytują wyszukiwarki odpowiadające zdaniem, nie listą linków. */
+.faq{padding:var(--s8) 0;background:var(--ciel-1);border-top:1px solid var(--linia)}
+.faq__g{display:grid;gap:var(--s5) var(--s6)}
+.faq__p{padding-top:var(--s4);border-top:1px solid var(--linia)}
+.faq__p h3{margin:0 0 12px;font-size:var(--t5);line-height:var(--lh1);letter-spacing:var(--ls-t)}
+.faq__p p{margin:0;color:var(--ink-2);font-size:var(--t3);line-height:var(--lh3);max-width:var(--miara)}
+@media(min-width:900px){.faq__g{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
 /* ── ZAMKNIĘCIE ZAKŁADKI ────────────────────────────────────── */
 .kon{padding:var(--s8) 0;background:var(--ciel-2);border-top:1px solid var(--linia)}
 .kon__g{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--s6);align-items:center}
