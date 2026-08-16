@@ -336,18 +336,13 @@
     ['regen', 'Kriokomora',               'Na całe ciało',            '5 min',         '50 zł'],
     ['regen', 'Hydromasaż',               'Masaż wodny',              '30 min',        '90 zł']
   ];
-  /* Karta dostaje zdjęcie tylko wtedy, gdy mamy kadr faktycznie pokazujący
-     ten zabieg. Zabiegi aparaturowe — Endermolift, Accent Prime, kriolipoliza,
-     endermologia, kriokomora — zostają bez kadru: w bazie zdjęć nie ma nic,
-     co je przedstawia, a karta bez zdjęcia jest ciemna i czytelna. */
+  /* Zdjęcie idzie za techniką, nie za kategorią — inaczej cztery warianty
+     Endermoliftu dostają ten sam kadr i pierwszy rząd wygląda na pomyłkę. */
   var FOTO = {
-    'Masaż twarzy': 'mas-twarz',
-    'Masaż peelingujący': 'mas-peeling',
-    'Masaż relaksacyjny': 'mas-relaks',
-    'Masaż olejkiem arganowym': 'mas-argan',
-    'Endermologia lecznicza': 'mas-drenaz',
-    'Hydromasaż': 'mas-hydro',
-    'Sauna Infrared': 'sauna'
+    'Endermolift': 'twarz', 'Masaż twarzy': 'dlonie', 'Accent Prime': 'fala',
+    'Endermologia': 'cialo', 'Endermologia lecznicza': 'cialo', 'Kriolipoliza': 'snieg',
+    'Kriokomora': 'snieg', 'Masaż peelingujący': 'dlonie', 'Masaż relaksacyjny': 'dlonie',
+    'Masaż olejkiem arganowym': 'dlonie', 'Hydromasaż': 'kropla', 'Sauna Infrared': 'zar'
   };
   var KATEGORIE = [['all', 'Wszystko'], ['twarz', 'Twarz'], ['cialo', 'Ciało'], ['regen', 'Regeneracja']];
 
@@ -384,10 +379,8 @@
       });
     }
 
-    function zdjecie(kategoria, nazwa) {
-      var plik = FOTO[kategoria + '|' + nazwa] || FOTO[nazwa];
-      if (!plik) return '';
-      return '<img class="karta__f" src="assets/img/' + plik + '.webp" alt="" ' +
+    function zdjecie(nazwa) {
+      return '<img class="karta__f" src="assets/img/zab-' + (FOTO[nazwa] || 'twarz') + '.webp" alt="" ' +
              'width="760" height="950" loading="lazy" decoding="async">';
     }
 
@@ -401,7 +394,7 @@
       wrap.innerHTML = lista.map(function (p) {
         var czas = p[3] ? '<p class="karta__t">' + p[3] + '</p>' : '';
         if (widok === 'karty') {
-          return '<article class="karta">' + zdjecie(p[0], p[1]) +
+          return '<article class="karta">' + zdjecie(p[1]) +
             '<p class="karta__e">' + p[1] + '</p>' +
             '<h3 class="karta__n">' + p[2] + '</h3>' + czas.replace('karta__t', 'karta__t') +
             '<p class="karta__c">' + p[4] + '</p>' +
