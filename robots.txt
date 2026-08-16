@@ -1,0 +1,5 @@
+# Reha Beauty
+User-agent: *
+Allow: /
+
+Sitemap: https://mzabavchukweb.github.io/beauty/sitemap.xml
