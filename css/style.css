@@ -800,6 +800,14 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
   .zbr__g{gap:var(--s7)}
 }
 
+
+/* Kadr w wierszu: lewa kolumna miała pod nazwą pustkę na dwie trzecie
+   wysokości. Proporcja szersza niż w blokach, żeby wiersz nie urósł
+   do wysokości bloku ze zdjęciem. */
+.zbr__f--maly{margin-top:var(--s4);max-width:420px}
+.zbr__f--maly img{aspect-ratio:3/2}
+@media(max-width:1024px){.zbr__f--maly{max-width:none;margin-top:var(--s3)}}
+
 /* ── ZAMKNIĘCIE ZAKŁADKI ────────────────────────────────────── */
 .kon{padding:var(--s8) 0;background:var(--ciel-2);border-top:1px solid var(--linia)}
 .kon__g{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--s6);align-items:center}
