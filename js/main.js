@@ -347,7 +347,7 @@
     'Kriolipoliza': 'z-kriolipoliza',
     'Hydromasaż': 'zab-kropla',
     'Sauna Infrared': 'zab-zar',
-    'Masaż twarzy': 'zab-dlonie',
+    'Masaż twarzy': 'z-mas-twarz',
     'Masaż peelingujący': 'zab-dlonie',
     'Masaż relaksacyjny': 'zab-dlonie',
     'Masaż olejkiem arganowym': 'zab-dlonie'
