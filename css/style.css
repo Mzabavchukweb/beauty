@@ -925,6 +925,22 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
 .war__f img{width:100%;aspect-ratio:var(--prop);object-fit:cover}
 @media(max-width:760px){.war__g{grid-template-columns:minmax(0,1fr);gap:var(--s5)}}
 
+
+/* ── CZYTELNOŚĆ NA TELEFONIE ────────────────────────────────
+   Najmniejszy stopień pisma niesie same wersaliki z szerokim
+   światłem: okruchy, nadtytuły, etykiety metryki, licznik koszyka.
+   Przy 12,5 px na telefonie to najtrudniejszy do odczytania tekst
+   na stronie, więc jeden stopień w górę — zmiana idzie przez token,
+   nie przez łatanie pojedynczych reguł.
+   Cele dotykowe schodzące poniżej 44 px dostają wysokość palca;
+   WCAG wymaga 24, ale kciuk nie czyta norm.                     */
+@media(max-width:760px){
+  :root{--t1:.84rem}
+  .stopka__pr a{display:inline-flex;align-items:center;min-height:44px}
+  .inne__k .fil__w{min-height:44px}
+  .okruch a,.okruch li>span{letter-spacing:.08em}
+}
+
 @media(prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
   .rv{opacity:1!important;transform:none!important}
