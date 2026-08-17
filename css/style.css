@@ -793,6 +793,38 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
   font-weight:600;color:var(--akc);white-space:nowrap}
 .cena--brak li b{color:var(--ink-2);font-weight:500}
 
+/* Pakiety do kupienia od ręki. Blok stoi za cennikiem zabiegu i różni się
+   od niego tłem, bo tamten informuje, a ten prowadzi do płatności — bez tej
+   różnicy „Do koszyka" czytałoby się jak kolejny wiersz z ceną.
+   Ukryty do czasu, aż skrypt potwierdzi, że sklep pod tą domeną odpowiada. */
+.kup{margin:0 0 var(--s5);padding:var(--s3) var(--s4);background:var(--ciel-1);
+  border-left:3px solid var(--akc);max-width:var(--miara)}
+.kup[hidden]{display:none}
+.kup__t{margin:0 0 var(--s2);font-size:var(--t1);font-weight:600;
+  letter-spacing:var(--ls-w);text-transform:uppercase;color:var(--ink-2)}
+.kup__l{list-style:none;margin:0;padding:0}
+.kup__l li{display:flex;align-items:center;flex-wrap:wrap;gap:12px;padding:12px 0;
+  border-top:1px solid var(--linia)}
+.kup__l li:first-child{border-top:0}
+.kup__l span{min-width:0;overflow-wrap:anywhere;font-size:var(--t3);color:var(--ink)}
+.kup__l b{margin-left:auto;font-variant-numeric:tabular-nums;font-size:var(--t3);color:var(--ink)}
+.kup__b{display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  min-height:var(--cel);padding:11px 20px;border:1px solid var(--ink);background:var(--ink);
+  color:var(--biel);font-size:var(--t1);font-weight:600;letter-spacing:var(--ls-w);
+  text-transform:uppercase;cursor:pointer;
+  transition:background .2s var(--ease),border-color .2s var(--ease)}
+.kup__b:hover{background:var(--akc);border-color:var(--akc)}
+.kup__b:active{transform:translateY(1px)}
+.kup__b[aria-busy=true]{background:var(--akc);border-color:var(--akc)}
+.kup__b .ic{width:20px;height:20px}
+
+/* Na wąskim ekranie przycisk schodzi pod kwotę i bierze całą szerokość —
+   inaczej przy dłuższej nazwie pakietu zostaje mu kilkadziesiąt pikseli. */
+@media(max-width:560px){
+  .kup__l li{gap:8px}
+  .kup__b{flex:1 0 100%}
+}
+
 /* Wiersze bez zdjęcia — ten sam rytm, mniejszy rejestr. */
 .zbr__r{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);
   gap:var(--s6);padding-top:var(--s6);border-top:1px solid var(--linia);

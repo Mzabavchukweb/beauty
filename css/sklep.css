@@ -1,0 +1,525 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   Reha Beauty — WooCommerce na żetonach serwisu
+
+   Arkusz wchodzi po `style.css` i przykrywa domyślną skórkę WooCommerce.
+   Wtyczkowych arkuszy nie wyłączamy: niosą układ tabel, komunikatów i pól,
+   który sam trzeba by odtworzyć, a każdy pominięty kawałek to usterka
+   w kasie — czyli w cudzych pieniądzach.
+
+   Przyciski są tu inne niż w serwisie i to jest wybór, nie niedopatrzenie.
+   Odnośnik edytorski — podkreślenie i wersaliki — jest za cichy na „Kupuję
+   i płacę”. Akcje główne dostają pełne wypełnienie, poboczne sam obrys.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Oprawa ──────────────────────────────────────────────────────────── */
+
+.sklep,
+.tresc__k {
+  padding-block: var(--s6) var(--s8);
+}
+
+/* Wąska kolumna dla stron tekstowych: regulamin i polityka mają po kilka
+   tysięcy słów, a wiersz dłuższy niż miara robi się nieczytelny. */
+.tresc__k {
+  max-width: var(--miara);
+  font-size: var(--t3);
+  line-height: var(--lh3);
+  color: var(--ink-2);
+}
+
+.tresc__k > * + * { margin-top: var(--s3); }
+
+.tresc__k h2,
+.tresc__k h3 {
+  margin-top: var(--s6);
+  color: var(--ink);
+  letter-spacing: var(--ls-t);
+}
+
+.tresc__k h2 { font-size: var(--t6); }
+.tresc__k h3 { font-size: var(--t5); }
+
+.tresc__k ul,
+.tresc__k ol { padding-left: 1.3em; }
+.tresc__k li + li { margin-top: var(--s1); }
+
+.tresc__k a {
+  color: var(--akc);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Nagłówek strony sklepu jest niższy niż na zakładkach — nie ma pod nim
+   zdjęcia ani metryki, więc pełny odstęp zostawiałby pustą płachtę. */
+.pg--waski { padding-block: calc(var(--rzad-h) + var(--s6)) 0; }
+.pg--waski .pg__g { display: block; }
+
+/* ── Przyciski ───────────────────────────────────────────────────────── */
+
+.woocommerce .button,
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce input.button,
+.woocommerce #respond input#submit,
+.woocommerce a.button.alt,
+.woocommerce button.button.alt,
+.woocommerce input.button.alt {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--cel);
+  padding: 13px 26px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--ink);
+  color: var(--biel);
+  font-family: Onest, "Onest zapas", system-ui, sans-serif;
+  font-size: var(--t1);
+  font-weight: 600;
+  letter-spacing: var(--ls-w);
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background .2s var(--ease), color .2s var(--ease);
+}
+
+.woocommerce .button:hover,
+.woocommerce a.button:hover,
+.woocommerce button.button:hover,
+.woocommerce input.button:hover,
+.woocommerce a.button.alt:hover,
+.woocommerce button.button.alt:hover,
+.woocommerce input.button.alt:hover {
+  background: var(--akc);
+  border-color: var(--akc);
+  color: var(--biel);
+}
+
+.woocommerce .button:active { transform: translateY(1px); }
+
+/* Akcje poboczne — „Aktualizuj koszyk”, „Zastosuj kupon” — tylko obrys,
+   żeby nie konkurowały wzrokowo z przejściem do kasy. */
+.woocommerce button[name="update_cart"],
+.woocommerce button[name="apply_coupon"],
+.woocommerce .button.wc-backward {
+  background: transparent;
+  color: var(--ink);
+}
+
+.woocommerce button[name="update_cart"]:hover,
+.woocommerce button[name="apply_coupon"]:hover,
+.woocommerce .button.wc-backward:hover {
+  background: var(--ink);
+  color: var(--biel);
+}
+
+.woocommerce button[disabled],
+.woocommerce .button:disabled {
+  background: var(--ciel-4);
+  border-color: var(--ciel-4);
+  color: var(--ink-2);
+  cursor: not-allowed;
+}
+
+/* Widoczne ognisko klawiatury — kasa musi dać się przejść samym tabulatorem. */
+.woocommerce .button:focus-visible,
+.woocommerce input:focus-visible,
+.woocommerce select:focus-visible,
+.woocommerce textarea:focus-visible {
+  outline: 2px solid var(--akc);
+  outline-offset: 2px;
+}
+
+/* ── Pola formularzy ─────────────────────────────────────────────────── */
+
+.woocommerce form .form-row { padding: 0; margin: 0 0 var(--s3); }
+
+.woocommerce form .form-row label,
+.woocommerce-account label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: var(--t1);
+  font-weight: 600;
+  letter-spacing: var(--ls-w);
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.woocommerce form .form-row input.input-text,
+.woocommerce form .form-row textarea,
+.woocommerce form .form-row select,
+.woocommerce input[type="text"],
+.woocommerce input[type="email"],
+.woocommerce input[type="tel"],
+.woocommerce input[type="password"],
+.woocommerce input[type="number"],
+.woocommerce textarea,
+.woocommerce select {
+  width: 100%;
+  min-height: var(--cel);
+  padding: 12px 14px;
+  border: 1px solid var(--linia-m);
+  border-radius: 0;
+  background: var(--biel);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: var(--t3);
+  line-height: var(--lh2);
+}
+
+.woocommerce textarea { min-height: 120px; resize: vertical; }
+
+.woocommerce form .form-row.woocommerce-invalid input.input-text {
+  border-color: #9d3b2f;
+}
+
+.woocommerce .required { color: #9d3b2f; text-decoration: none; }
+
+/* Lista krajów WooCommerce chodzi na select2 — bez tego wygląda obco. */
+.woocommerce .select2-container--default .select2-selection--single {
+  height: auto;
+  min-height: var(--cel);
+  padding: 6px 8px;
+  border: 1px solid var(--linia-m);
+  border-radius: 0;
+  background: var(--biel);
+}
+
+.woocommerce .select2-container--default .select2-selection--single
+  .select2-selection__rendered {
+  line-height: var(--lh2);
+  color: var(--ink);
+  padding-left: 6px;
+}
+
+/* ── Ilość ───────────────────────────────────────────────────────────── */
+
+.woocommerce .quantity .qty {
+  width: 84px;
+  min-height: var(--cel);
+  padding: 10px;
+  border: 1px solid var(--linia-m);
+  border-radius: 0;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Tabele: koszyk, podsumowanie, zamówienia ────────────────────────── */
+
+.woocommerce table.shop_table,
+.woocommerce table.shop_attributes {
+  border: 0;
+  border-radius: 0;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.woocommerce table.shop_table th {
+  padding: 0 0 14px;
+  border: 0;
+  border-bottom: 1px solid var(--linia-m);
+  text-align: left;
+  font-size: var(--t1);
+  font-weight: 600;
+  letter-spacing: var(--ls-w);
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.woocommerce table.shop_table td {
+  padding: 18px 0;
+  border: 0;
+  border-bottom: 1px solid var(--linia);
+  font-size: var(--t3);
+  color: var(--ink);
+  vertical-align: middle;
+}
+
+.woocommerce table.shop_table td.product-name a { color: var(--ink); font-weight: 600; }
+.woocommerce table.shop_table td.product-thumbnail img { width: 84px; }
+
+/* Kwoty w kolumnie równają się cyfra pod cyfrą — jak w cennikach zabiegów. */
+.woocommerce table.shop_table td.product-total,
+.woocommerce table.shop_table td.product-subtotal,
+.woocommerce table.shop_table td[data-title="Suma"],
+.woocommerce .cart_totals td,
+.woocommerce .order-total td {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.woocommerce .cart_totals .order-total th,
+.woocommerce .cart_totals .order-total td {
+  border-top: 1px solid var(--ink);
+  font-size: var(--t4);
+  color: var(--ink);
+}
+
+.woocommerce a.remove {
+  width: 28px; height: 28px; line-height: 26px;
+  color: var(--ink-2) !important;
+  border: 1px solid var(--linia-m);
+  border-radius: 0;
+  font-weight: 400;
+}
+
+.woocommerce a.remove:hover {
+  background: var(--ink);
+  color: var(--biel) !important;
+}
+
+/* ── Ceny ────────────────────────────────────────────────────────────── */
+
+.woocommerce .price,
+.woocommerce .amount,
+.woocommerce span.woocommerce-Price-amount {
+  color: var(--ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.woocommerce .price del { color: var(--ink-2); font-weight: 400; }
+.woocommerce .price ins { text-decoration: none; }
+
+/* ── Komunikaty ──────────────────────────────────────────────────────── */
+
+.woocommerce-message,
+.woocommerce-info,
+.woocommerce-error,
+.woocommerce-noreviews {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s3);
+  margin: 0 0 var(--s5);
+  padding: var(--s3) var(--s4);
+  border: 0;
+  border-left: 3px solid var(--akc);
+  border-radius: 0;
+  background: var(--ciel-1);
+  color: var(--ink);
+  font-size: var(--t3);
+  list-style: none;
+}
+
+.woocommerce-message::before,
+.woocommerce-info::before,
+.woocommerce-error::before { content: none; }
+
+.woocommerce-error { border-left-color: #9d3b2f; }
+.woocommerce-message .button,
+.woocommerce-info .button { margin-left: auto; }
+
+/* ── Lista produktów ─────────────────────────────────────────────────── */
+
+.woocommerce ul.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: var(--s5);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.woocommerce ul.products::before,
+.woocommerce ul.products::after { content: none; }
+
+.woocommerce ul.products li.product {
+  width: auto;
+  margin: 0;
+  padding: 0;
+  float: none;
+  text-align: left;
+}
+
+.woocommerce ul.products li.product a img {
+  margin: 0 0 var(--s3);
+  border-radius: 0;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.woocommerce ul.products li.product .woocommerce-loop-product__title {
+  padding: 0;
+  font-size: var(--t4);
+  font-weight: 600;
+  letter-spacing: var(--ls-t);
+  color: var(--ink);
+}
+
+.woocommerce ul.products li.product .price {
+  display: block;
+  margin: var(--s1) 0 var(--s3);
+  font-size: var(--t3);
+}
+
+.woocommerce ul.products li.product .button { margin: 0; }
+
+.woocommerce .woocommerce-result-count,
+.woocommerce .woocommerce-ordering { margin-bottom: var(--s4); }
+
+/* ── Karta produktu ──────────────────────────────────────────────────── */
+
+.woocommerce div.product { display: grid; gap: var(--s6) var(--s7); }
+
+@media (min-width: 900px) {
+  .woocommerce div.product { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+  .woocommerce div.product .woocommerce-tabs,
+  .woocommerce div.product .related { grid-column: 1 / -1; }
+}
+
+.woocommerce div.product div.images,
+.woocommerce div.product div.summary { width: auto; float: none; margin: 0; }
+
+.woocommerce div.product .product_title { font-size: var(--t7); letter-spacing: var(--ls-t); }
+.woocommerce div.product p.price { font-size: var(--t5); margin: var(--s2) 0 var(--s4); }
+.woocommerce div.product form.cart { display: flex; flex-wrap: wrap; gap: var(--s2); margin: var(--s4) 0; }
+
+.woocommerce div.product .woocommerce-tabs ul.tabs { padding: 0; margin: 0 0 var(--s4); }
+.woocommerce div.product .woocommerce-tabs ul.tabs::before { border-bottom: 1px solid var(--linia-m); }
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li {
+  border: 0; border-radius: 0; background: transparent; margin: 0 var(--s4) 0 0; padding: 0;
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li::before,
+.woocommerce div.product .woocommerce-tabs ul.tabs li::after { content: none; }
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li a {
+  padding: 12px 0;
+  font-size: var(--t1);
+  font-weight: 600;
+  letter-spacing: var(--ls-w);
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.woocommerce div.product .woocommerce-tabs ul.tabs li.active a {
+  color: var(--ink);
+  box-shadow: inset 0 -2px 0 var(--ink);
+}
+
+/* ── Kasa ────────────────────────────────────────────────────────────── */
+
+.woocommerce-checkout .col2-set { display: grid; gap: var(--s6); }
+.woocommerce-checkout .col2-set .col-1,
+.woocommerce-checkout .col2-set .col-2 { width: auto; float: none; }
+
+@media (min-width: 900px) {
+  .woocommerce-checkout .col2-set { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.woocommerce-checkout h3 {
+  margin: 0 0 var(--s4);
+  font-size: var(--t5);
+  letter-spacing: var(--ls-t);
+}
+
+.woocommerce-checkout #payment {
+  border-radius: 0;
+  background: var(--ciel-1);
+  padding: var(--s4);
+}
+
+.woocommerce-checkout #payment ul.payment_methods {
+  border-bottom: 1px solid var(--linia-m);
+  padding: 0 0 var(--s3);
+}
+
+.woocommerce-checkout #payment ul.payment_methods li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  list-style: none;
+}
+
+.woocommerce-checkout #payment ul.payment_methods li label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--cel);
+  margin: 0;
+  font-size: var(--t3);
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.woocommerce-checkout #payment div.payment_box {
+  flex-basis: 100%;
+  margin: 8px 0 0;
+  padding: var(--s3);
+  border-radius: 0;
+  background: var(--biel);
+  font-size: var(--t2);
+  color: var(--ink-2);
+}
+
+.woocommerce-checkout #payment div.payment_box::before { content: none; }
+
+.woocommerce-checkout #place_order { width: 100%; margin-top: var(--s3); }
+
+/* ── Moje konto ──────────────────────────────────────────────────────── */
+
+.woocommerce-account .woocommerce-MyAccount-navigation { width: auto; float: none; margin-bottom: var(--s5); }
+
+.woocommerce-account .woocommerce-MyAccount-navigation ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s4);
+  margin: 0;
+  padding: 0 0 var(--s3);
+  border-bottom: 1px solid var(--linia-m);
+  list-style: none;
+}
+
+.woocommerce-account .woocommerce-MyAccount-navigation ul li a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--cel);
+  font-size: var(--t1);
+  font-weight: 600;
+  letter-spacing: var(--ls-w);
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.woocommerce-account .woocommerce-MyAccount-navigation ul li.is-active a {
+  color: var(--ink);
+  box-shadow: inset 0 -2px 0 var(--ink);
+}
+
+.woocommerce-account .woocommerce-MyAccount-content { width: auto; float: none; }
+
+/* ── Okruszki ────────────────────────────────────────────────────────── */
+
+.woocommerce .woocommerce-breadcrumb { margin: 0; padding: 0; font-size: inherit; color: inherit; }
+
+/* ── Wąski ekran ─────────────────────────────────────────────────────── */
+
+@media (max-width: 760px) {
+  /* Tabela koszyka na telefonie staje się listą kart — WooCommerce podaje
+     nagłówek kolumny w data-title, więc wiersz zostaje czytelny. */
+  .woocommerce table.shop_table_responsive tr td {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--s3);
+    padding: 12px 0;
+    text-align: right;
+  }
+
+  .woocommerce table.shop_table_responsive tr td::before {
+    font-size: var(--t1);
+    font-weight: 600;
+    letter-spacing: var(--ls-w);
+    text-transform: uppercase;
+    color: var(--ink-2);
+  }
+
+  .woocommerce .quantity .qty { width: 72px; }
+  .woocommerce div.product form.cart .button { flex: 1; }
+}

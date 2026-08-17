@@ -461,4 +461,75 @@
     addEventListener('scroll', sprawdzP, { passive: true });
     sprawdzP();
   }
+
+  /* ── Koszyk WooCommerce ─────────────────────────────────────
+     Sklep stoi pod tą samą domeną co ten serwis, tylko pod adresami bez
+     pliku na dysku: /koszyk/, /zamowienie/, /moje-konto/. Dzięki temu
+     ciasteczko koszyka obowiązuje wszędzie i pozycja dodana tutaj czeka
+     w kasie.
+
+     Przyciski działają bez skryptu — to zwykłe odnośniki do /koszyk/
+     z parametrem add-to-cart. Skrypt tylko podnosi wygodę: dodaje bez
+     opuszczania strony i odświeża licznik. Każda awaria po drodze wraca
+     do zwykłego przejścia, więc nie da się zablokować zakupu.
+
+     Na podglądzie bez WordPressa pod tą domeną API nie odpowiada — wtedy
+     bloki z pakietami zostają ukryte, zamiast wystawiać martwy przycisk. */
+  var API = '/wp-json/wc/store/v1/';
+  var licznik = document.querySelector('.top__n');
+  var nonce = '';
+
+  function ustawLicznik(n) {
+    if (licznik) { licznik.textContent = '(' + n + ')'; }
+  }
+
+  function stanKoszyka() {
+    return fetch(API + 'cart', { credentials: 'same-origin' }).then(function (o) {
+      if (!o.ok) { throw new Error('sklep nie odpowiada'); }
+      // Nagłówek Nonce z odczytu koszyka jest wymagany przy dopisywaniu pozycji.
+      nonce = o.headers.get('Nonce') || '';
+      return o.json();
+    });
+  }
+
+  stanKoszyka().then(function (koszyk) {
+    ustawLicznik(koszyk.items_count || 0);
+    var bloki = document.querySelectorAll('[data-sklep]');
+    for (var i = 0; i < bloki.length; i++) { bloki[i].hidden = false; }
+  }).catch(function () {
+    /* Sklepu tu nie ma — pakiety zostają ukryte, reszta serwisu działa. */
+  });
+
+  document.addEventListener('click', function (e) {
+    var przyc = e.target.closest && e.target.closest('[data-kup]');
+    if (!przyc || e.metaKey || e.ctrlKey || e.shiftKey || e.button) { return; }
+    if (!nonce) { return; }   // bez nonce puszczamy zwykłe przejście do koszyka
+
+    e.preventDefault();
+    // Zapisujemy całą zawartość, nie sam tekst — w przycisku siedzi też ikona,
+    // a podmiana samego tekstu skasowałaby ją bezpowrotnie.
+    var byl = przyc.innerHTML;
+    przyc.setAttribute('aria-busy', 'true');
+
+    fetch(API + 'cart/add-item', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json', 'Nonce': nonce },
+      body: JSON.stringify({ id: Number(przyc.dataset.kup), quantity: 1 })
+    }).then(function (o) {
+      if (!o.ok) { throw new Error('nie dodano'); }
+      nonce = o.headers.get('Nonce') || nonce;
+      return o.json();
+    }).then(function (koszyk) {
+      ustawLicznik(koszyk.items_count || 0);
+      przyc.textContent = 'Dodano do koszyka';
+      setTimeout(function () {
+        przyc.innerHTML = byl;
+        przyc.removeAttribute('aria-busy');
+      }, 2000);
+    }).catch(function () {
+      // Cokolwiek poszło nie tak — przechodzimy do koszyka po staremu.
+      location.href = przyc.href;
+    });
+  });
 })();
