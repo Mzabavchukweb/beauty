@@ -793,6 +793,49 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
   font-weight:600;color:var(--akc);white-space:nowrap}
 .cena--brak li b{color:var(--ink-2);font-weight:500}
 
+/* ── SKLEP NA STRONIE GŁÓWNEJ ────────────────────────────────
+   Trzy pozycje do kupienia od ręki. Voucher dostaje szerszą kartę,
+   bo jest jedyną pozycją kupowaną w prezencie — pakiety wybiera się
+   dla siebie i po cenie, więc wystarcza im rząd obok. */
+.skl{padding-block:var(--s8)}
+.skl .glowa{display:flex;align-items:end;justify-content:space-between;
+  gap:var(--s4);flex-wrap:wrap;margin-bottom:var(--s6)}
+.skl__g{display:grid;gap:var(--s6) var(--s5);align-items:start;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
+
+/* Karty nie rozciągają się do wspólnej wysokości — karta vouchera jest
+   dwa razy wyższa i wyrównanie spychało odnośniki pakietów o pół ekranu
+   poniżej ich własnych cen. */
+.skl__k{display:flex;flex-direction:column;gap:var(--s3)}
+.skl__t{display:flex;flex-direction:column;gap:var(--s2)}
+.skl__t>.lnk{align-self:flex-start;margin-top:var(--s1)}
+
+.skl__f{display:block;overflow:hidden;background:var(--ciel-2)}
+.skl__f img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover;
+  transition:transform .7s var(--ease)}
+.skl__k h3{font-size:var(--t5);line-height:var(--lh1);letter-spacing:var(--ls-t)}
+.skl__k p{font-size:var(--t2);line-height:var(--lh2);color:var(--ink-2);
+  max-width:52ch;margin:0}
+.skl__c{font-size:var(--t4)!important;font-weight:600;color:var(--ink)!important;
+  font-variant-numeric:tabular-nums;padding-top:var(--s2);
+  border-top:1px solid var(--linia)}
+
+/* Voucher zajmuje dwie kolumny tam, gdzie siatka ma ich co najmniej trzy. */
+@media(min-width:1000px){
+  .skl__g{grid-template-columns:repeat(4,1fr)}
+  .skl__k--duza{grid-column:span 2}
+  .skl__k--duza h3{font-size:var(--t6)}
+}
+
+@media(hover:hover){
+  .skl__f:hover img{transform:scale(1.04)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .skl__f img{transition:none}
+  .skl__f:hover img{transform:none}
+}
+
 /* Pakiety do kupienia od ręki. Blok stoi za cennikiem zabiegu i różni się
    od niego tłem, bo tamten informuje, a ten prowadzi do płatności — bez tej
    różnicy „Do koszyka" czytałoby się jak kolejny wiersz z ceną.
@@ -993,6 +1036,9 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
 @media(max-width:760px){
   :root{--t1:.84rem}
   .stopka__pr a{display:inline-flex;align-items:center;min-height:44px}
+  /* Kredyt wykonawcy też jest odnośnikiem — 18 px wysokości nie spełnia
+     progu 24 px z WCAG 2.2 dla celu dotykowego. */
+  .stopka__d a{display:inline-flex;align-items:center;min-height:24px}
   .inne__k .fil__w{min-height:44px}
   .okruch a,.okruch li>span{letter-spacing:.08em}
 }

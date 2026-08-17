@@ -28,7 +28,7 @@
 <link rel="preload" href="assets/fonts/onest-400-lat.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/onest-600-lat.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/tokeny.css?v=2">
-<link rel="stylesheet" href="css/style.css?v=106">
+<link rel="stylesheet" href="css/style.css?v=108">
 <script>document.documentElement.className+=' js';</script>
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"HealthAndBeautyBusiness","@id":"https://mzabavchukweb.github.io/beauty/#rehabeauty","name":"Reha Beauty","url":"https://mzabavchukweb.github.io/beauty/","logo":"https://mzabavchukweb.github.io/beauty/assets/logo.svg","image":"https://mzabavchukweb.github.io/beauty/assets/img/og-rehabeauty.jpg","description":"Strefa medycyny estetycznej i odnowy biologicznej działająca w ramach Reha Medica Centrum Rehabilitacyjno-Medyczne w Szczecinku.","telephone":"+48531555649","email":"kontakt@rehamedica.info.pl","parentOrganization":{"@type":"MedicalOrganization","name":"Reha Medica Centrum Rehabilitacyjno-Medyczne","url":"https://rehamedica.info.pl/"},"address":{"@type":"PostalAddress","streetAddress":"ul. Kościuszki 57","postalCode":"78-400","addressLocality":"Szczecinek","addressRegion":"zachodniopomorskie","addressCountry":"PL"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"08:00","closes":"16:00"}],"paymentAccepted":"Karta, gotówka, przelew","currenciesAccepted":"PLN","sameAs":["https://www.facebook.com/rehamedicaszczecinek/","https://www.instagram.com/reha.medica_szczecinek/"]},{"@type":"WebSite","@id":"https://mzabavchukweb.github.io/beauty/#serwis","url":"https://mzabavchukweb.github.io/beauty/","name":"Reha Beauty","inLanguage":"pl-PL","publisher":{"@id":"https://mzabavchukweb.github.io/beauty/#rehabeauty"}},{"@type":"WebPage","@id":"https://mzabavchukweb.github.io/beauty/","url":"https://mzabavchukweb.github.io/beauty/","name":"Reha Beauty Szczecinek","description":"Strefa medycyny estetycznej i odnowy biologicznej w Reha Medica w Szczecinku.","inLanguage":"pl-PL","isPartOf":{"@id":"https://mzabavchukweb.github.io/beauty/#serwis"},"about":{"@id":"https://mzabavchukweb.github.io/beauty/#rehabeauty"},"primaryImageOfPage":"https://mzabavchukweb.github.io/beauty/assets/img/og-rehabeauty.jpg"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Reha Beauty","item":"https://mzabavchukweb.github.io/beauty/"}]}]}</script>
@@ -250,6 +250,64 @@
   </div>
 </section>
 
+
+<!--
+  Sklep na stronie głównej. Trzy pozycje, które da się kupić od ręki — reszta
+  oferty idzie przez zapis telefoniczny. Sekcja stoi za cennikiem, bo dopiero
+  po zobaczeniu kwot ma sens propozycja „kup teraz".
+  Kwoty i opisy pochodzą ze sklepu; przy zmianie w WooCommerce trzeba je tu
+  poprawić — to strona statyczna, nie odpytuje sklepu o cennik.
+-->
+<section class="skl" id="sklep">
+  <div class="w">
+    <div class="glowa rv">
+      <div class="glowa__t">
+        <p class="nadtytul">Kup online</p>
+        <h2 class="lg">Voucher i pakiety</h2>
+      </div>
+      <a class="lnk" href="sklep/">Cały sklep<svg class="ic" aria-hidden="true"><use href="#i-w-prawo"/></svg></a>
+    </div>
+
+    <div class="skl__g">
+      <article class="skl__k skl__k--duza rv">
+        <a class="skl__f" href="produkt/voucher-elektroniczny/" tabindex="-1" aria-hidden="true">
+          <img src="assets/img/voucher-elektroniczny.webp" alt="" width="1080" height="720" loading="lazy" decoding="async">
+        </a>
+        <div class="skl__t">
+          <h3><a href="produkt/voucher-elektroniczny/">Voucher elektroniczny</a></h3>
+          <p>Prezent, przy którym nie trzeba zgadywać. Kwotę ustalasz sam, a voucher przychodzi e-mailem w PDF, razem z Twoją wiadomością. Ważny rok od zakupu.</p>
+          <p class="skl__c">Kwotę ustalasz sam</p>
+          <a class="lnk lnk--mocny" href="produkt/voucher-elektroniczny/">Kup voucher<svg class="ic" aria-hidden="true"><use href="#i-gift"/></svg></a>
+        </div>
+      </article>
+
+      <article class="skl__k rv">
+        <a class="skl__f" href="produkt/pakiet-hydromosaz-x-3/" tabindex="-1" aria-hidden="true">
+          <img src="assets/img/pakiet-hydromasaz-3.webp" alt="" width="1080" height="720" loading="lazy" decoding="async">
+        </a>
+        <div class="skl__t">
+          <h3><a href="produkt/pakiet-hydromosaz-x-3/">Pakiet trzech hydromasaży</a></h3>
+          <p>Trzy zabiegi po 30 minut. Rozluźnienie mięśni, ulga w bólu i wyraźnie mniej zmęczenia.</p>
+          <p class="skl__c">165 zł</p>
+          <a class="lnk" href="produkt/pakiet-hydromosaz-x-3/">Zobacz i kup<svg class="ic" aria-hidden="true"><use href="#i-w-prawo"/></svg></a>
+        </div>
+      </article>
+
+      <article class="skl__k rv">
+        <a class="skl__f" href="produkt/pakiet-hydromosaz-x-5/" tabindex="-1" aria-hidden="true">
+          <img src="assets/img/pakiet-hydromasaz-5.webp" alt="" width="1080" height="720" loading="lazy" decoding="async">
+        </a>
+        <div class="skl__t">
+          <h3><a href="produkt/pakiet-hydromosaz-x-5/">Pakiet pięciu hydromasaży</a></h3>
+          <p>Pięć zabiegów po 30 minut, jedna płatność z góry. Terminy ustalasz telefonicznie, każdy osobno.</p>
+          <p class="skl__c">250 zł</p>
+          <a class="lnk" href="produkt/pakiet-hydromosaz-x-5/">Zobacz i kup<svg class="ic" aria-hidden="true"><use href="#i-w-prawo"/></svg></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
 <section class="dl">
   <div class="w">
     <div class="glowa rv">
@@ -453,6 +511,6 @@
   </button>
 </footer>
 
-<script src="js/main.js?v=106"></script>
+<script src="js/main.js?v=108"></script>
 </body>
 </html>
