@@ -353,13 +353,35 @@
   color: var(--ink);
 }
 
-.woocommerce ul.products li.product .price {
-  display: block;
-  margin: var(--s1) 0 var(--s3);
-  font-size: var(--t3);
+/* Karta układa się w kolumnę, żeby przyciski wszystkich kart stały w jednej
+   linii niezależnie od długości opisu. Bez tego rząd wygląda na krzywy. */
+.woocommerce ul.products li.product {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: var(--s3);
+  border-bottom: 1px solid var(--linia);
 }
 
-.woocommerce ul.products li.product .button { margin: 0; }
+.karta-s__o {
+  margin: var(--s2) 0 0;
+  font-size: var(--t2);
+  line-height: var(--lh2);
+  color: var(--ink-2);
+}
+
+.woocommerce ul.products li.product .price {
+  display: block;
+  margin: var(--s3) 0 var(--s4);
+  padding-top: var(--s2);
+  border-top: 1px solid var(--linia);
+  font-size: var(--t4);
+}
+
+/* Przycisk spada na dół karty — `margin-top:auto` w kolumnie flex. */
+.woocommerce ul.products li.product .button {
+  margin: auto 0 0;
+  align-self: flex-start;
+}
 
 .woocommerce .woocommerce-result-count,
 .woocommerce .woocommerce-ordering { margin-bottom: var(--s4); }
@@ -404,6 +426,27 @@
   color: var(--ink);
   box-shadow: inset 0 -2px 0 var(--ink);
 }
+
+/* Opis produktu w mierze czytelniczej — pełna szerokość kolumny dałaby
+   wiersze po sto kilkadziesiąt znaków. */
+.woocommerce div.product .woocommerce-tabs .panel {
+  max-width: var(--miara);
+  font-size: var(--t3);
+  line-height: var(--lh3);
+  color: var(--ink-2);
+}
+
+.woocommerce div.product .woocommerce-tabs .panel > * + * { margin-top: var(--s3); }
+
+.woocommerce div.product .woocommerce-tabs .panel h3 {
+  margin-top: var(--s5);
+  font-size: var(--t5);
+  color: var(--ink);
+}
+
+.woocommerce div.product .woocommerce-tabs .panel :is(ul, ol) { padding-left: 1.3em; }
+.woocommerce div.product .woocommerce-tabs .panel li + li { margin-top: var(--s1); }
+.woocommerce div.product .woocommerce-tabs .panel strong { color: var(--ink); }
 
 /* ── Kasa ────────────────────────────────────────────────────────────── */
 
