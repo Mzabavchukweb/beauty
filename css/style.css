@@ -965,6 +965,27 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
   .okruch a,.okruch li>span{letter-spacing:.08em}
 }
 
+
+/* ── DUŻE EKRANY ────────────────────────────────────────────
+   Powyżej szerokości kolumny treści kadr hero i pionowa szyna
+   przestają trzymać się krawędzi okna, a zaczynają kolumny — inaczej
+   przy 3440 px między tekstem a zdjęciem zostaje 940 px pustki,
+   a szyna marki odjeżdża na sam brzeg ekranu, w oderwaniu od treści.
+   Zdjęcie kończy się na tej samej pionowej linii co logo w nagłówku,
+   pierwsza kolumna stopki i tytuły sekcji.                        */
+@media(min-width:1660px){
+  .hero__f{right:calc((100% - var(--wrap)) / 2)}
+  .hero__szyna{left:calc((100% - var(--wrap)) / 2 - 28px)}
+}
+
+/* Na bardzo szerokich ekranach kolumna tekstu w hero przestaje rosnąć
+   razem z oknem — 58 znaków w wierszu to granica, za którą oko gubi
+   początek następnego. */
+@media(min-width:2200px){
+  .hero{min-height:clamp(660px,72svh,980px)}
+  .hero__t{max-width:62ch}
+}
+
 @media(prefers-reduced-motion:reduce){
   *{transition:none!important;animation:none!important}
   .rv{opacity:1!important;transform:none!important}
