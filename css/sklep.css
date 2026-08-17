@@ -495,6 +495,207 @@
 
 .woocommerce-account .woocommerce-MyAccount-content { width: auto; float: none; }
 
+/* ═══════════════════════════════════════════════════════════════════════
+   Koszyk i kasa blokowa
+
+   To osobna rodzina klas — `wc-block-*` — a nie te same znaczniki co wyżej.
+   WooCommerce składa koszyk i kasę z bloków renderowanych po stronie
+   przeglądarki, więc w kodzie wysłanym z serwera tych elementów jeszcze nie
+   ma. Reguły z górnej połowy arkusza ich nie dotykają.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── Przyciski blokowe ───────────────────────────────────────────────── */
+
+/* Bez tego napis na przycisku przejścia do płatności bierze barwę odnośnika
+   z bloku i wychodzi brąz na niemal czerni — kontrast nie do przyjęcia. */
+.wc-block-components-button:not(.is-link) {
+  min-height: var(--cel);
+  padding: 14px 26px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background-color: var(--ink);
+  color: var(--biel);
+  font-family: Onest, "Onest zapas", system-ui, sans-serif;
+  font-size: var(--t1);
+  font-weight: 600;
+  letter-spacing: var(--ls-w);
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color .2s var(--ease), border-color .2s var(--ease);
+}
+
+/* Warstwa tekstu bloku ma własną barwę — bez tego napis zostaje brązowy
+   mimo ustawienia koloru na samym przycisku. */
+.wc-block-components-button:not(.is-link) .wc-block-components-button__text,
+.wc-block-components-button:not(.is-link) > * { color: var(--biel); }
+
+.wc-block-components-button:not(.is-link):hover {
+  background-color: var(--akc);
+  border-color: var(--akc);
+}
+
+.wc-block-components-button:not(.is-link):focus-visible {
+  outline: 2px solid var(--akc);
+  outline-offset: 2px;
+}
+
+/* Wersja obrysowa — akcje poboczne. */
+.wc-block-components-button.outlined {
+  background-color: transparent;
+  color: var(--ink);
+}
+
+.wc-block-components-button.outlined .wc-block-components-button__text,
+.wc-block-components-button.outlined > * { color: var(--ink); }
+
+.wc-block-components-button.is-link {
+  color: var(--akc);
+  text-underline-offset: 3px;
+}
+
+/* ── Układ dwukolumnowy ──────────────────────────────────────────────── */
+
+/* Klasy is-large/is-medium nadaje sam WooCommerce po zmierzeniu kontenera,
+   więc szerokość musi dać mu miejsce — patrz `page.php`. */
+.wc-block-components-sidebar-layout .wc-block-components-sidebar {
+  background: var(--ciel-1);
+  padding: var(--s4);
+}
+
+/* ── Pozycje koszyka ─────────────────────────────────────────────────── */
+
+.wc-block-cart-items { border-collapse: collapse; }
+
+.wc-block-cart-items__header {
+  border-bottom: 1px solid var(--linia-m);
+  font-size: var(--t1);
+  font-weight: 600;
+  letter-spacing: var(--ls-w);
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.wc-block-cart-items__row { border-bottom: 1px solid var(--linia); }
+.wc-block-cart-items__row td { padding-block: var(--s3); }
+
+.wc-block-components-product-name {
+  color: var(--ink);
+  font-size: var(--t3);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.wc-block-components-product-price__value,
+.wc-block-formatted-money-amount,
+.wc-block-components-formatted-money-amount {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.wc-block-components-product-metadata { color: var(--ink-2); font-size: var(--t2); }
+
+/* ── Licznik sztuk ───────────────────────────────────────────────────── */
+
+.wc-block-components-quantity-selector {
+  border: 1px solid var(--linia-m);
+  border-radius: 0;
+}
+
+.wc-block-components-quantity-selector::after { content: none; }
+
+.wc-block-components-quantity-selector__input {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Minus i plus muszą mieć pełne pole dotyku — domyślnie mają około 30 px. */
+.wc-block-components-quantity-selector__button {
+  min-width: var(--cel);
+  min-height: var(--cel);
+  color: var(--ink);
+  opacity: 1;
+}
+
+.wc-block-components-quantity-selector__button:hover { background: var(--ciel-2); }
+
+/* ── Podsumowanie ────────────────────────────────────────────────────── */
+
+.wc-block-components-totals-wrapper { border-top: 1px solid var(--linia); }
+
+.wc-block-components-totals-item__label { color: var(--ink-2); }
+
+.wc-block-components-totals-item__value,
+.wc-block-components-totals-footer-item .wc-block-components-totals-item__value {
+  color: var(--ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.wc-block-components-totals-footer-item {
+  border-top: 1px solid var(--ink);
+  font-size: var(--t4);
+}
+
+/* ── Pola kasy ───────────────────────────────────────────────────────── */
+
+.wc-block-components-text-input input[type="text"],
+.wc-block-components-text-input input[type="email"],
+.wc-block-components-text-input input[type="tel"],
+.wc-block-components-text-input input[type="number"],
+.wc-block-components-textarea,
+.wc-blocks-components-select__select {
+  border: 1px solid var(--linia-m);
+  border-radius: 0;
+  background: var(--biel);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: var(--t3);
+  min-height: var(--cel);
+}
+
+.wc-block-components-text-input.is-active label,
+.wc-block-components-text-input label { color: var(--ink-2); }
+
+.wc-block-components-checkout-step__title,
+.wc-block-components-title {
+  color: var(--ink);
+  font-size: var(--t5);
+  letter-spacing: var(--ls-t);
+}
+
+.wc-block-components-checkout-step__description { color: var(--ink-2); }
+
+/* ── Sposób płatności i dostawy ──────────────────────────────────────── */
+
+.wc-block-components-radio-control__option {
+  border-radius: 0;
+  min-height: var(--cel);
+}
+
+.wc-block-components-radio-control-accordion-option,
+.wc-block-components-radio-control__option {
+  border-color: var(--linia-m);
+}
+
+.wc-block-components-radio-control__label { color: var(--ink); }
+.wc-block-components-radio-control__secondary-label { color: var(--ink-2); }
+
+.wc-block-components-panel { border-color: var(--linia); }
+.wc-block-components-panel__button { color: var(--ink); }
+
+/* ── Komunikaty blokowe ──────────────────────────────────────────────── */
+
+.wc-block-components-notice-banner {
+  border-radius: 0;
+  border-left-width: 3px;
+  background: var(--ciel-1);
+  color: var(--ink);
+}
+
+.wc-block-components-notice-banner.is-error { border-left-color: #9d3b2f; }
+.wc-block-components-notice-banner.is-success,
+.wc-block-components-notice-banner.is-info { border-left-color: var(--akc); }
+
 /* ── Okruszki ────────────────────────────────────────────────────────── */
 
 .woocommerce .woocommerce-breadcrumb { margin: 0; padding: 0; font-size: inherit; color: inherit; }
