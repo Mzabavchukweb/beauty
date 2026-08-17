@@ -724,13 +724,7 @@
 
 .pwgc-grupa { margin: 0; display: grid; gap: 8px; }
 
-.pwgc-pola label,
-label[for="gift-card-amount"],
-label[for="pwgc-custom-amount"],
-label[for="pwgc-to"],
-label[for="pwgc-from"],
-label[for="pwgc-recipient-name"],
-label[for="pwgc-message"] {
+.pwgc-pola label {
   font-size: var(--t1);
   font-weight: 600;
   letter-spacing: var(--ls-w);
@@ -738,6 +732,14 @@ label[for="pwgc-message"] {
   color: var(--ink-2);
 }
 
+/* Dwa komplety identyfikatorów: `rbv-` z wtyczki Reha Beauty i `pwgc-`
+   z PW Gift Cards. Oba, bo przejście na własną obsługę może iść etapami
+   i przez jakiś czas na produkcji stoi jedno albo drugie. */
+.pwgc-pola input[type="text"],
+.pwgc-pola input[type="email"],
+.pwgc-pola input[type="number"],
+.pwgc-pola textarea,
+.pwgc-pola select,
 #gift-card-amount,
 #pwgc-custom-amount,
 .pwgc-input-text,
@@ -755,18 +757,22 @@ label[for="pwgc-message"] {
 }
 
 /* Kwota to liczba — równa się cyfra pod cyfrą, jak w cennikach zabiegów. */
+#rbv-kwota,
 #pwgc-custom-amount {
   max-width: 260px;
   font-variant-numeric: tabular-nums;
   font-weight: 600;
 }
 
+#rbv-wiadomosc,
 #pwgc-message { min-height: 110px; resize: vertical; }
 
-#gift-card-amount:focus-visible,
-#pwgc-custom-amount:focus-visible,
-.pwgc-input-text:focus-visible,
-#pwgc-message:focus-visible {
+.pwgc-wskaz {
+  font-size: var(--t2);
+  color: var(--ink-2);
+}
+
+.pwgc-pola :is(input, textarea, select):focus-visible {
   outline: 2px solid var(--akc);
   outline-offset: 2px;
 }
@@ -783,6 +789,53 @@ label[for="pwgc-message"] {
 @media (max-width: 560px) {
   #pwgc-custom-amount { max-width: none; }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Pusty koszyk
+
+   WooCommerce wstawia tu buźkę w czarnym kółku, separator z kropek i siatkę
+   „New in store" o zupełnie innym kroju kart niż sklep. Cały blok jest
+   zastąpiony własnym w treści strony; te reguły go ubierają, a resztki
+   domyślnego układu chowają.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.pusty {
+  max-width: var(--miara);
+  padding: var(--s7) 0 var(--s8);
+}
+
+.pusty__n {
+  margin: 0 0 var(--s2);
+  font-size: var(--t1);
+  font-weight: 600;
+  letter-spacing: var(--ls-w);
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.pusty__t {
+  margin: 0 0 var(--s3);
+  font-size: var(--t7);
+  line-height: var(--lh1);
+  letter-spacing: var(--ls-t);
+  color: var(--ink);
+}
+
+.pusty__o {
+  margin: 0 0 var(--s5);
+  padding-top: var(--s3);
+  border-top: 1px solid var(--linia);
+  font-size: var(--t3);
+  line-height: var(--lh3);
+  color: var(--ink-2);
+}
+
+.pusty__b { display: flex; flex-wrap: wrap; gap: var(--s4) var(--s6); }
+
+/* Buźka jest doklejana przez ::before nagłówka bloku — bez tego wraca nawet
+   po podmianie treści, bo klasa siedzi też w innych miejscach koszyka. */
+.wc-block-cart__empty-cart__title.with-empty-cart-icon::before,
+.wp-block-woocommerce-empty-cart-block .wp-block-separator.is-style-dots { display: none; }
 
 /* ── Okruszki ────────────────────────────────────────────────────────── */
 
