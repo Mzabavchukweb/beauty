@@ -127,7 +127,12 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
 .top.przewiniety .znak__l{height:68px}
 
 .menu{margin-inline:auto}
-.menu__l{display:flex;align-items:center;gap:var(--s2);list-style:none;margin:0;padding:0}
+/* Odstęp między pozycjami rośnie razem z oknem. Stałe 12 px przy wersalikach
+   z rozstrzeleniem sprawiało, że „Odmładzanie twarzy" i „Modelowanie sylwetki"
+   czytało się jak jeden ciąg — rozstrzelenie wewnątrz wyrazu było niemal
+   równe przerwie między pozycjami. */
+.menu__l{display:flex;align-items:center;gap:clamp(16px,2.1vw,40px);
+  list-style:none;margin:0;padding:0}
 .menu__l>li{position:relative;display:flex;align-items:center}
 .menu__l a{display:inline-flex;align-items:center;min-height:var(--cel);white-space:nowrap;
   font-size:var(--t1);font-weight:500;letter-spacing:var(--ls-w);text-transform:uppercase;
@@ -191,6 +196,17 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
 /* Menu na wąskim ekranie: panel na pełną wysokość.
    Próg 1400 px — zmierzony: przy 1360 px grupa zakupowa wystawała o 18 px.
    Powyżej 1400 rząd ma zapas. */
+/* Przy 1440 px na sześć pozycji menu zostaje 938 px, a same napisy zajmują
+   907 — odstępów nie ma z czego zwiększyć. Etykieta „Kup prezent" schodzi
+   wtedy do samej ikony i oddaje około 110 px; nazwa zostaje dla czytnika
+   ekranu, więc nic nie ginie. Powyżej 1560 px miejsca starcza na obie. */
+@media(min-width:1400px) and (max-width:1559px){
+  .top__z .top__l:first-child .top__e{position:absolute;width:1px;height:1px;
+    margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);
+    white-space:nowrap;border:0}
+  .top__z .top__l:first-child{gap:0}
+}
+
 @media(max-width:1399px){
   .burger{display:inline-flex}
   /* Panel przykrywa cały ekran razem z tłem nagłówka, więc znak i przyciski

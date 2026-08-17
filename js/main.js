@@ -52,21 +52,6 @@
                              : szeroki.addListener(przyZmianie);
   }
 
-  /* ── Wideo w hero ───────────────────────────────────────────
-     Atrybutu autoplay nie ma w HTML celowo: przy „ogranicz ruch"
-     albo bez JS zostaje nieruchomy plakat. Odtwarzanie zatrzymuje
-     się, gdy hero wyjedzie z kadru — nie ma po co grać w tle. */
-  var wideo = document.querySelector('.hero__w');
-  if (wideo && !mniejRuchu) {
-    var graj = function () { var o = wideo.play(); if (o && o.catch) o.catch(function () {}); };
-    if (wideo.readyState >= 2) graj(); else wideo.addEventListener('loadeddata', graj, { once: true });
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (wpisy) {
-        wpisy.forEach(function (w) { w.isIntersecting ? graj() : wideo.pause(); });
-      }, { threshold: 0.05 }).observe(wideo);
-    }
-  }
-
   /* ── Ujawnianie treści przy wejściu w kadr ──────────────────── */
   var doUjawnienia = document.querySelectorAll('.rv');
   if (doUjawnienia.length && !mniejRuchu && 'IntersectionObserver' in window) {

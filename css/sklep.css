@@ -318,10 +318,20 @@
 
 /* ── Lista produktów ─────────────────────────────────────────────────── */
 
+/*
+ * WooCommerce układa listę na floatach: `ul.products[class*=columns-] li.product`
+ * ma szerokość 22,05 % na szerokim ekranie i 48 % poniżej 768 px. Ten selektor
+ * niesie atrybut, więc waży więcej niż `.woocommerce ul.products li.product` —
+ * bez powtórzenia atrybutu moja reguła przegrywała i pozycje siedziały na 48 %
+ * szerokości jednokolumnowej siatki, czyli na 44 % ekranu telefonu.
+ *
+ * Neutralizujemy float raz, w jednym miejscu, i dalej rządzi siatka.
+ */
 .woocommerce ul.products {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
-  gap: var(--s5);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: var(--s6) var(--s5);
+  align-items: start;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -330,18 +340,31 @@
 .woocommerce ul.products::before,
 .woocommerce ul.products::after { content: none; }
 
+.woocommerce ul.products[class*="columns-"] li.product,
+.woocommerce-page ul.products[class*="columns-"] li.product,
 .woocommerce ul.products li.product {
   width: auto;
   margin: 0;
-  padding: 0;
+  padding: 0 0 var(--s3);
+  border-bottom: 1px solid var(--linia);
   float: none;
+  clear: none;
   text-align: left;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Woo odwraca co drugą pozycję na prawo — w siatce to tylko psuje kolejność. */
+.woocommerce ul.products[class*="columns-"] li.product:nth-child(2n) {
+  float: none;
+  clear: none !important;
+}
+
+/* Kadr produktów jest poziomy 3:2 — tyle wypełniają zdjęcia w oryginale. */
 .woocommerce ul.products li.product a img {
   margin: 0 0 var(--s3);
   border-radius: 0;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
 }
 
@@ -351,15 +374,6 @@
   font-weight: 600;
   letter-spacing: var(--ls-t);
   color: var(--ink);
-}
-
-/* Karta układa się w kolumnę, żeby przyciski wszystkich kart stały w jednej
-   linii niezależnie od długości opisu. Bez tego rząd wygląda na krzywy. */
-.woocommerce ul.products li.product {
-  display: flex;
-  flex-direction: column;
-  padding-bottom: var(--s3);
-  border-bottom: 1px solid var(--linia);
 }
 
 .karta-s__o {
@@ -375,9 +389,11 @@
   padding-top: var(--s2);
   border-top: 1px solid var(--linia);
   font-size: var(--t4);
+  color: var(--ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 
-/* Przycisk spada na dół karty — `margin-top:auto` w kolumnie flex. */
 .woocommerce ul.products li.product .button {
   margin: auto 0 0;
   align-self: flex-start;

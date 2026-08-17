@@ -23,12 +23,12 @@
 <meta name="theme-color" content="#fdf8f4">
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 
-<link rel="preload" as="image" href="assets/img/hero-plakat.webp" fetchpriority="high">
+<link rel="preload" as="image" href="assets/img/hero-beauty.webp" fetchpriority="high">
 
 <link rel="preload" href="assets/fonts/onest-400-lat.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/onest-600-lat.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/tokeny.css?v=2">
-<link rel="stylesheet" href="css/style.css?v=108">
+<link rel="stylesheet" href="css/style.css?v=110">
 <script>document.documentElement.className+=' js';</script>
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"HealthAndBeautyBusiness","@id":"https://mzabavchukweb.github.io/beauty/#rehabeauty","name":"Reha Beauty","url":"https://mzabavchukweb.github.io/beauty/","logo":"https://mzabavchukweb.github.io/beauty/assets/logo.svg","image":"https://mzabavchukweb.github.io/beauty/assets/img/og-rehabeauty.jpg","description":"Strefa medycyny estetycznej i odnowy biologicznej działająca w ramach Reha Medica Centrum Rehabilitacyjno-Medyczne w Szczecinku.","telephone":"+48531555649","email":"kontakt@rehamedica.info.pl","parentOrganization":{"@type":"MedicalOrganization","name":"Reha Medica Centrum Rehabilitacyjno-Medyczne","url":"https://rehamedica.info.pl/"},"address":{"@type":"PostalAddress","streetAddress":"ul. Kościuszki 57","postalCode":"78-400","addressLocality":"Szczecinek","addressRegion":"zachodniopomorskie","addressCountry":"PL"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"08:00","closes":"16:00"}],"paymentAccepted":"Karta, gotówka, przelew","currenciesAccepted":"PLN","sameAs":["https://www.facebook.com/rehamedicaszczecinek/","https://www.instagram.com/reha.medica_szczecinek/"]},{"@type":"WebSite","@id":"https://mzabavchukweb.github.io/beauty/#serwis","url":"https://mzabavchukweb.github.io/beauty/","name":"Reha Beauty","inLanguage":"pl-PL","publisher":{"@id":"https://mzabavchukweb.github.io/beauty/#rehabeauty"}},{"@type":"WebPage","@id":"https://mzabavchukweb.github.io/beauty/","url":"https://mzabavchukweb.github.io/beauty/","name":"Reha Beauty Szczecinek","description":"Strefa medycyny estetycznej i odnowy biologicznej w Reha Medica w Szczecinku.","inLanguage":"pl-PL","isPartOf":{"@id":"https://mzabavchukweb.github.io/beauty/#serwis"},"about":{"@id":"https://mzabavchukweb.github.io/beauty/#rehabeauty"},"primaryImageOfPage":"https://mzabavchukweb.github.io/beauty/assets/img/og-rehabeauty.jpg"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Reha Beauty","item":"https://mzabavchukweb.github.io/beauty/"}]}]}</script>
@@ -145,15 +145,12 @@
     </div>
   </div>
 
-  <!-- Wideo bez ścieżki dźwiękowej, zapętlone, bez sterowania. Odtwarzanie
-       włącza dopiero JS i tylko przy zgodzie na ruch — bez skryptu albo przy
-       „ogranicz ruch" zostaje nieruchomy plakat. -->
+  <!-- Zdjęcie własne: zabieg na twarz. Zastąpiło
+       wideo, które było materiałem z zewnątrz. -->
   <div class="hero__f">
-    <video class="hero__w" poster="assets/img/hero-plakat.webp" muted loop playsinline
-           preload="metadata" width="432" height="768" aria-hidden="true">
-      <source src="assets/wideo/hero.webm" type="video/webm">
-      <source src="assets/wideo/hero.mp4" type="video/mp4">
-    </video>
+    <img class="hero__z" src="assets/img/hero-beauty.webp"
+         alt="Kobieta z zamkniętymi oczami podczas masażu twarzy w gabinecie kosmetycznym"
+         width="1000" height="1778" fetchpriority="high" decoding="async">
   </div>
 </section>
 
@@ -511,6 +508,6 @@
   </button>
 </footer>
 
-<script src="js/main.js?v=108"></script>
+<script src="js/main.js?v=110"></script>
 </body>
 </html>
