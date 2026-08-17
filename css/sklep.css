@@ -270,9 +270,15 @@
 
 /* ── Ceny ────────────────────────────────────────────────────────────── */
 
+/* Waga selektorów musi dorównać WooCommerce: wtyczka ustawia cenę regułą
+   `.woocommerce div.product p.price` w swojej zieleni #77a464, więc samo
+   `.woocommerce .price` przegrywa i kwota zostaje oliwkowa. */
 .woocommerce .price,
 .woocommerce .amount,
-.woocommerce span.woocommerce-Price-amount {
+.woocommerce span.woocommerce-Price-amount,
+.woocommerce div.product p.price,
+.woocommerce div.product span.price,
+.woocommerce ul.products li.product .price {
   color: var(--ink);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
@@ -695,6 +701,88 @@
 .wc-block-components-notice-banner.is-error { border-left-color: #9d3b2f; }
 .wc-block-components-notice-banner.is-success,
 .wc-block-components-notice-banner.is-info { border-left-color: var(--akc); }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   Voucher — pola PW Gift Cards
+
+   Identyfikatory i klasy pochodzą wprost ze strony produkcyjnej
+   /produkt/voucher-elektroniczny/. Wtyczka wstawia je bez własnego arkusza
+   pasującego do serwisu, więc bez tych reguł pola wyglądają jak surowy
+   formularz WordPressa obok reszty karty produktu.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+.pwgc-pola,
+.woocommerce div.product form.cart .pwgc-pola {
+  display: grid;
+  gap: var(--s3);
+  width: 100%;
+  margin: 0 0 var(--s4);
+  padding: var(--s4);
+  background: var(--ciel-1);
+  border-left: 3px solid var(--akc);
+}
+
+.pwgc-grupa { margin: 0; display: grid; gap: 8px; }
+
+.pwgc-pola label,
+label[for="gift-card-amount"],
+label[for="pwgc-custom-amount"],
+label[for="pwgc-to"],
+label[for="pwgc-from"],
+label[for="pwgc-recipient-name"],
+label[for="pwgc-message"] {
+  font-size: var(--t1);
+  font-weight: 600;
+  letter-spacing: var(--ls-w);
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+#gift-card-amount,
+#pwgc-custom-amount,
+.pwgc-input-text,
+#pwgc-message {
+  width: 100%;
+  min-height: var(--cel);
+  padding: 12px 14px;
+  border: 1px solid var(--linia-m);
+  border-radius: 0;
+  background: var(--biel);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: var(--t3);
+  line-height: var(--lh2);
+}
+
+/* Kwota to liczba — równa się cyfra pod cyfrą, jak w cennikach zabiegów. */
+#pwgc-custom-amount {
+  max-width: 260px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+#pwgc-message { min-height: 110px; resize: vertical; }
+
+#gift-card-amount:focus-visible,
+#pwgc-custom-amount:focus-visible,
+.pwgc-input-text:focus-visible,
+#pwgc-message:focus-visible {
+  outline: 2px solid var(--akc);
+  outline-offset: 2px;
+}
+
+/* Wtyczka pokazuje saldo i podgląd vouchera — te też muszą trzymać paletę. */
+.pwgc-balance,
+.pwgc-gift-card-preview {
+  border: 1px solid var(--linia);
+  border-radius: 0;
+  background: var(--biel);
+  color: var(--ink);
+}
+
+@media (max-width: 560px) {
+  #pwgc-custom-amount { max-width: none; }
+}
 
 /* ── Okruszki ────────────────────────────────────────────────────────── */
 
