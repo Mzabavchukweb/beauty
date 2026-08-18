@@ -812,6 +812,35 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
   font-weight:600;color:var(--akc);white-space:nowrap}
 .cena--brak li b{color:var(--ink-2);font-weight:500}
 
+/* ── PRZEŁĄCZNIK SERWISÓW ────────────────────────────────────
+   Trzy serwisy Reha Medica pod trzema adresami. W nagłówku każdego stoją
+   dwa pozostałe, złączone we wspólną ramkę — jedna rzecz do zauważenia
+   zamiast dwóch osobnych odnośników, i widać, że to rodzina stron.
+   Tu ramka jest ciemna, bo nagłówek Reha Beauty stoi na jasnym tle. */
+.serwisy{display:inline-flex;align-items:stretch;flex:none;
+  border:1px solid var(--linia-m)}
+.serwisy__b{display:inline-flex;align-items:center;gap:8px;
+  padding:9px 14px;min-height:var(--cel);
+  font-size:var(--t1);font-weight:600;letter-spacing:var(--ls-w);
+  text-transform:uppercase;white-space:nowrap;color:var(--ink);
+  transition:background .2s var(--ease),color .2s var(--ease)}
+.serwisy__b + .serwisy__b{border-left:1px solid var(--linia-m)}
+.serwisy__b:hover{background:var(--ink);color:var(--biel)}
+.serwisy__b .ic{width:15px;height:15px;flex:none;opacity:.7}
+.serwisy__b:hover .ic{opacity:1}
+
+/* Nad ciemnym hero nagłówek jest biały — para musi iść za nim. */
+@media(max-width:1024px){
+  .top:not(.przewiniety) .serwisy{border-color:rgba(255,255,255,.4)}
+  .top:not(.przewiniety) .serwisy__b{color:var(--biel)}
+  .top:not(.przewiniety) .serwisy__b + .serwisy__b{border-left-color:rgba(255,255,255,.4)}
+}
+
+/* Poniżej progu menu para schodzi do panelu — w pasku nie ma już miejsca. */
+@media(max-width:1399px){
+  .top__in > .serwisy{display:none}
+}
+
 /* ── ZGODA NA CIASTECZKA ─────────────────────────────────────
    Kwadrat w lewym dolnym rogu: biel, czerń, cienka linia. Celowo mały
    i bez przyciemnienia strony — to informacja z wyborem, a nie okno,
