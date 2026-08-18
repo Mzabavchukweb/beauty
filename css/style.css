@@ -812,21 +812,6 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
   font-weight:600;color:var(--akc);white-space:nowrap}
 .cena--brak li b{color:var(--ink-2);font-weight:500}
 
-/* ── DROGOWSKAZ DO SERWISU PSYCHOLOGICZNEGO ──────────────────
-   Osobny serwis, nie kolejny obszar oferty — dlatego wygląda inaczej niż
-   kafle zabiegowe: bez numeru, bez zdjęcia, na wyraźnie innym tle. Ktoś,
-   kto tu trafi, ma od razu widzieć, że wychodzi poza strefę beauty. */
-.psy{padding-block:var(--s7)}
-.psy__b{background:var(--ciel-2);border-left:3px solid var(--akc);
-  padding:var(--s6) var(--s6) var(--s6) var(--s5)}
-.psy__t{max-width:64ch;display:flex;flex-direction:column;gap:var(--s3);align-items:flex-start}
-.psy__t h2{font-size:var(--t6)}
-.psy__t p{font-size:var(--t3);line-height:var(--lh3);color:var(--ink-2);margin:0;max-width:var(--miara)}
-
-@media(min-width:1000px){
-  .psy__b{padding:var(--s7) var(--s8) var(--s7) var(--s6)}
-}
-
 /* ── NEWSLETTER ──────────────────────────────────────────────
    Formularz odwzorowany z pozostałych dwóch serwisów Reha Medica: ten sam
    adres docelowy, te same nazwy pól, ta sama zasada zgody na SMS. */
