@@ -399,8 +399,41 @@
   align-self: flex-start;
 }
 
-.woocommerce .woocommerce-result-count,
-.woocommerce .woocommerce-ordering { margin-bottom: var(--s4); }
+/* ── Listing na wąskim ekranie ───────────────────────────────────────── */
+
+@media (max-width: 700px) {
+  /* Jedna kolumna, więc karty dostają wyraźniejszy rytm: zdjęcie na całą
+     szerokość, potem tekst, a na końcu przycisk przez całą szerokość —
+     kciukiem trafia się w niego bez celowania. */
+  .woocommerce ul.products { gap: var(--s7); }
+
+  .woocommerce ul.products[class*="columns-"] li.product,
+  .woocommerce ul.products li.product {
+    padding-bottom: var(--s6);
+  }
+
+  .woocommerce ul.products li.product a img { margin-bottom: var(--s4); }
+
+  .woocommerce ul.products li.product .woocommerce-loop-product__title {
+    font-size: var(--t5);
+  }
+
+  .karta-s__o { font-size: var(--t3); }
+
+  .woocommerce ul.products li.product .price {
+    margin: var(--s4) 0;
+    font-size: var(--t5);
+  }
+
+  .woocommerce ul.products li.product .button {
+    width: 100%;
+    align-self: stretch;
+    padding-block: 16px;
+  }
+
+  /* Ostatnia karta nie potrzebuje kreski — pod nią jest już stopka. */
+  .woocommerce ul.products li.product:last-child { border-bottom: 0; padding-bottom: 0; }
+}
 
 /* ── Karta produktu ──────────────────────────────────────────────────── */
 

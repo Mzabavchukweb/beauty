@@ -485,16 +485,49 @@
     /* Sklepu tu nie ma — pakiety zostają ukryte, reszta serwisu działa. */
   });
 
+  /* Licznik w nagłówku podskakuje, gdy liczba się zmieni — bez tego nie widać,
+     dokąd pozycja poleciała, bo koszyk jest daleko od przycisku. */
+  function bumpLicznika() {
+    var koszyk = document.querySelector('.top__z .top__l:last-child');
+    if (!koszyk || mniejRuchu) { return; }
+    koszyk.classList.remove('top__l--bump');
+    void koszyk.offsetWidth;            /* wymuszenie ponownego startu animacji */
+    koszyk.classList.add('top__l--bump');
+  }
+
+  /* Trzy stany przycisku: spoczynek, wysyłanie, dodano. Etykieta jest osobnym
+     elementem, więc podmiana tekstu nie rusza ikony, a przejście da się
+     animować. Znacznik dokładamy tu, a nie w HTML — bez skryptu przycisk
+     ma być zwykłym odnośnikiem do koszyka. */
+  function przygotuj(przyc) {
+    if (przyc.dataset.gotowy) { return; }
+    var etyk = przyc.textContent.trim();
+    przyc.textContent = '';
+    var s = document.createElement('span');
+    s.className = 'kup__e';
+    s.textContent = etyk;
+    przyc.appendChild(s);
+    przyc.insertAdjacentHTML('beforeend',
+      '<svg class="ic kup__i" aria-hidden="true"><use href="#i-cart"/></svg>' +
+      '<svg class="ic kup__p" aria-hidden="true"><use href="#i-ptaszek"/></svg>');
+    przyc.dataset.gotowy = '1';
+    przyc.dataset.etykieta = etyk;
+  }
+
+  document.querySelectorAll('[data-kup]').forEach(przygotuj);
+
   document.addEventListener('click', function (e) {
     var przyc = e.target.closest && e.target.closest('[data-kup]');
     if (!przyc || e.metaKey || e.ctrlKey || e.shiftKey || e.button) { return; }
     if (!nonce) { return; }   // bez nonce puszczamy zwykłe przejście do koszyka
+    if (przyc.dataset.zajety) { return; }   // drugie kliknięcie w trakcie wysyłki
 
     e.preventDefault();
-    // Zapisujemy całą zawartość, nie sam tekst — w przycisku siedzi też ikona,
-    // a podmiana samego tekstu skasowałaby ją bezpowrotnie.
-    var byl = przyc.innerHTML;
-    przyc.setAttribute('aria-busy', 'true');
+    przygotuj(przyc);
+    przyc.dataset.zajety = '1';
+    przyc.classList.add('kup__b--wysyla');
+    var etyk = przyc.querySelector('.kup__e');
+    if (etyk) { etyk.textContent = 'Dodaję…'; }
 
     fetch(API + 'cart/add-item', {
       method: 'POST',
@@ -507,11 +540,16 @@
       return o.json();
     }).then(function (koszyk) {
       ustawLicznik(koszyk.items_count || 0);
-      przyc.textContent = 'Dodano do koszyka';
+      bumpLicznika();
+      przyc.classList.remove('kup__b--wysyla');
+      przyc.classList.add('kup__b--dodano');
+      if (etyk) { etyk.textContent = 'Dodano'; }
+
       setTimeout(function () {
-        przyc.innerHTML = byl;
-        przyc.removeAttribute('aria-busy');
-      }, 2000);
+        przyc.classList.remove('kup__b--dodano');
+        if (etyk) { etyk.textContent = przyc.dataset.etykieta; }
+        delete przyc.dataset.zajety;
+      }, 2200);
     }).catch(function () {
       // Cokolwiek poszło nie tak — przechodzimy do koszyka po staremu.
       location.href = przyc.href;

@@ -560,7 +560,10 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{
 .stopka__d>span{display:block;padding:var(--s4) var(--pad-k)}
 .stopka__d>span+span{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;
   row-gap:6px;border-left:1px solid var(--ink)}
-.stopka__d a{color:var(--ink)}
+/* Kredyt wykonawcy jest odnośnikiem o wysokości wiersza, czyli 18 px —
+   poniżej progu 24 px, jaki WCAG 2.2 stawia celom dotykowym. Dotyczy
+   każdej szerokości, więc reguła nie może siedzieć w zapytaniu medialnym. */
+.stopka__d a{color:var(--ink);display:inline-flex;align-items:center;min-height:24px}
 
 /* Kryterium 2.5.8 wymaga celu 24×24 px. Odnośniki w pasku miały 18–20 px
    wysokości, więc dostają własne pole zamiast samej wysokości wiersza. */
@@ -865,7 +868,10 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
 .kup__l li{display:flex;align-items:center;flex-wrap:wrap;gap:12px;padding:12px 0;
   border-top:1px solid var(--linia)}
 .kup__l li:first-child{border-top:0}
-.kup__l span{min-width:0;overflow-wrap:anywhere;font-size:var(--t3);color:var(--ink)}
+/* Bezpośrednie dziecko wiersza, nie „jakikolwiek span w środku" — inaczej
+   reguła sięga do etykiety w przycisku i maluje ją atramentem na
+   atramentowym tle, czyli napis znika. */
+.kup__l li>span{min-width:0;overflow-wrap:anywhere;font-size:var(--t3);color:var(--ink)}
 .kup__l b{margin-left:auto;font-variant-numeric:tabular-nums;font-size:var(--t3);color:var(--ink)}
 .kup__b{display:inline-flex;align-items:center;justify-content:center;gap:10px;
   min-height:var(--cel);padding:11px 20px;border:1px solid var(--ink);background:var(--ink);
@@ -874,8 +880,44 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
   transition:background .2s var(--ease),border-color .2s var(--ease)}
 .kup__b:hover{background:var(--akc);border-color:var(--akc)}
 .kup__b:active{transform:translateY(1px)}
-.kup__b[aria-busy=true]{background:var(--akc);border-color:var(--akc)}
 .kup__b .ic{width:20px;height:20px}
+
+/* Trzy stany dodawania. Szerokość przycisku nie skacze przy zmianie etykiety,
+   bo obie ikony leżą w tym samym miejscu i przełącza się tylko widoczność —
+   podskakujący przycisk pod palcem czyta się jak błąd, nie jak potwierdzenie. */
+.kup__b{position:relative}
+.kup__e{transition:opacity .2s var(--ease)}
+.kup__i,.kup__p{transition:opacity .22s var(--ease),transform .22s var(--ease)}
+.kup__p{position:absolute;right:20px;opacity:0;transform:scale(.5) rotate(-12deg)}
+
+.kup__b--wysyla{background:var(--akc);border-color:var(--akc);cursor:progress}
+.kup__b--wysyla .kup__e{opacity:.75}
+.kup__b--wysyla .kup__i{animation:kup-puls 1s var(--ease) infinite}
+
+.kup__b--dodano{background:var(--akc);border-color:var(--akc)}
+.kup__b--dodano .kup__i{opacity:0;transform:scale(.5)}
+.kup__b--dodano .kup__p{opacity:1;transform:none}
+
+@keyframes kup-puls{
+  0%,100%{opacity:1;transform:none}
+  50%{opacity:.45;transform:translateX(3px)}
+}
+
+/* Licznik w nagłówku podskakuje, gdy pozycja dojdzie — koszyk jest daleko
+   od przycisku i bez tego nie widać, dokąd rzecz poleciała. */
+.top__l--bump{animation:kup-bump .5s var(--ease)}
+@keyframes kup-bump{
+  0%{transform:none}
+  30%{transform:translateY(-4px) scale(1.06)}
+  60%{transform:translateY(0) scale(.98)}
+  100%{transform:none}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .kup__e,.kup__i,.kup__p{transition:none}
+  .kup__b--wysyla .kup__i{animation:none}
+  .top__l--bump{animation:none}
+}
 
 /* Na wąskim ekranie przycisk schodzi pod kwotę i bierze całą szerokość —
    inaczej przy dłuższej nazwie pakietu zostaje mu kilkadziesiąt pikseli. */
@@ -1052,9 +1094,6 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
 @media(max-width:760px){
   :root{--t1:.84rem}
   .stopka__pr a{display:inline-flex;align-items:center;min-height:44px}
-  /* Kredyt wykonawcy też jest odnośnikiem — 18 px wysokości nie spełnia
-     progu 24 px z WCAG 2.2 dla celu dotykowego. */
-  .stopka__d a{display:inline-flex;align-items:center;min-height:24px}
   .inne__k .fil__w{min-height:44px}
   .okruch a,.okruch li>span{letter-spacing:.08em}
 }
