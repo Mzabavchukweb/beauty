@@ -28,7 +28,7 @@
 <link rel="preload" href="assets/fonts/onest-400-lat.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/onest-600-lat.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/tokeny.css?v=2">
-<link rel="stylesheet" href="css/style.css?v=113">
+<link rel="stylesheet" href="css/style.css?v=115">
 <script>document.documentElement.className+=' js';</script>
 
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"HealthAndBeautyBusiness","@id":"https://mzabavchukweb.github.io/beauty/#rehabeauty","name":"Reha Beauty","url":"https://mzabavchukweb.github.io/beauty/","logo":"https://mzabavchukweb.github.io/beauty/assets/logo.svg","image":"https://mzabavchukweb.github.io/beauty/assets/img/og-rehabeauty.jpg","description":"Strefa medycyny estetycznej i odnowy biologicznej działająca w ramach Reha Medica Centrum Rehabilitacyjno-Medyczne w Szczecinku.","telephone":"+48531555649","email":"kontakt@rehamedica.info.pl","parentOrganization":{"@type":"MedicalOrganization","name":"Reha Medica Centrum Rehabilitacyjno-Medyczne","url":"https://rehamedica.info.pl/"},"address":{"@type":"PostalAddress","streetAddress":"ul. Kościuszki 57","postalCode":"78-400","addressLocality":"Szczecinek","addressRegion":"zachodniopomorskie","addressCountry":"PL"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"19:00"},{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"08:00","closes":"16:00"}],"paymentAccepted":"Karta, gotówka, przelew","currenciesAccepted":"PLN","sameAs":["https://www.facebook.com/rehamedicaszczecinek/","https://www.instagram.com/reha.medica_szczecinek/"]},{"@type":"WebSite","@id":"https://mzabavchukweb.github.io/beauty/#serwis","url":"https://mzabavchukweb.github.io/beauty/","name":"Reha Beauty","inLanguage":"pl-PL","publisher":{"@id":"https://mzabavchukweb.github.io/beauty/#rehabeauty"}},{"@type":"WebPage","@id":"https://mzabavchukweb.github.io/beauty/","url":"https://mzabavchukweb.github.io/beauty/","name":"Reha Beauty Szczecinek","description":"Strefa medycyny estetycznej i odnowy biologicznej w Reha Medica w Szczecinku.","inLanguage":"pl-PL","isPartOf":{"@id":"https://mzabavchukweb.github.io/beauty/#serwis"},"about":{"@id":"https://mzabavchukweb.github.io/beauty/#rehabeauty"},"primaryImageOfPage":"https://mzabavchukweb.github.io/beauty/assets/img/og-rehabeauty.jpg"},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Reha Beauty","item":"https://mzabavchukweb.github.io/beauty/"}]}]}</script>
@@ -67,7 +67,7 @@
 <!--
   Nagłówek odwzorowuje komplet pozycji z obecnego serwisu:
   Home · O nas (+ Galeria) · Odmładzanie twarzy · Modelowanie sylwetki ·
-  Odnowa biologiczna · Kontakt · Kup prezent · Koszyk,
+  Odnowa biologiczna · Sklep · Kontakt · Kup prezent · Koszyk,
   do tego pasek z mailem, telefonem i profilami społecznościowymi ze strony głównej.
   „O nas" zostaje odnośnikiem — rozwijanie podmenu obsługuje osobny przycisk,
   inaczej na dotyku nie da się wejść na stronę nadrzędną.
@@ -84,6 +84,7 @@
         <li><a href="odmladzanie-twarzy/">Odmładzanie twarzy</a></li>
         <li><a href="modelowanie-sylwetki/">Modelowanie sylwetki</a></li>
         <li><a href="odnowa-biologiczna/">Odnowa biologiczna</a></li>
+        <li><a href="sklep/">Sklep</a></li>
         <li><a href="kontakt/">Kontakt</a></li>
       </ul>
 
@@ -211,6 +212,26 @@
           <span class="fil__w">Więcej<svg class="ic" aria-hidden="true"><use href="#i-strzalka"/></svg></span>
         </div>
       </article>
+    </div>
+  </div>
+</section>
+
+
+<section class="psy">
+  <div class="w">
+    <div class="psy__b rv">
+      <div class="psy__t">
+        <p class="nadtytul">Poza strefą beauty</p>
+        <h2 class="lg">Opieka psychologiczna<br>i psychoterapeutyczna</h2>
+        <p>Poradnia psychologiczna, ośrodek dla dzieci i młodzieży, konsultacje i psychiatra
+           w pięciu placówkach Reha Medica na Pomorzu Zachodnim. To osobny serwis, prowadzony
+           przez ten sam ośrodek.</p>
+        <a class="lnk lnk--mocny" href="https://psychologia.rehamedica.info.pl/"
+           target="_blank" rel="noopener">
+          Przejdź do serwisu<svg class="ic" aria-hidden="true"><use href="#i-strzalka"/></svg>
+          <span class="tylko-cr">(otwiera się w nowej karcie)</span>
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -436,6 +457,57 @@
 
 </main>
 
+
+<section class="nl" id="newsletter" aria-labelledby="nl-h">
+  <div class="w">
+    <div class="nl__b rv">
+      <div class="nl__t">
+        <p class="nadtytul">Newsletter</p>
+        <h2 class="lg" id="nl-h">Nowe zabiegi i terminy<br>prosto na Twój e-mail</h2>
+        <p class="nl__lead">Nowości w strefie beauty, wolne terminy i pakiety. Podaj telefon,
+          jeśli chcesz dostawać powiadomienia także SMS-em.</p>
+      </div>
+
+      <form class="nl__f" id="newsletter-form" novalidate
+            data-endpoint="https://rehamedica.info.pl/panel/api/subscribe.php">
+        <!-- Panel rozdziela zapisy po nagłówku Origin; `site` jest zapasem dla żądań
+             bez Origin. Bez tego zgody z Reha Beauty wpadłyby do jednej listy razem
+             z rehabilitacją, a zgoda podpisana tutaj dotyczy strefy beauty. -->
+        <input type="hidden" name="site" value="rehabeauty">
+
+        <div class="nl__p">
+          <label for="nl-email">Adres e-mail</label>
+          <input id="nl-email" name="email" type="email" placeholder="Twój adres e-mail"
+                 autocomplete="email" required>
+        </div>
+
+        <div class="nl__p">
+          <label for="nl-tel">Telefon <span class="nl__opc">— opcjonalnie</span></label>
+          <input id="nl-tel" name="tel" type="tel" inputmode="tel" placeholder="np. 600 100 200"
+                 autocomplete="tel" aria-describedby="nl-tel-podp">
+          <p class="nl__podp" id="nl-tel-podp">Tylko jeśli chcesz otrzymywać powiadomienia SMS.
+            Bez numeru zapiszesz się na sam e-mail.</p>
+        </div>
+
+        <label class="nl__z">
+          <input type="checkbox" name="consent" required>
+          <span>Wyrażam zgodę na otrzymywanie newslettera Reha Medica na podany adres e-mail.
+            Szczegóły dotyczące przetwarzania danych znajdują się w
+            <a href="polityka-prywatnosci/">polityce prywatności</a>.</span>
+        </label>
+
+        <label class="nl__z" data-sms-consent hidden>
+          <input type="checkbox" name="consent-sms">
+          <span>Wyrażam zgodę na otrzymywanie powiadomień SMS na podany numer telefonu.</span>
+        </label>
+
+        <button class="nl__w" type="submit">Zapisuję się</button>
+        <p class="nl__k" data-nl-note hidden></p>
+      </form>
+    </div>
+  </div>
+</section>
+
 <footer class="stopka">
   <div class="w">
     <div class="stopka__r">
@@ -507,6 +579,6 @@
   </button>
 </footer>
 
-<script src="js/main.js?v=113"></script>
+<script src="js/main.js?v=115"></script>
 </body>
 </html>

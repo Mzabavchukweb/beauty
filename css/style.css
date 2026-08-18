@@ -812,6 +812,78 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
   font-weight:600;color:var(--akc);white-space:nowrap}
 .cena--brak li b{color:var(--ink-2);font-weight:500}
 
+/* ── DROGOWSKAZ DO SERWISU PSYCHOLOGICZNEGO ──────────────────
+   Osobny serwis, nie kolejny obszar oferty — dlatego wygląda inaczej niż
+   kafle zabiegowe: bez numeru, bez zdjęcia, na wyraźnie innym tle. Ktoś,
+   kto tu trafi, ma od razu widzieć, że wychodzi poza strefę beauty. */
+.psy{padding-block:var(--s7)}
+.psy__b{background:var(--ciel-2);border-left:3px solid var(--akc);
+  padding:var(--s6) var(--s6) var(--s6) var(--s5)}
+.psy__t{max-width:64ch;display:flex;flex-direction:column;gap:var(--s3);align-items:flex-start}
+.psy__t h2{font-size:var(--t6)}
+.psy__t p{font-size:var(--t3);line-height:var(--lh3);color:var(--ink-2);margin:0;max-width:var(--miara)}
+
+@media(min-width:1000px){
+  .psy__b{padding:var(--s7) var(--s8) var(--s7) var(--s6)}
+}
+
+/* ── NEWSLETTER ──────────────────────────────────────────────
+   Formularz odwzorowany z pozostałych dwóch serwisów Reha Medica: ten sam
+   adres docelowy, te same nazwy pól, ta sama zasada zgody na SMS. */
+.nl{padding-block:var(--s8);background:var(--ciel-1);border-top:1px solid var(--linia)}
+.nl__b{display:grid;gap:var(--s6);align-items:start}
+.nl__t{display:flex;flex-direction:column;gap:var(--s3)}
+.nl__t h2{font-size:var(--t6)}
+.nl__lead{font-size:var(--t3);line-height:var(--lh3);color:var(--ink-2);
+  margin:0;max-width:var(--miara)}
+
+@media(min-width:1000px){
+  .nl__b{grid-template-columns:minmax(0,1fr) minmax(380px,.9fr);gap:var(--s8)}
+}
+
+.nl__f{display:flex;flex-direction:column;gap:var(--s3)}
+.nl__p{display:flex;flex-direction:column;gap:8px}
+.nl__p label{font-size:var(--t1);font-weight:600;letter-spacing:var(--ls-w);
+  text-transform:uppercase;color:var(--ink-2)}
+.nl__opc{font-weight:400;text-transform:none;letter-spacing:0}
+.nl__p input{width:100%;min-height:var(--cel);padding:13px 14px;
+  border:1px solid var(--linia-m);border-radius:0;background:var(--biel);
+  color:var(--ink);font-family:inherit;font-size:var(--t3);line-height:var(--lh2)}
+.nl__p input:focus-visible{outline:2px solid var(--akc);outline-offset:2px}
+.nl__podp{margin:0;font-size:var(--t2);color:var(--ink-2)}
+
+/* Pole wyboru zostaje natywne — własne zastępniki bywają niefokusowalne,
+   a wtedy zgoda przechodzi walidację i przepada po stronie serwera. */
+.nl__z{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
+.nl__z[hidden]{display:none}
+.nl__z input{flex:none;width:24px;height:24px;margin-top:1px;accent-color:var(--akc)}
+.nl__z span{font-size:var(--t2);line-height:var(--lh2);color:var(--ink-2)}
+.nl__z a{color:var(--akc);text-decoration:underline;text-underline-offset:3px}
+
+.nl__w{align-self:flex-start;min-height:var(--cel);padding:14px 30px;
+  border:1px solid var(--ink);background:var(--ink);color:var(--biel);
+  font-family:Onest,"Onest zapas",system-ui,sans-serif;font-size:var(--t1);
+  font-weight:600;letter-spacing:var(--ls-w);text-transform:uppercase;cursor:pointer;
+  transition:background .2s var(--ease),border-color .2s var(--ease)}
+.nl__w:hover{background:var(--akc);border-color:var(--akc)}
+.nl__w:active{transform:translateY(1px)}
+.nl__w:disabled{background:var(--ciel-4);border-color:var(--ciel-4);
+  color:var(--ink-2);cursor:progress}
+
+.nl__k{margin:0;font-size:var(--t2);color:var(--ink-2)}
+.nl__k--blad{color:#9d3b2f}
+
+.nl__ok{display:flex;flex-direction:column;gap:var(--s2);align-items:flex-start;
+  padding:var(--s5) 0}
+.nl__ok-i{width:38px;height:38px;color:var(--akc);stroke-width:1.6}
+.nl__ok-h{margin:0;font-size:var(--t5);font-weight:600;color:var(--ink);
+  letter-spacing:var(--ls-t)}
+.nl__ok-t{margin:0;font-size:var(--t3);color:var(--ink-2)}
+
+@media(max-width:560px){
+  .nl__w{width:100%;align-self:stretch}
+}
+
 /* ── SKLEP NA STRONIE GŁÓWNEJ ────────────────────────────────
    Trzy pozycje do kupienia od ręki. Voucher dostaje szerszą kartę,
    bo jest jedyną pozycją kupowaną w prezencie — pakiety wybiera się

@@ -485,6 +485,117 @@
     /* Sklepu tu nie ma — pakiety zostają ukryte, reszta serwisu działa. */
   });
 
+  /* ── Newsletter ─────────────────────────────────────────────
+     Ten sam adres docelowy i te same nazwy pól co na rehamedica.info.pl
+     i psychologia.rehamedica.info.pl — panel rozdziela listy po serwisach,
+     więc zgoda podpisana tutaj dotyczy strefy beauty, nie rehabilitacji.
+
+     Walidacja jest własna, nie natywna: stylowane pole zgody bywa
+     niefokusowalne, przez co reportValidity() przechodziło, a serwer
+     i tak odrzucał zapis. Przy braku zgody albo złym adresie nie wysyłamy
+     żądania wcale — człowiek od razu widzi, co poprawić. */
+  var nlForm = document.getElementById('newsletter-form');
+  if (nlForm) {
+    var nlNota = nlForm.querySelector('[data-nl-note]');
+    var nlTel = document.getElementById('nl-tel');
+    var nlSmsBox = nlForm.querySelector('[data-sms-consent]');
+    var nlSms = nlSmsBox && nlSmsBox.querySelector('input');
+
+    /* SMS to osobny kanał marketingowy: zgoda pojawia się i staje wymagana
+       dopiero, gdy ktoś poda numer. Kto nie chce SMS-ów, nie widzi pola. */
+    function nlZgodaSms() {
+      if (!nlSmsBox || !nlSms) { return; }
+      var jest = nlTel && nlTel.value.trim() !== '';
+      nlSmsBox.hidden = !jest;
+      nlSms.required = jest;
+      if (!jest) { nlSms.checked = false; }
+    }
+    if (nlTel) { nlTel.addEventListener('input', nlZgodaSms); }
+    nlZgodaSms();
+
+    /* Odnośnik do polityki prywatności leży wewnątrz etykiety, więc kliknięcie
+       w niego przełączałoby przy okazji zgodę. Zatrzymujemy zdarzenie na samym
+       odnośniku — przejście działa, a pole wyboru zostaje w spokoju. */
+    nlForm.querySelectorAll('.nl__z a').forEach(function (a) {
+      a.addEventListener('click', function (e) { e.stopPropagation(); });
+    });
+
+    function nlKomunikat(tekst, blad) {
+      if (!nlNota) { return; }
+      nlNota.hidden = false;
+      nlNota.classList.toggle('nl__k--blad', !!blad);
+      nlNota.textContent = tekst;
+    }
+
+    nlForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var poleMail = nlForm.querySelector('[name="email"]');
+      var poleZgoda = nlForm.querySelector('[name="consent"]');
+      var mail = poleMail ? poleMail.value.trim() : '';
+
+      if (!mail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) {
+        nlKomunikat('Podaj poprawny adres e-mail.', true);
+        if (poleMail) { poleMail.focus(); }
+        return;
+      }
+      if (poleZgoda && !poleZgoda.checked) {
+        nlKomunikat('Zaznacz zgodę na otrzymywanie newslettera, aby się zapisać.', true);
+        poleZgoda.focus();
+        return;
+      }
+      if (nlTel && nlTel.value.trim() && nlSms && !nlSms.checked) {
+        nlKomunikat('Zaznacz zgodę na SMS albo usuń numer telefonu.', true);
+        nlSms.focus();
+        return;
+      }
+
+      var adres = (nlForm.getAttribute('data-endpoint') || '').trim();
+      if (!adres) { nlKomunikat('Zapisy zostaną uruchomione wkrótce.', false); return; }
+
+      var dane = { email: mail, consent_email: (poleZgoda && poleZgoda.checked) ? 1 : 0 };
+      var pole = nlForm.querySelector('[name="site"]');
+      if (pole && pole.value) { dane.site = pole.value; }
+      var tel = nlTel && nlTel.value.trim();
+      if (tel) { dane.phone = tel; dane.consent_sms = (nlSms && nlSms.checked) ? 1 : 0; }
+
+      var wyslij = nlForm.querySelector('button[type="submit"]');
+      if (wyslij) { wyslij.disabled = true; }
+      nlKomunikat('Zapisywanie…', false);
+
+      fetch(adres, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dane)
+      }).then(function (o) {
+        return o.json().catch(function () { return {}; })
+                .then(function (j) { return { ok: o.ok, j: j }; });
+      }).then(function (w) {
+        if (w.ok && w.j && w.j.ok) {
+          nlForm.innerHTML =
+            '<div class="nl__ok" role="status">' +
+            '<svg class="ic nl__ok-i" aria-hidden="true"><use href="#i-ptaszek"/></svg>' +
+            '<p class="nl__ok-h">Dziękujemy</p>' +
+            '<p class="nl__ok-t">Twój adres został zapisany do newslettera Reha Medica.</p></div>';
+          return;
+        }
+        var kod = w.j && w.j.error;
+        /* `origin` znaczy, że panel nie zna tej domeny — dopóki rehabeauty.pl
+           nie zostanie dopisane po jego stronie, każdy zapis wraca z 403.
+           Komunikat mówi wtedy o awarii, a nie o błędzie człowieka. */
+        nlKomunikat(
+          kod === 'email' ? 'Podaj poprawny adres e-mail.'
+          : kod === 'consent' ? 'Bez zgody nie możemy zapisać adresu.'
+          : kod === 'duplicate' ? 'Ten adres jest już zapisany.'
+          : kod === 'origin' ? 'Zapisy z tej strony nie są jeszcze uruchomione. Napisz na kontakt@rehamedica.info.pl.'
+          : 'Nie udało się zapisać. Spróbuj ponownie za chwilę.', true);
+        if (wyslij) { wyslij.disabled = false; }
+      }).catch(function () {
+        nlKomunikat('Brak połączenia. Spróbuj ponownie za chwilę.', true);
+        if (wyslij) { wyslij.disabled = false; }
+      });
+    });
+  }
+
   /* Licznik w nagłówku podskakuje, gdy liczba się zmieni — bez tego nie widać,
      dokąd pozycja poleciała, bo koszyk jest daleko od przycisku. */
   function bumpLicznika() {
