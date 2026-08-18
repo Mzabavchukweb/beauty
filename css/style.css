@@ -812,6 +812,60 @@ body.pod .top.przewiniety{box-shadow:0 14px 34px -26px rgba(34,30,27,.4),0 1px 0
   font-weight:600;color:var(--akc);white-space:nowrap}
 .cena--brak li b{color:var(--ink-2);font-weight:500}
 
+/* ── ZGODA NA CIASTECZKA ─────────────────────────────────────
+   Kwadrat w lewym dolnym rogu: biel, czerń, cienka linia. Celowo mały
+   i bez przyciemnienia strony — to informacja z wyborem, a nie okno,
+   które trzeba zamknąć, żeby cokolwiek przeczytać.
+   Odmowa ma tę samą wagę co zgoda: ten sam rozmiar, ten sam rząd. */
+.zg{position:fixed;left:var(--s4);bottom:var(--s4);z-index:300;
+  width:min(330px,calc(100vw - 2 * var(--s4)));
+  background:#fff;color:#000;border:1px solid var(--linia-m);
+  padding:var(--s4);display:flex;flex-direction:column;gap:14px;
+  box-shadow:0 26px 60px -34px rgba(0,0,0,.45)}
+.zg[hidden]{display:none}
+
+.zg__n{margin:0;font-size:var(--t1);font-weight:600;letter-spacing:var(--ls-w);
+  text-transform:uppercase;color:#000}
+.zg__o{margin:0;font-size:var(--t2);line-height:var(--lh2);color:#000}
+.zg__o a{color:#000;text-decoration:underline;text-underline-offset:3px}
+
+.zg__k{display:flex;flex-direction:column;gap:12px;
+  padding-top:12px;border-top:1px solid var(--linia)}
+.zg__k[hidden]{display:none}
+.zg__p{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+.zg__p input{flex:none;width:20px;height:20px;margin-top:1px;accent-color:#000}
+.zg__p input:disabled{opacity:.5;cursor:default}
+.zg__p span{font-size:var(--t2);line-height:var(--lh2);color:#000}
+.zg__p b{display:block;font-weight:600}
+
+.zg__b{display:flex;flex-wrap:wrap;gap:8px}
+/* Zgoda i odmowa dzielą rząd po równo — nierówne przyciski to nierówny wybór. */
+.zg__w{flex:1 1 0;min-width:96px;min-height:var(--cel);padding:11px 12px;
+  border:1px solid #000;background:#000;color:#fff;cursor:pointer;
+  font-family:Onest,"Onest zapas",system-ui,sans-serif;font-size:var(--t1);
+  font-weight:600;letter-spacing:var(--ls-w);text-transform:uppercase;
+  transition:background .18s var(--ease),color .18s var(--ease)}
+.zg__w:hover{background:#fff;color:#000}
+.zg__w:active{transform:translateY(1px)}
+.zg__w--zapisz{flex:1 1 100%}
+.zg__w[hidden]{display:none}
+
+.zg__u{flex:1 1 100%;min-height:36px;border:0;background:none;cursor:pointer;
+  font-family:inherit;font-size:var(--t2);color:#000;text-decoration:underline;
+  text-underline-offset:3px;padding:4px}
+
+.zg :is(button,input):focus-visible{outline:2px solid #000;outline-offset:2px}
+
+/* Odnośnik wycofania zgody w stopce — obok polityki i regulaminu. */
+.stopka__zg{border:0;background:none;padding:0;cursor:pointer;
+  font-family:inherit;font-size:inherit;color:inherit;
+  display:inline-flex;align-items:center;min-height:24px}
+.stopka__zg:hover{text-decoration:underline;text-underline-offset:3px}
+
+@media(max-width:560px){
+  .zg{left:var(--s3);right:var(--s3);bottom:var(--s3);width:auto}
+}
+
 /* ── NEWSLETTER ──────────────────────────────────────────────
    Formularz odwzorowany z pozostałych dwóch serwisów Reha Medica: ten sam
    adres docelowy, te same nazwy pól, ta sama zasada zgody na SMS. */

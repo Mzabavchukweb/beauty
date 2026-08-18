@@ -497,6 +497,96 @@
     /* Sklepu tu nie ma — pakiety zostają ukryte, reszta serwisu działa. */
   });
 
+  /* ── Zgoda na ciasteczka ────────────────────────────────────
+     Baner sam z siebie niczego nie spełnia — liczy się to, że nic poza
+     niezbędnymi nie wczytuje się przed decyzją i że da się ją wycofać.
+
+     Dziś serwis nie ładuje ani statystyk, ani reklam, więc nie ma czego
+     wstrzymywać. Zamiast udawać, zostawiamy gotowe wejście: `rbZgoda.ma()`
+     odpowiada na pytanie o kategorię, a zdarzenie `rb-zgoda` leci przy
+     każdej zmianie. Skrypt dołożony w przyszłości podpina się pod to
+     i nie trzeba przepisywać banera.
+
+     Wybór trzymamy rok — tyle, ile zwykle przyjmuje się za rozsądny okres
+     ponownego pytania. */
+  var ZG_KLUCZ = 'rb-zgoda';
+  var ZG_DNI = 365;
+
+  function zgOdczyt() {
+    try {
+      var s = localStorage.getItem(ZG_KLUCZ);
+      if (!s) { return null; }
+      var w = JSON.parse(s);
+      if (!w || !w.data) { return null; }
+      if ((Date.now() - w.data) / 86400000 > ZG_DNI) { return null; }
+      return w;
+    } catch (e) { return null; }
+  }
+
+  function zgZapisz(kat) {
+    var w = { data: Date.now(), analityczne: !!kat.analityczne, marketingowe: !!kat.marketingowe };
+    try { localStorage.setItem(ZG_KLUCZ, JSON.stringify(w)); } catch (e) {}
+    window.rbZgoda.stan = w;
+    dispatchEvent(new CustomEvent('rb-zgoda', { detail: w }));
+    return w;
+  }
+
+  window.rbZgoda = {
+    stan: zgOdczyt(),
+    ma: function (kategoria) {
+      var s = this.stan;
+      return !!(s && s[kategoria]);
+    }
+  };
+
+  var zgBaner = document.getElementById('zgoda');
+  if (zgBaner) {
+    var zgKat = zgBaner.querySelector('.zg__k');
+    var zgZapiszB = zgBaner.querySelector('[data-zgoda="wybrane"]');
+    var zgUst = zgBaner.querySelector('[data-zgoda="ustawienia"]');
+
+    function zgPokaz(rozwin) {
+      zgBaner.hidden = false;
+      if (rozwin) {
+        zgKat.hidden = false;
+        zgZapiszB.hidden = false;
+        zgUst.hidden = true;
+        var s = window.rbZgoda.stan;
+        if (s) {
+          zgBaner.querySelector('[name="analityczne"]').checked = !!s.analityczne;
+          zgBaner.querySelector('[name="marketingowe"]').checked = !!s.marketingowe;
+        }
+      }
+    }
+
+    /* Bez zapisanej decyzji baner wchodzi od razu. Z decyzją — dopiero
+       na żądanie ze stopki. */
+    if (!window.rbZgoda.stan) { zgPokaz(false); }
+
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('[data-zgoda]');
+      if (!b) { return; }
+      var co = b.dataset.zgoda;
+
+      if (co === 'otworz') { e.preventDefault(); zgPokaz(true); return; }
+      if (co === 'ustawienia') { zgPokaz(true); return; }
+
+      if (co === 'wszystkie') { zgZapisz({ analityczne: true, marketingowe: true }); }
+      else if (co === 'zadne') { zgZapisz({ analityczne: false, marketingowe: false }); }
+      else if (co === 'wybrane') {
+        zgZapisz({
+          analityczne: zgBaner.querySelector('[name="analityczne"]').checked,
+          marketingowe: zgBaner.querySelector('[name="marketingowe"]').checked
+        });
+      } else { return; }
+
+      zgBaner.hidden = true;
+      zgKat.hidden = true;
+      zgZapiszB.hidden = true;
+      zgUst.hidden = false;
+    });
+  }
+
   /* ── Newsletter ─────────────────────────────────────────────
      Ten sam adres docelowy i te same nazwy pól co na rehamedica.info.pl
      i psychologia.rehamedica.info.pl — panel rozdziela listy po serwisach,
