@@ -287,6 +287,35 @@
 .woocommerce .price del { color: var(--ink-2); font-weight: 400; }
 .woocommerce .price ins { text-decoration: none; }
 
+/* ── Pola wyboru i przełączniki ──────────────────────────────────────── */
+
+/* Domyślne kółka i kwadraty przeglądarki są niebieskie i odstają od reszty.
+   Zostawiamy je natywne — własne zastępniki bywają niefokusowalne — i tylko
+   przestawiamy barwę zaznaczenia oraz rozmiar do progu dotyku. */
+.woocommerce input[type="radio"],
+.woocommerce input[type="checkbox"],
+.woocommerce-checkout input[type="radio"],
+.woocommerce-checkout input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  accent-color: var(--akc);
+  vertical-align: middle;
+}
+
+.woocommerce .shipping ul#shipping_method,
+.woocommerce ul#shipping_method { list-style: none; margin: 0; padding: 0; }
+
+.woocommerce ul#shipping_method li {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: var(--cel);
+  padding: 6px 0;
+}
+
+.woocommerce ul#shipping_method label { margin: 0; cursor: pointer; }
+
 /* ── Komunikaty ──────────────────────────────────────────────────────── */
 
 .woocommerce-message,
@@ -584,14 +613,108 @@
 .woocommerce div.product .woocommerce-tabs .panel li + li { margin-top: var(--s1); }
 .woocommerce div.product .woocommerce-tabs .panel strong { color: var(--ink); }
 
+/* ══════════════════════════════════════════════════════════════════════
+   Koszyk i kasa klasyczna (skrótowa, nie blokowa)
+
+   WooCommerce układa oba ekrany na floatach: tabela pełnej szerokości,
+   a pod nią podsumowanie odpływające w prawo. Zostaje wtedy pół ekranu
+   pustki po lewej, a decyzja „ile płacę" wisi daleko od pozycji.
+
+   Zamiast tego dwie kolumny: treść po lewej, podsumowanie po prawej
+   i przyklejone, żeby kwota była widoczna przy dłuższym formularzu.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ── Koszyk ──────────────────────────────────────────────────────────── */
+
+@media (min-width: 1000px) {
+  .woocommerce-cart .woocommerce {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr);
+    gap: var(--s6) var(--s7);
+    align-items: start;
+  }
+  /* Komunikaty i tabela zajmują pełną szerokość rzędu, w którym stoją. */
+  .woocommerce-cart .woocommerce > .woocommerce-notices-wrapper { grid-column: 1 / -1; }
+  .woocommerce-cart .woocommerce > form.woocommerce-cart-form { grid-column: 1; }
+  .woocommerce-cart .woocommerce > .cart-collaterals {
+    grid-column: 2;
+    position: sticky;
+    top: calc(var(--rzad-h-mal) + var(--s4));
+  }
+}
+
+.woocommerce .cart-collaterals { width: auto; float: none; }
+.woocommerce .cart-collaterals .cart_totals { width: auto; float: none; }
+
+.woocommerce .cart-collaterals .cart_totals > h2 {
+  margin: 0 0 var(--s4);
+  padding-bottom: var(--s3);
+  border-bottom: 1px solid var(--linia-m);
+  font-size: var(--t5);
+  letter-spacing: var(--ls-t);
+}
+
+/* Przycisk przejścia do kasy jest jedyną akcją główną na tym ekranie. */
+.woocommerce .wc-proceed-to-checkout { padding: var(--s4) 0 0; }
+.woocommerce .wc-proceed-to-checkout a.checkout-button {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 16px 26px;
+  font-size: var(--t1);
+}
+
+/* „Zaktualizuj koszyk" ma wyglądać na akcję poboczną, a nie na wyłączoną. */
+.woocommerce .actions .button[name="update_cart"] {
+  background: transparent;
+  color: var(--ink);
+  opacity: 1;
+}
+.woocommerce .actions .button[name="update_cart"]:disabled {
+  border-color: var(--linia-m);
+  color: var(--ink-2);
+  background: transparent;
+}
+
+.woocommerce table.cart td.actions { padding-top: var(--s4); }
+.woocommerce table.cart td.actions .coupon { display: flex; gap: var(--s2); flex-wrap: wrap; }
+.woocommerce table.cart td.actions .coupon input { max-width: 240px; }
+
 /* ── Kasa ────────────────────────────────────────────────────────────── */
 
-.woocommerce-checkout .col2-set { display: grid; gap: var(--s6); }
+.woocommerce-checkout .col2-set,
 .woocommerce-checkout .col2-set .col-1,
-.woocommerce-checkout .col2-set .col-2 { width: auto; float: none; }
+.woocommerce-checkout .col2-set .col-2 { width: auto; float: none; display: block; }
 
-@media (min-width: 900px) {
-  .woocommerce-checkout .col2-set { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.woocommerce-checkout .col2-set .col-2 { margin-top: var(--s5); }
+
+@media (min-width: 1000px) {
+  /* Formularz po lewej, podsumowanie po prawej i przyklejone. Bez jawnego
+     przypisania kolumn siatka szła kolejnością znaczników i dane
+     rozliczeniowe lądowały po prawej, a pusta kolumna wysyłki po lewej. */
+  .woocommerce-checkout form.checkout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr);
+    gap: var(--s5) var(--s7);
+    align-items: start;
+  }
+  .woocommerce-checkout form.checkout > #customer_details { grid-column: 1; grid-row: 1 / span 3; }
+  .woocommerce-checkout form.checkout > #order_review_heading { grid-column: 2; grid-row: 1; margin-top: 0; }
+  .woocommerce-checkout form.checkout > #order_review {
+    grid-column: 2;
+    grid-row: 2;
+    position: sticky;
+    top: calc(var(--rzad-h-mal) + var(--s4));
+  }
+  .woocommerce-checkout form.checkout > .woocommerce-NoticeGroup { grid-column: 1 / -1; }
+}
+
+.woocommerce-checkout #order_review_heading {
+  margin: 0 0 var(--s3);
+  padding-bottom: var(--s3);
+  border-bottom: 1px solid var(--linia-m);
+  font-size: var(--t5);
+  letter-spacing: var(--ls-t);
 }
 
 .woocommerce-checkout h3 {

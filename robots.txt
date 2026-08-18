@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mzabavchukweb.github.io/beauty/sitemap.xml
+Sitemap: https://rehabeauty.pl/sitemap.xml

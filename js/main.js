@@ -460,7 +460,19 @@
 
      Na podglądzie bez WordPressa pod tą domeną API nie odpowiada — wtedy
      bloki z pakietami zostają ukryte, zamiast wystawiać martwy przycisk. */
-  var API = '/wp-json/wc/store/v1/';
+  /* Adres instalacji wyprowadzony z adresu tego skryptu. Serwis stoi raz
+     w katalogu głównym domeny, a raz w podkatalogu (podgląd) — sztywne
+     „/wp-json/…" celowałoby wtedy w korzeń domeny, czyli w cudzy serwis.
+     Przeglądarka rozwija `src` do pełnego adresu, więc wystarczy odciąć
+     końcówkę „js/main.js". */
+  var BAZA = (function () {
+    var el = document.currentScript ||
+             document.querySelector('script[src*="js/main.js"]');
+    if (!el || !el.src) { return '/'; }
+    return el.src.replace(/js\/main\.js.*$/, '');
+  })();
+
+  var API = BAZA + 'wp-json/wc/store/v1/';
   var licznik = document.querySelector('.top__n');
   var nonce = '';
 
@@ -621,6 +633,11 @@
     przyc.insertAdjacentHTML('beforeend',
       '<svg class="ic kup__i" aria-hidden="true"><use href="#i-cart"/></svg>' +
       '<svg class="ic kup__p" aria-hidden="true"><use href="#i-ptaszek"/></svg>');
+    // Adres zapasowy przeliczony na adres instalacji — w znaczniku stoi
+    // ścieżka od korzenia, która w podkatalogu prowadziłaby w złe miejsce.
+    if (przyc.dataset.kup) {
+      przyc.href = BAZA + 'koszyk/?add-to-cart=' + przyc.dataset.kup;
+    }
     przyc.dataset.gotowy = '1';
     przyc.dataset.etykieta = etyk;
   }
